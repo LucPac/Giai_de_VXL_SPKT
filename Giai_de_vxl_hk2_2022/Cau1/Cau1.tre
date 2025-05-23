@@ -1,0 +1,31 @@
+ÀÄCau1
+   ÀÄMAIN  0/180  Ram=2
+      ÃÄ@cinit1  (Inline)  Ram=0
+      ÃÄlcd_setup  0/18  Ram=0
+      ³  ÃÄlcd_command  0/30  Ram=1
+      ³  ÃÄ@delay_ms1  0/20  Ram=1
+      ³  ÃÄlcd_command  0/30  Ram=1
+      ³  ÃÄlcd_command  0/30  Ram=1
+      ³  ÀÄ@delay_ms1  0/20  Ram=1
+      ÃÄ@delay_ms1  0/20  Ram=1
+      ÃÄlcd_dich_pst_key  0/61  Ram=3
+      ³  ÃÄlcd_command  0/30  Ram=1
+      ³  ÀÄlcd_data  0/30  Ram=1
+      ÃÄ@delay_ms1  0/20  Ram=1
+      ÃÄlcd_dich_pst_key  0/61  Ram=3
+      ³  ÀÄ*
+      ÃÄ@delay_ms1  0/20  Ram=1
+      ÃÄlcd_dich_pst_key  0/61  Ram=3
+      ³  ÀÄ*
+      ÃÄ@delay_ms1  0/20  Ram=1
+      ÃÄlcd_dich_pst_key  0/61  Ram=3
+      ³  ÀÄ*
+      ÃÄ@delay_ms1  0/20  Ram=1
+      ÃÄlcd_dich_pst_key  0/61  Ram=3
+      ³  ÀÄ*
+      ÃÄ@delay_ms1  0/20  Ram=1
+      ÀÄloc_chan_va_ht_dong2  0/53  Ram=1
+         ÃÄlcd_command  0/30  Ram=1
+         ÃÄlcd_data  0/30  Ram=1
+         ÃÄlcd_data  0/30  Ram=1
+         ÀÄlcd_data  0/30  Ram=1

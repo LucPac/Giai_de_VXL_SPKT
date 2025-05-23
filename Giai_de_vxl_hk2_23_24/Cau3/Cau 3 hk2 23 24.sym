@@ -1,0 +1,95 @@
+004-005 @READ_PROGRAM_MEMORY8.P1
+004-005 @WRITE_PROGRAM_MEMORY8.P2
+015     CCP_1
+015     CCP_1_LOW
+016     CCP_1_HIGH
+01B     CCP_2_LOW
+01B     CCP_2
+01C     CCP_2_HIGH
+020-021 temp
+022-025 @SFTOI.P1
+022     @delay_ms1.P2
+022     lcd_command.a
+022-023 @PRINTF_LU_622.P1
+022     do_nhiet_do.@SCRATCH1
+022     @PSTRINGC7_622.@SCRATCH1
+023     do_nhiet_do.@SCRATCH2
+023     @PSTRINGC7_622.@SCRATCH2
+024-025 @ITOF.P1
+024-027 @MULFF.P2
+024     @PRINTF_LU_622.@SCRATCH1
+024     @PSTRINGC7_622.@SCRATCH3
+025     @PRINTF_LU_622.@SCRATCH2
+025     @PSTRINGC7_622.@SCRATCH4
+026     @PRINTF_LU_622.@SCRATCH3
+027     @PRINTF_LU_622.@SCRATCH4
+028-02B @MULFF.P1
+028     @PRINTF_LU_622.@SCRATCH5
+029     @PRINTF_LU_622.@SCRATCH6
+02A     @PRINTF_LU_622.@SCRATCH7
+02B     lcd_data.a
+02C     @MULFF.@SCRATCH1
+02D     @MULFF.@SCRATCH2
+02E     @MULFF.@SCRATCH3
+02F     @MULFF.@SCRATCH4
+030     @MULFF.@SCRATCH5
+077     @SCRATCH
+078     @SCRATCH
+078     _RETURN_
+079     @SCRATCH
+07A     @SCRATCH
+107.6   C1OUT
+108.6   C2OUT
+10D-10E @WRITE_PROGRAM_MEMORY8.P1
+10D-10E @READ_PROGRAM_MEMORY8.P2
+
+ROM Allocation:
+000004  @const637.call
+000005  @const639.call
+000008  @const640.call
+000010  lcd_command
+00002C  @delay_ms1
+000040  lcd_setup
+000052  lcd_data
+00006E  @PSTRINGC7_622
+0000C4  do_nhiet_do
+0000D9  @ITOF
+000105  @MULFF
+000181  @SFTOI
+0001B5  @PRINTF_LU_622
+000240  MAIN
+000240  @cinit1
+000255  @cinit2
+
+Project Directory:
+    E:\University\Nam 3\2024_2025_HK2\Vi xu ly\Giai de vxl hk2 23 24\Cau3\
+
+Project Files:
+    Cau 3 hk2 23 24.c                                       [10-May-25 00:02  CRC=097FE463]
+    C:\Program Files (x86)\PICC\Devices\16f887.h            [12-Nov-13 14:35  CRC=6CB1A611]
+    tv_lcd.c                                                [12-Mar-25 09:28  CRC=85F53194]
+
+Source signature=821BED9C
+
+Units:
+    Cau 3 hk2 23 24 (main)
+
+Compiler Settings:
+    Processor:      PIC16F887
+    Pointer Size:   16
+    ADC Range:      0-1023
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+
+Output Files:
+    XREF file:   Cau 3 hk2 23 24.xsym
+    Errors:      Cau 3 hk2 23 24.err
+    Ext Symbols: Cau 3 hk2 23 24.esym
+    INHX8:       Cau 3 hk2 23 24.hex
+    Symbols:     Cau 3 hk2 23 24.sym
+    List:        Cau 3 hk2 23 24.lst
+    Debug/COFF:  Cau 3 hk2 23 24.cof
+    Project:     Cau 3 hk2 23 24.ccspjt
+    Call Tree:   Cau 3 hk2 23 24.tre
+    Statistics:  Cau 3 hk2 23 24.STA

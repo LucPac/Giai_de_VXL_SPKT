@@ -1,0 +1,172 @@
+CCS PCM C Compiler, Version 5.015, 5967               11-May-25 08:53
+
+               Filename:   E:\University\Nam 3\2024_2025_HK2\Vi xu ly\Giai_de_vxl_hk2_2023\Cau2.lst
+
+               ROM used:   103 words (1%)
+                           Largest free fragment is 2048
+               RAM used:   7 (2%) at main() level
+                           7 (2%) worst case
+               Stack used: 1 locations
+               Stack size: 8
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   01A
+0003:  NOP
+.................... #include<16f887.h> 
+.................... //////////// Standard Header file for the PIC16F887 device //////////////// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... ////        (C) Copyright 1996, 2013 Custom Computer Services          //// 
+.................... //// This source code may only be used by licensed users of the CCS C  //// 
+.................... //// compiler.  This source code may only be distributed to other      //// 
+.................... //// licensed users of the CCS C compiler.  No other use, reproduction //// 
+.................... //// or distribution is permitted without written permission.          //// 
+.................... //// Derivative programs created using this software in object code    //// 
+.................... //// form are not restricted in any way.                               //// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... #device PIC16F887 
+....................  
+.................... #list 
+....................  
+.................... #fuses intrc_io 
+.................... #use delay(clock=8M) 
+0004:  MOVLW  21
+0005:  MOVWF  04
+0006:  BCF    03.7
+0007:  MOVF   00,W
+0008:  BTFSC  03.2
+0009:  GOTO   017
+000A:  MOVLW  02
+000B:  MOVWF  78
+000C:  CLRF   77
+000D:  DECFSZ 77,F
+000E:  GOTO   00D
+000F:  DECFSZ 78,F
+0010:  GOTO   00C
+0011:  MOVLW  97
+0012:  MOVWF  77
+0013:  DECFSZ 77,F
+0014:  GOTO   013
+0015:  DECFSZ 00,F
+0016:  GOTO   00A
+0017:  BCF    0A.3
+0018:  BCF    0A.4
+0019:  GOTO   050 (RETURN)
+....................  
+.................... #define SW pin_b0 
+.................... #define BT pin_b1 
+....................  
+.................... int1 led; 
+....................  
+.................... void main() 
+001A:  MOVF   03,W
+001B:  ANDLW  1F
+001C:  MOVWF  03
+001D:  MOVLW  71
+001E:  BSF    03.5
+001F:  MOVWF  0F
+0020:  MOVF   0F,W
+0021:  BSF    03.6
+0022:  MOVF   09,W
+0023:  ANDLW  C0
+0024:  MOVWF  09
+0025:  BCF    03.6
+0026:  BCF    1F.4
+0027:  BCF    1F.5
+0028:  MOVLW  00
+0029:  BSF    03.6
+002A:  MOVWF  08
+002B:  BCF    03.5
+002C:  CLRF   07
+002D:  CLRF   08
+002E:  CLRF   09
+002F:  BCF    03.7
+.................... { 
+....................    set_tris_b(0xff); 
+0030:  MOVLW  FF
+0031:  BSF    03.5
+0032:  BCF    03.6
+0033:  MOVWF  06
+....................    set_tris_d(1); 
+0034:  MOVLW  01
+0035:  MOVWF  08
+....................     
+....................    output_d(0);//moi bat nguon led tat 
+0036:  CLRF   08
+0037:  BCF    03.5
+0038:  CLRF   08
+....................     
+....................    while(true) 
+....................    { 
+....................       //switch 
+....................       if(input(SW)==1) 
+0039:  BSF    03.5
+003A:  BSF    06.0
+003B:  BCF    03.5
+003C:  BTFSS  06.0
+003D:  GOTO   043
+....................       { 
+....................          output_d(0); 
+003E:  BSF    03.5
+003F:  CLRF   08
+0040:  BCF    03.5
+0041:  CLRF   08
+....................       } 
+0042:  GOTO   065
+....................       else if(input(SW)==0) 
+0043:  BSF    03.5
+0044:  BSF    06.0
+0045:  BCF    03.5
+0046:  BTFSC  06.0
+0047:  GOTO   065
+....................       {          
+....................          //button 
+....................          if(input(BT)==0) 
+0048:  BSF    03.5
+0049:  BSF    06.1
+004A:  BCF    03.5
+004B:  BTFSC  06.1
+004C:  GOTO   065
+....................          { 
+....................             delay_ms(20); 
+004D:  MOVLW  14
+004E:  MOVWF  21
+004F:  GOTO   004
+....................             if(input(BT)==0) 
+0050:  BSF    03.5
+0051:  BSF    06.1
+0052:  BCF    03.5
+0053:  BTFSC  06.1
+0054:  GOTO   065
+....................             { 
+....................                led = !led; 
+0055:  MOVLW  01
+0056:  XORWF  20,F
+....................                output_d(led); 
+0057:  MOVLW  00
+0058:  BTFSC  20.0
+0059:  MOVLW  01
+005A:  MOVWF  21
+005B:  BSF    03.5
+005C:  CLRF   08
+005D:  BCF    03.5
+005E:  MOVF   21,W
+005F:  MOVWF  08
+....................                while(input(BT)==0); 
+0060:  BSF    03.5
+0061:  BSF    06.1
+0062:  BCF    03.5
+0063:  BTFSS  06.1
+0064:  GOTO   060
+....................             } 
+....................          } 
+....................       } 
+0065:  GOTO   039
+....................    } 
+.................... } 
+0066:  SLEEP
+
+Configuration Fuses:
+   Word  1: 2FE4   INTRC_IO NOWDT PUT MCLR NOPROTECT NOCPD BROWNOUT IESO FCMEN NOLVP NODEBUG
+   Word  2: 3FFF   BORV40 NOWRT

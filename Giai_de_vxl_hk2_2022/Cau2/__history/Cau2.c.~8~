@@ -1,0 +1,47 @@
+/*
+Tinh do phan giai (step size - SS)
+SS = [(Vref+) - (Vref-)] / [(2^n) - 1] = 0.4887 mV
+
+*/#include<16f887.h>
+#device     adc =10
+#fuses hs
+#use delay(clock=10M)
+
+const unsigned int8 m7d[10]={0xc0,0xf9,0xa4,0xb0,0x99,0x92,0x82,0xf8,0x80,0x90};
+unsigned int8 temp=0;
+
+void main()
+{
+   set_tris_c(0);
+   set_tris_d(0);
+   set_tris_b(0);
+   set_tris_e(0);
+   set_tris_a(0x04);
+   
+   setup_adc( ADC_CLOCK_DIV_32);
+   setup_adc_ports(san2|vss_vdd); 
+   
+   while(true)
+   {
+      set_adc_channel(2);
+      temp = read_adc()*0.4887;
+      output_c(m7d[temp/10%10]);
+      output_d(m7d[temp/1%10]);
+//    hien thi dau do C (ANODE, 0-SANG, 1-TAT)
+//     dp    g     f     e     d     c     b     a
+//    RA5   RA4   RA3   RA2   RA1   RE2   RE1   RE0  
+//     1     0     0     1     1     1     0     0     :do
+      output_low(pin_e0);
+      output_low(pin_e1);
+      output_high(pin_e2);
+      output_high(pin_a0);
+      output_high(pin_a1);
+      output_low(pin_a3);
+      output_low(pin_a4);
+      output_high(pin_a5);
+//     dp    g     f     e     d     c     b     a
+//    RB7   RB6   RB5   RB4   RB3   RB2   RB1   RB0  
+//     1     1     0     0     0     0     1     1     :C, 0XC6
+      output_b(0xc6);
+   }
+}

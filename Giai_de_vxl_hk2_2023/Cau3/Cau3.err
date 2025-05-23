@@ -1,0 +1,4 @@
+>>> Warning 202 "Cau3.c" Line 9(50,51): Variable never used:   i
+      Memory usage:   ROM=4%      RAM=4% - 6%
+      0 Errors,  1 Warnings.
+Build Successful.

@@ -1,0 +1,22 @@
+[PROJECT]
+Target=Cau2.hex
+Processor_Text=PIC16F887
+CCSVersion=5.015
+Compiler=PCM
+[Target Data]
+FileList=Cau2.c
+[Directories]
+Include=C:\Program Files (x86)\PICC\Devices\;C:\Program Files (x86)\PICC\Drivers\
+[Cau2.c]
+Type=4
+[mru-list]
+1=Cau2.c
+[Opened Files]
+1=Cau2.c
+2=
+3=..\..\..\..\2024_2025_HK1\TT Vi xu ly\Bai tap TT VXL\Thu vien\bai_505_lcd_ touch_dich_hang1.c
+4=Cau2.c
+5=
+[Units]
+Count=1
+1=Cau2 (main)

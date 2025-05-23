@@ -1,0 +1,38 @@
+#include <tv_16f887.c>
+#define run_pause pin_b0
+#define stop pin_e3
+unsigned int16 count=0, trangthai=0;
+
+void main()
+{
+   set_tris_d(0x00);
+   set_tris_e(0x08);
+   set_tris_b(0x01);
+   output_d(ma7doan[0]);
+   while(true)
+   {
+      if(input(stop)==0)
+      output_d(0xc0);
+      if(input(run_pause)==0)
+      {
+         delay_ms(20);
+         if(input(run_pause)==0)
+         {
+            trangthai=~trangthai;
+            while(input(run_pause)==0);
+         }
+      }
+      if(trangthai==1)
+      {
+         output_d(ma7doan[count]);
+         count++;
+         if(count>9) count=0;
+      }
+      else
+      {
+         count=count;
+         output_d(ma7doan[count]);
+      }
+   }
+}
+

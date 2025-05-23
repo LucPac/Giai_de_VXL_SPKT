@@ -1,0 +1,335 @@
+CCS PCM C Compiler, Version 5.015, 5967               10-May-25 09:24
+
+               Filename:   E:\University\Nam 3\2024_2025_HK2\Vi xu ly\Giai de vxl hk2 23 24\Cau4\Cau 4  hk2 23 24.lst
+
+               ROM used:   259 words (3%)
+                           Largest free fragment is 2048
+               RAM used:   10 (3%) at main() level
+                           13 (4%) worst case
+               Stack used: 1 locations
+               Stack size: 8
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   02D
+0003:  NOP
+.................... /* 
+.................... Tinh toan cac thong so 
+.................... - PWM1:  Chon T2_prescale = 16 --> PR2 = 249 
+....................          HCSK_10% = 10% * HSCK_max = 10% * (249 + 1)*4 = 100 
+....................           
+.................... - PWM2:  Chon T2_prescale = 16 --> PR2 = 249 
+....................          HSCK_70% = 70% * HSCK_max = 70% * (249 + 1)*4 = 700 
+.................... */ 
+.................... #include <16f887.h> 
+.................... //////////// Standard Header file for the PIC16F887 device //////////////// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... ////        (C) Copyright 1996, 2013 Custom Computer Services          //// 
+.................... //// This source code may only be used by licensed users of the CCS C  //// 
+.................... //// compiler.  This source code may only be distributed to other      //// 
+.................... //// licensed users of the CCS C compiler.  No other use, reproduction //// 
+.................... //// or distribution is permitted without written permission.          //// 
+.................... //// Derivative programs created using this software in object code    //// 
+.................... //// form are not restricted in any way.                               //// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... #device PIC16F887 
+0004:  MOVLW  10
+0005:  MOVWF  27
+0006:  CLRF   77
+0007:  CLRF   7A
+0008:  RRF    24,F
+0009:  RRF    23,F
+000A:  BTFSS  03.0
+000B:  GOTO   012
+000C:  MOVF   25,W
+000D:  ADDWF  77,F
+000E:  BTFSC  03.0
+000F:  INCF   7A,F
+0010:  MOVF   26,W
+0011:  ADDWF  7A,F
+0012:  RRF    7A,F
+0013:  RRF    77,F
+0014:  RRF    79,F
+0015:  RRF    78,F
+0016:  DECFSZ 27,F
+0017:  GOTO   008
+0018:  RETURN
+....................  
+.................... #list 
+....................  
+.................... #fuses intrc_io 
+.................... #use delay(clock=8M) 
+0019:  MOVLW  24
+001A:  MOVWF  04
+001B:  BCF    03.7
+001C:  MOVF   00,W
+001D:  BTFSC  03.2
+001E:  GOTO   02C
+001F:  MOVLW  02
+0020:  MOVWF  78
+0021:  CLRF   77
+0022:  DECFSZ 77,F
+0023:  GOTO   022
+0024:  DECFSZ 78,F
+0025:  GOTO   021
+0026:  MOVLW  97
+0027:  MOVWF  77
+0028:  DECFSZ 77,F
+0029:  GOTO   028
+002A:  DECFSZ 00,F
+002B:  GOTO   01F
+002C:  RETURN
+....................  
+.................... unsigned int16 LV=1; 
+....................  
+.................... void main() 
+002D:  MOVF   03,W
+002E:  ANDLW  1F
+002F:  MOVWF  03
+0030:  MOVLW  71
+0031:  BSF    03.5
+0032:  MOVWF  0F
+0033:  MOVF   0F,W
+0034:  BCF    03.5
+0035:  CLRF   21
+0036:  MOVLW  01
+0037:  MOVWF  20
+0038:  MOVLW  FF
+0039:  MOVWF  22
+003A:  BSF    03.5
+003B:  BSF    03.6
+003C:  MOVF   09,W
+003D:  ANDLW  C0
+003E:  MOVWF  09
+003F:  BCF    03.6
+0040:  BCF    1F.4
+0041:  BCF    1F.5
+0042:  MOVLW  00
+0043:  BSF    03.6
+0044:  MOVWF  08
+0045:  BCF    03.5
+0046:  CLRF   07
+0047:  CLRF   08
+0048:  CLRF   09
+0049:  BCF    03.7
+.................... { 
+....................    set_tris_c(0x00); 
+004A:  MOVLW  00
+004B:  BSF    03.5
+004C:  BCF    03.6
+004D:  MOVWF  07
+004E:  BCF    03.5
+004F:  MOVWF  22
+....................     
+....................    SETUP_TIMER_2(T2_DIV_BY_16,249,1); 
+0050:  MOVWF  78
+0051:  IORLW  06
+0052:  MOVWF  12
+0053:  MOVLW  F9
+0054:  BSF    03.5
+0055:  MOVWF  12
+....................    SET_TIMER2(0); 
+0056:  BCF    03.5
+0057:  CLRF   11
+....................    SETUP_CCP1(CCP_PWM); 
+0058:  BCF    22.2
+0059:  MOVF   22,W
+005A:  BSF    03.5
+005B:  MOVWF  07
+005C:  BCF    03.5
+005D:  BCF    07.2
+005E:  MOVLW  0C
+005F:  MOVWF  17
+0060:  BSF    03.5
+0061:  CLRF   1B
+0062:  CLRF   1C
+0063:  MOVLW  01
+0064:  MOVWF  1D
+....................    SETUP_CCP2(CCP_PWM); 
+0065:  BCF    03.5
+0066:  BCF    22.1
+0067:  MOVF   22,W
+0068:  BSF    03.5
+0069:  MOVWF  07
+006A:  BCF    03.5
+006B:  BCF    07.1
+006C:  MOVLW  0C
+006D:  MOVWF  1D
+....................     
+....................    WHILE (TRUE) 
+....................    { 
+....................       LV++; 
+006E:  INCF   20,F
+006F:  BTFSC  03.2
+0070:  INCF   21,F
+....................        IF (LV<5) 
+0071:  MOVF   21,F
+0072:  BTFSS  03.2
+0073:  GOTO   09B
+0074:  MOVF   20,W
+0075:  SUBLW  04
+0076:  BTFSS  03.0
+0077:  GOTO   09B
+....................       { 
+....................           SET_PWM1_DUTY(LV*100); 
+0078:  MOVF   21,W
+0079:  MOVWF  24
+007A:  MOVF   20,W
+007B:  MOVWF  23
+007C:  CLRF   26
+007D:  MOVLW  64
+007E:  MOVWF  25
+007F:  CALL   004
+0080:  MOVF   79,W
+0081:  MOVWF  24
+0082:  MOVF   78,W
+0083:  MOVWF  23
+0084:  RRF    24,F
+0085:  RRF    23,F
+0086:  RRF    24,F
+0087:  RRF    23,F
+0088:  RRF    24,F
+0089:  MOVF   23,W
+008A:  MOVWF  15
+008B:  RRF    24,F
+008C:  RRF    24,W
+008D:  ANDLW  30
+008E:  MOVWF  77
+008F:  MOVF   17,W
+0090:  ANDLW  CF
+0091:  IORWF  77,W
+0092:  MOVWF  17
+....................           DELAY_MS(1000); 
+0093:  MOVLW  04
+0094:  MOVWF  23
+0095:  MOVLW  FA
+0096:  MOVWF  24
+0097:  CALL   019
+0098:  DECFSZ 23,F
+0099:  GOTO   095
+....................       } 
+009A:  GOTO   101
+....................       ELSE IF (5<=LV<=10) 
+009B:  MOVF   21,F
+009C:  BTFSS  03.2
+009D:  GOTO   0A4
+009E:  MOVF   20,W
+009F:  SUBLW  04
+00A0:  BTFSS  03.0
+00A1:  GOTO   0A4
+00A2:  MOVLW  00
+00A3:  GOTO   0A5
+00A4:  MOVLW  01
+00A5:  SUBLW  0A
+00A6:  BTFSS  03.0
+00A7:  GOTO   0D0
+....................       { 
+....................            SET_PWM1_DUTY(LV*100); 
+00A8:  MOVF   21,W
+00A9:  MOVWF  24
+00AA:  MOVF   20,W
+00AB:  MOVWF  23
+00AC:  CLRF   26
+00AD:  MOVLW  64
+00AE:  MOVWF  25
+00AF:  CALL   004
+00B0:  MOVF   79,W
+00B1:  MOVWF  24
+00B2:  MOVF   78,W
+00B3:  MOVWF  23
+00B4:  RRF    24,F
+00B5:  RRF    23,F
+00B6:  RRF    24,F
+00B7:  RRF    23,F
+00B8:  RRF    24,F
+00B9:  MOVF   23,W
+00BA:  MOVWF  15
+00BB:  RRF    24,F
+00BC:  RRF    24,W
+00BD:  ANDLW  30
+00BE:  MOVWF  77
+00BF:  MOVF   17,W
+00C0:  ANDLW  CF
+00C1:  IORWF  77,W
+00C2:  MOVWF  17
+....................            SET_PWM2_DUTY(700); 
+00C3:  MOVLW  AF
+00C4:  MOVWF  1B
+00C5:  MOVF   1D,W
+00C6:  ANDLW  CF
+00C7:  MOVWF  1D
+....................            DELAY_MS(1000); 
+00C8:  MOVLW  04
+00C9:  MOVWF  23
+00CA:  MOVLW  FA
+00CB:  MOVWF  24
+00CC:  CALL   019
+00CD:  DECFSZ 23,F
+00CE:  GOTO   0CA
+....................       } 
+00CF:  GOTO   101
+....................       ELSE IF (LV>10) 
+00D0:  MOVF   21,F
+00D1:  BTFSS  03.2
+00D2:  GOTO   0D7
+00D3:  MOVF   20,W
+00D4:  SUBLW  0A
+00D5:  BTFSC  03.0
+00D6:  GOTO   101
+....................       { 
+....................           LV=1; 
+00D7:  CLRF   21
+00D8:  MOVLW  01
+00D9:  MOVWF  20
+....................           SET_PWM1_DUTY(LV*100); 
+00DA:  MOVF   21,W
+00DB:  MOVWF  24
+00DC:  MOVF   20,W
+00DD:  MOVWF  23
+00DE:  CLRF   26
+00DF:  MOVLW  64
+00E0:  MOVWF  25
+00E1:  CALL   004
+00E2:  MOVF   79,W
+00E3:  MOVWF  24
+00E4:  MOVF   78,W
+00E5:  MOVWF  23
+00E6:  RRF    24,F
+00E7:  RRF    23,F
+00E8:  RRF    24,F
+00E9:  RRF    23,F
+00EA:  RRF    24,F
+00EB:  MOVF   23,W
+00EC:  MOVWF  15
+00ED:  RRF    24,F
+00EE:  RRF    24,W
+00EF:  ANDLW  30
+00F0:  MOVWF  77
+00F1:  MOVF   17,W
+00F2:  ANDLW  CF
+00F3:  IORWF  77,W
+00F4:  MOVWF  17
+....................           SET_PWM2_DUTY(700); 
+00F5:  MOVLW  AF
+00F6:  MOVWF  1B
+00F7:  MOVF   1D,W
+00F8:  ANDLW  CF
+00F9:  MOVWF  1D
+....................           DELAY_MS(1000); 
+00FA:  MOVLW  04
+00FB:  MOVWF  23
+00FC:  MOVLW  FA
+00FD:  MOVWF  24
+00FE:  CALL   019
+00FF:  DECFSZ 23,F
+0100:  GOTO   0FC
+....................       } 
+0101:  GOTO   06E
+....................    } 
+.................... } 
+0102:  SLEEP
+
+Configuration Fuses:
+   Word  1: 2FE4   INTRC_IO NOWDT PUT MCLR NOPROTECT NOCPD BROWNOUT IESO FCMEN NOLVP NODEBUG
+   Word  2: 3FFF   BORV40 NOWRT

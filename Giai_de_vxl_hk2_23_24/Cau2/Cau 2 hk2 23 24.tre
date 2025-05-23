@@ -1,0 +1,9 @@
+ÀÄCau 2 hk2 23 24
+   ÀÄMAIN  0/41  Ram=0
+      ÃÄ@cinit1  (Inline)  Ram=0
+      ÃÄphim_run_pause  0/23  Ram=1
+      ³  ÀÄ@delay_ms1  0/20  Ram=1
+      ÀÄtrangthai  0/45  Ram=1
+         ÃÄ@const620  0/14  Ram=0
+         ÃÄ@delay_ms1  0/20  Ram=1
+         ÀÄ@const620  0/14  Ram=0

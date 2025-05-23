@@ -1,0 +1,41 @@
+/*
+Tinh toan PMW: T=0.8(ms), Fosc=10(MHz)
+   chon T2_prescale = 16 => PR2 = [(T*Fosc)/(4*T2_prescale)] - 1 = 124
+                            HSCK_20% = 20% * HSCK_max = 20% * (124+1)*4 = 100
+                            HSCK_50% = 50% * HSCK_max = 50% * (124+1)*4 = 250
+                            HSCK_100% = 100% * HSCK_max = 100% * (124+1)*4 = 500
+*/
+#include<16f887.h>
+#fuses hs
+#use delay(clock=10M)
+
+#use RS232 (baud=4800,xmit=pin_c6, rcv=pin_c7)
+
+char rcv_data;
+
+void main()
+{
+   set_tris_c(0x80);
+   
+   setup_timer_2(T2_DIV_BY_16,124,1);
+   
+   setup_ccp1(CCP_PWM);
+   set_pwm1_duty(0);  
+   
+   enable_interrupts(GLOBAL);
+   enable_interrupts(INT_RDA); 
+
+   while(true)
+   {
+      if(rcv_data == 'S')         set_pwm1_duty(0);
+      else if(rcv_data == 'R')    set_pwm1_duty(100);
+      else if(rcv_data == 'I')    set_pwm1_duty(100);
+      else if(rcv_data == 'E')    set_pwm1_duty(250);
+      else if(rcv_data == 'A')    set_pwm1_duty(500);
+   }
+}
+#INT_RDA
+void interrupt_rcv_data()
+{
+   rcv_data = getc();
+}

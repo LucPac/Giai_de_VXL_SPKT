@@ -1,0 +1,29 @@
+/*
+Tinh do phan giai (step size - SS)
+SS = [(Vref+) - (Vref-)] / [(2^n) - 1] = 0.322 V
+
+*/#include<16f887.h>
+#device     adc =10
+#fuses hs
+#use delay(clock=10M)
+
+const unsigned int8 m7d[10]={0xc0,0xf9,0xa4,0xb0,0x99,0x92,0x82,0xf8,0x80,0x90};
+unsigned int8 temp=0;
+
+void main()
+{
+   set_tris_c(0);
+   set_tris_d(0);
+   set_tris_a(0);
+   
+   setup_adc( ADC_CLOCK_DIV_32);
+   setup_adc_ports(san2|vss_vref); 
+   
+   while(true)
+   {
+      set_adc_channel(2);
+      temp = read_adc()*0.4887;
+      output_c(m7d[temp/10%10]);
+      output_d(m7d[temp/1%10]);
+   }
+}

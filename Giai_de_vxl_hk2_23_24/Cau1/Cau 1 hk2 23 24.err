@@ -1,0 +1,4 @@
+>>> Warning 202 "Cau 1 hk2 23 24.c" Line 9(5,6): Variable never used:   i
+      Memory usage:   ROM=1%      RAM=2% - 2%
+      0 Errors,  1 Warnings.
+Build Successful.

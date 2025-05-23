@@ -1,0 +1,66 @@
+/*
+Lam them phan dem tu 0 den 999 roi quay ve 0 (de khong yeu cau)
+*/
+#include<16f887.h>
+#fuses intrc_io
+#use delay(clock=8M)
+
+const unsigned int8 m7d[10]={0xc0,0xf9,0xa4,0xb0,0x99,0x92,0x82,0xf8,0x80,0x90};
+unsigned int16 count=0, donvi, chuc, tram;
+
+void chuongtrinh_dem()
+{
+   if(count <= 999 ) 
+   {
+      count++;
+      delay_ms(100);
+   }
+   else  count=0;
+}
+
+/*void chuongtrinh_giaima()
+{
+   donvi = m7d[count/1%10];
+   chuc  = m7d[count/10%10];
+   tram  = m7d[count/100%10];
+   
+   if(tram==0xc0)
+   {
+      tram=0xff;
+      if(chuc==0xc0) chuc=0xff;
+   }
+}*/
+
+void chuongtrinh_hienthi_ledquet()
+{
+   //hang don vi
+   output_c(m7d[count/1%10]);
+   output_low(pin_d0);
+   delay_ms(1);
+   output_high(pin_d0);
+   
+   //hang chuc
+   output_c(m7d[count/10%10]);
+   output_low(pin_d1);
+   delay_ms(1);
+   output_high(pin_d1); 
+   
+   //hang tram
+   output_c(m7d[count/100%10]);
+   output_low(pin_d2);
+   delay_ms(1);
+   output_high(pin_d2); 
+}
+
+void main()
+{
+   set_tris_c(0);
+   set_tris_d(0);
+   
+   while(true)
+   {
+      chuongtrinh_dem();
+      //chuongtrinh_giaima();
+      chuongtrinh_hienthi_ledquet();
+   }
+}

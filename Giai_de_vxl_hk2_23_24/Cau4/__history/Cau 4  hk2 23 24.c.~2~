@@ -1,0 +1,35 @@
+#include <16f887.h>
+#fuses hs
+#use delay(clock=20M)
+
+unsigned int16 LV=0;
+void main()
+{
+set_tris_c(0x00);
+SETUP_TIMER_2(T2_DIV_BY_16,249,1);
+SET_TIMER2(0);
+SETUP_CCP1(CCP_PWM);
+SETUP_CCP2(CCP_PWM);// 10000 oi level 100
+WHILE (TRUE)
+{
+    IF (LV<=4)
+   {
+       LV++;
+       SET_PWM1_DUTY(LV*100);
+       DELAY_MS(1000);
+   }
+   ELSE IF (4<LV<10)
+   {
+        LV++;
+        SET_PWM1_DUTY(LV*100);
+        SET_PWM2_DUTY(700);
+        DELAY_MS(1000);
+   }
+   IF (LV>10)
+   {
+       LV=1;
+       set_pwm1_duty(LV*100);
+       DELAY_MS(1000);
+   }
+}
+}

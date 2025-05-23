@@ -1,0 +1,40 @@
+#include<16f887.h>
+#fuses intrc_io
+#use delay(clock=8M)
+
+#define SW pin_b0
+#define BT pin_b1
+
+int1 led=0;
+
+void main()
+{
+   set_tris_b(0x03);
+   set_tris_d(0);
+   
+   output_d(led);//moi bat nguon led tat
+   
+   while(true)
+   {
+      //switch
+      if(input(SW)==1)
+      {
+         output_d(led);
+      }
+      else if(input(SW)==0)
+      {
+         output_d(1);
+         
+         //button
+         if(input(BT)==0)
+         {
+            delay_ms(20);
+            if(input(BT)==0)
+            {
+               led = !led;
+               output_d(led);
+            }
+         }
+      }
+   }
+}

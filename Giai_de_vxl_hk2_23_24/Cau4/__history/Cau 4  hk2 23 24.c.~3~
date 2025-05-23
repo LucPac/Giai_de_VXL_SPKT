@@ -1,0 +1,36 @@
+#include <16f887.h>
+#fuses intrc_io
+#use delay(clock=8M)
+
+unsigned int16 LV=0; //level
+
+void main()
+{
+   set_tris_c(0x00);
+   SETUP_TIMER_2(T2_DIV_BY_16,249,1);
+   SET_TIMER2(0);
+   SETUP_CCP1(CCP_PWM);
+   SETUP_CCP2(CCP_PWM);
+   WHILE (TRUE)
+   {
+       IF (LV<=40) // 0 - 40: 50%
+      {
+          LV = LV + 10;
+          SET_PWM1_DUTY(LV);
+          DELAY_MS(1000);
+      }
+      ELSE IF (40<LV<100)
+      {
+           LV = LV + 10;
+           SET_PWM1_DUTY(LV);
+           SET_PWM2_DUTY(70);
+           DELAY_MS(1000);
+      }
+      IF (LV>100)
+      {
+          LV=0;
+          set_pwm1_duty(LV);
+          DELAY_MS(1000);
+      }
+   }
+}

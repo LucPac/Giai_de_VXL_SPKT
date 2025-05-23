@@ -1,0 +1,11 @@
+읕Cau2
+   읕main  0/138  Ram=2
+      쳐@cinit1  (Inline)  Ram=0
+      쳐@ITOF  0/31  Ram=2
+      쳐@MULFF  0/119  Ram=13
+      쳐@SFTOI  0/33  Ram=4
+      쳐@DIV88  0/21  Ram=3
+      쳐@DIV88  0/21  Ram=3
+      쳐@const620  0/14  Ram=0
+      쳐@DIV88  0/21  Ram=3
+      읕@const620  0/14  Ram=0

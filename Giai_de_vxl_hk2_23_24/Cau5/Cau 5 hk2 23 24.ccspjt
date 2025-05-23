@@ -1,0 +1,22 @@
+[PROJECT]
+Target=Cau 5 hk2 23 24.hex
+Processor_Text=PIC16F887
+CCSVersion=5.015
+Compiler=PCM
+[Target Data]
+FileList=Cau 5 hk2 23 24.c
+[Directories]
+Include=C:\Program Files (x86)\PICC\Devices\;C:\Program Files (x86)\PICC\Drivers\
+[Cau 5 hk2 23 24.c]
+Type=4
+[mru-list]
+1=Cau 5 hk2 23 24.c
+[Opened Files]
+1=Cau 5 hk2 23 24.c
+2=
+3=..\Cau3\Cau 3 hk2 23 24.c
+4=..\..\Thay Hoan\Clip 9 On tap\Vi du 2.c
+5=
+[Units]
+Count=1
+1=Cau 5 hk2 23 24 (main)

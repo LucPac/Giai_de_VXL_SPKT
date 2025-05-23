@@ -1,0 +1,53 @@
+#include <tv_16f887.c>
+#define high 50
+#define solando 100
+#define lcd_rs pin_b0
+#define lcd_rw pin_b1
+#define lcd_e pin_b2
+#include <tv_lcd_by_thay_phu.c>
+//const unsigned char hang0[]={"T:"};
+unsigned int16 i, j, tram, chuc, donvi, lm35=0;
+void main()
+{
+   set_tris_d(0x00);
+   set_tris_b(0x00);
+   set_tris_e(0x01);
+   lcd_setup();
+   //lcd_command(addr_line0);
+   //for(i=0;i<2;i++)
+   //lcd_data("T:");
+   setup_adc(adc_clock_div_8);
+   setup_adc_ports(san5|VSS_VDD);
+   set_adc_channel(5);
+   while(true)
+   {
+      for(j=0;j<solando;j++)
+      {
+         lm35=lm35+read_adc();
+      }
+      lm35=lm35/solando;
+      lm35=lm35/2.046;
+      if(lm35>=50)
+      {
+         lcd_command(addr_line1);
+         lcd_data(" ALARM");
+      }
+      else
+      {
+         lcd_command(addr_line1);
+         lcd_data("      ");
+      }
+      tram=lm35/100%10|0x30;
+      chuc=lm35/10%10|0x30;
+      donvi=lm35%10|0x30;
+      lcd_command(addr_line0);
+      lcd_data(" T:");
+      lcd_command(addr_line0+3);
+      lcd_data(tram);
+      lcd_data(chuc);
+      lcd_data(donvi);
+      lcd_data(223);
+      lcd_data("C");
+   }
+   
+}

@@ -1,0 +1,47 @@
+#include<16f887.h>
+#fuses hs
+#use delay(clock=8M)
+
+#define N1     pin_d1
+#define N2     pin_d2
+#define N3     pin_d3
+#define N4     pin_d4
+#define N5     pin_d5
+
+#define SHOW   pin_e1
+
+#define lcd_rs       pin_b5
+#define lcd_rw       pin_b6
+#define lcd_e        pin_b7
+#define output_lcd   output_c
+#include<tv_lcd.c>
+
+unsigned int8 i, hang1[17]={NGUYEN TAN DAT};
+char key;
+
+void lcd_dich_pst_key()//dich lcd tu trai sang phai khi nhan du lieu
+{
+   for(i=0;i<15;i++) hang1[i]=hang1[i+1];
+   //key=key%5; gioi han ma phim chi den so 5
+   if(key<10) hang1[15]=key+0x30;
+   else      hang1[15]=key+0x37;
+   lcd_command(0x80);
+   for(i=0;i<16;i++) lcd_data(hang1[i]);
+}
+
+void main()
+{
+   set_tris_c(0);
+   set_tris_b(0);
+   set_tris_d(0xff);
+   set_tris_e(0xff);
+
+   lcd_setup();
+   
+   for(i=0;i<16;i++) hang1[i]=' '; // ko co dong nay khi nhan MCLR lcd se ko xoa du lieu
+
+   while(true)
+   {
+      lcd_dich_pst_key();
+   }
+}

@@ -1,0 +1,107 @@
+/*#include<16f887.h>
+#fuses hs
+#use delay(clock=8M)
+
+#define N1     pin_d1
+#define N2     pin_d2
+#define N3     pin_d3
+#define N4     pin_d4
+#define N5     pin_d5
+
+#define SHOW   pin_e1
+
+#define lcd_rs       pin_b5
+#define lcd_rw       pin_b6
+#define lcd_e        pin_b7
+#define output_lcd   output_c
+#include<tv_lcd.c>
+
+unsigned int8 hang1[16];
+unsigned int8 mp, i;
+
+void lcd_dich_ht_mp()
+{
+   for(i=0;i<15;i++)   hang1[i]=hang1[i+1];
+   mp=mp%5; //gioi han ma phim la 5
+   if(mp<=5)   hang1[15]=(mp+0x30);
+   else        hang1[15]=(mp+0x37);
+   lcd_command(0x80);
+   for(i=0;i<16;i++) lcd_data(hang1[i]);
+}
+
+void main()
+{
+   set_tris_c(0);
+   set_tris_b(0);
+   set_tris_d(0xff);
+   set_tris_e(0xff);
+   
+   lcd_setup();
+   
+   while(true)
+   {
+      if(!input(N1) || !input(N2) || !input(N3) || !input(N4) || !input(N5))
+      {
+         if(input(N1)==0) mp=1;
+         delay_ms()
+         else if(input(N2)==0) mp=2;
+         else if(input(N3)==0) mp=3;
+         else if(input(N4)==0) mp=4;
+         else if(input(N5)==0) mp=5;
+         lcd_dich_ht_mp();
+      }
+   }
+}*/
+
+#include<16f887.h>
+#fuses hs
+#use delay(clock=8M)
+
+#define N1     pin_d1
+#define N2     pin_d2
+#define N3     pin_d3
+#define N4     pin_d4
+#define N5     pin_d5
+
+#define lcd_rs       pin_b5
+#define lcd_rw       pin_b6
+#define lcd_e        pin_b7
+#define output_lcd   output_c
+#include<tv_lcd.c>
+
+unsigned int8 mp, i, hang1[17];
+
+void lcd_dich_ht_mp()
+{
+   for(i=0;i<15;i++) hang1[i]=hang1[i+1];
+   //mp=mp%5; gioi han ma phim chi den so 5
+   if(mp<10) hang1[15]=mp+0x30;
+   else      hang1[15]=mp+0x37;
+   lcd_command(0x80);
+   for(i=0;i<16;i++) lcd_data(hang1[i]);
+}
+
+void main()
+{
+   set_tris_c(0);
+   set_tris_b(0);
+   set_tris_d(0xff);
+   set_tris_e(0xff);
+
+   lcd_setup();
+   lcd_command(0x80);
+   lcd_data("                ");
+   lcd_command(0xc0);
+   lcd_data("                ");
+   for(i=0;i<16;i++) hang1[i]=' ';
+
+   while(true)
+   {
+      if(input(N1)==0)     {delay_ms(20); if(input(N1)==0){mp=1; lcd_dich_ht_mp(); while(input(N1)==0);}}
+      else if(input(N2)==0){delay_ms(20); if(input(N2)==0){mp=2; lcd_dich_ht_mp(); while(input(N2)==0);}}
+      else if(input(N3)==0){delay_ms(20); if(input(N3)==0){mp=3; lcd_dich_ht_mp(); while(input(N3)==0);}}
+      else if(input(N4)==0){delay_ms(20); if(input(N4)==0){mp=4; lcd_dich_ht_mp(); while(input(N4)==0);}}
+      else if(input(N5)==0){delay_ms(20); if(input(N5)==0){mp=5; lcd_dich_ht_mp(); while(input(N5)==0);}}
+   }
+}
+

@@ -1,0 +1,33 @@
+ÀÄCau 5 hk2 23 24
+   ÃÄMAIN  0/156  Ram=0
+   ³  ÃÄ@cinit1  (Inline)  Ram=0
+   ³  ÃÄlcd_setup  0/18  Ram=0
+   ³  ³  ÃÄlcd_command  0/28  Ram=1
+   ³  ³  ÃÄ@delay_ms1  0/20  Ram=1
+   ³  ³  ÃÄlcd_command  0/28  Ram=1
+   ³  ³  ÃÄlcd_command  0/28  Ram=1
+   ³  ³  ÀÄ@delay_ms1  0/20  Ram=1
+   ³  ÃÄlcd_command  0/28  Ram=1
+   ³  ÃÄ@PSTRINGCN7_625  0/87  Ram=5
+   ³  ³  ÃÄlcd_data  0/28  Ram=1
+   ³  ³  ÀÄlcd_data  0/28  Ram=1
+   ³  ÃÄ@PRINTF_U_625  0/53  Ram=2
+   ³  ³  ÃÄ@DIV88  0/21  Ram=3
+   ³  ³  ÃÄlcd_data  0/28  Ram=1
+   ³  ³  ÃÄ@DIV88  0/21  Ram=3
+   ³  ³  ÃÄlcd_data  0/28  Ram=1
+   ³  ³  ÀÄlcd_data  0/28  Ram=1
+   ³  ÃÄlcd_data  0/28  Ram=1
+   ³  ÃÄlcd_command  0/28  Ram=1
+   ³  ÃÄ@PSTRINGCN7_625  0/87  Ram=5
+   ³  ³  ÀÄ*
+   ³  ÃÄ@PRINTF_U_625  0/53  Ram=2
+   ³  ³  ÀÄ*
+   ³  ÃÄlcd_data  0/28  Ram=1
+   ³  ÃÄlcd_command  0/28  Ram=1
+   ³  ÃÄ@PSTRINGCN7_625  0/87  Ram=5
+   ³  ³  ÀÄ*
+   ³  ÃÄ@PRINTF_U_625  0/53  Ram=2
+   ³  ³  ÀÄ*
+   ³  ÀÄlcd_data  0/28  Ram=1
+   ÀÄinterrupt_rcv_data  0/8  Ram=0

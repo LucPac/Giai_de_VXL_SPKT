@@ -1,0 +1,35 @@
+/*
+Giai thich nguyen li delay 1ms:
+
+Timer1 dem xung noi de tao ra thoi gian delay, truoc khi xung duoc dua vao timer1 phai qua bo chia 4, gia su dung thach anh tan so 20MHz 
+=> Fosc = 20MHz - tao ra 20.000.000 xung trong 1 giay => di qua bo chia 4 roi den timer => tan so dao dong tai timer = 5.000.000 xung trong 1giay.
+Muon tinh 1ms = 10^(-3)giay tao duoc bao nhieu xung, tinh bang cach tam xuat => 10^(-3)*5.000.000=5000xung 1 giay
+=> Cho timer1 dem tu 0 den 5000 se tao ra duoc delay 1ms
+*/
+#include<16f887.h>
+#fuses hs
+#use delay(clock=20M)
+
+void delay_1ms()
+{
+   set_timer1(0);
+   while(get_timer1() < 5000);
+}
+
+int8 i=0;
+
+void main()
+{
+   set_tris_e(0);
+   
+   setup_timer_1(t1_internal | t1_div_by_1);
+   
+   while(true)
+   {
+      output_high(pin_e0);
+      delay_1ms();
+      output_low(pin_e0);
+      for(i=0; i<3; i++)
+         delay_1ms();
+   }
+}

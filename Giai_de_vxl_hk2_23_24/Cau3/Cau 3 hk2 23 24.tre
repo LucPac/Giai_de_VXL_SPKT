@@ -1,0 +1,29 @@
+ÀÄCau 3 hk2 23 24
+   ÀÄMAIN  0/56  Ram=0
+      ÃÄ@cinit1  (Inline)  Ram=0
+      ÃÄlcd_setup  0/18  Ram=0
+      ³  ÃÄlcd_command  0/28  Ram=1
+      ³  ÃÄ@delay_ms1  0/20  Ram=1
+      ³  ÃÄlcd_command  0/28  Ram=1
+      ³  ÃÄlcd_command  0/28  Ram=1
+      ³  ÀÄ@delay_ms1  0/20  Ram=1
+      ÀÄdo_nhiet_do  0/380  Ram=2
+         ÃÄ@ITOF  (Inline)  Ram=2
+         ÃÄ@MULFF  (Inline)  Ram=13
+         ÃÄ@SFTOI  (Inline)  Ram=4
+         ÃÄlcd_command  0/28  Ram=1
+         ÃÄlcd_data  0/28  Ram=1
+         ÃÄlcd_data  0/28  Ram=1
+         ÃÄlcd_data  0/28  Ram=1
+         ÃÄ@PRINTF_LU_622  (Inline)  Ram=9
+         ³  ÀÄlcd_data  0/28  Ram=1
+         ÃÄlcd_data  0/28  Ram=1
+         ÃÄ@PSTRINGC7_622  0/86  Ram=4
+         ³  ÃÄlcd_data  0/28  Ram=1
+         ³  ÀÄlcd_data  0/28  Ram=1
+         ÃÄlcd_command  0/28  Ram=1
+         ÃÄ@PSTRINGC7_622  0/86  Ram=4
+         ³  ÀÄ*
+         ÃÄlcd_command  0/28  Ram=1
+         ÀÄ@PSTRINGC7_622  0/86  Ram=4
+            ÀÄ*

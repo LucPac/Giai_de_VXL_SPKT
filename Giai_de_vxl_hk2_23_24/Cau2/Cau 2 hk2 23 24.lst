@@ -1,0 +1,230 @@
+CCS PCM C Compiler, Version 5.015, 5967               09-May-25 23:40
+
+               Filename:   E:\University\Nam 3\2024_2025_HK2\Vi xu ly\Giai de vxl hk2 23 24\Cau2\Cau 2 hk2 23 24.lst
+
+               ROM used:   147 words (2%)
+                           Largest free fragment is 2048
+               RAM used:   8 (2%) at main() level
+                           10 (3%) worst case
+               Stack used: 2 locations
+               Stack size: 8
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   06A
+0003:  NOP
+.................... #include <16f887.h> 
+.................... //////////// Standard Header file for the PIC16F887 device //////////////// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... ////        (C) Copyright 1996, 2013 Custom Computer Services          //// 
+.................... //// This source code may only be used by licensed users of the CCS C  //// 
+.................... //// compiler.  This source code may only be distributed to other      //// 
+.................... //// licensed users of the CCS C compiler.  No other use, reproduction //// 
+.................... //// or distribution is permitted without written permission.          //// 
+.................... //// Derivative programs created using this software in object code    //// 
+.................... //// form are not restricted in any way.                               //// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... #device PIC16F887 
+0004:  BCF    0A.0
+0005:  BCF    0A.1
+0006:  BCF    0A.2
+0007:  ADDWF  02,F
+0008:  RETLW  C0
+0009:  RETLW  F9
+000A:  RETLW  A4
+000B:  RETLW  B0
+000C:  RETLW  99
+000D:  RETLW  92
+000E:  RETLW  82
+000F:  RETLW  F8
+0010:  RETLW  80
+0011:  RETLW  90
+....................  
+.................... #list 
+....................  
+.................... #fuses intrc_io 
+.................... #use delay(clock=8M) 
+0012:  MOVLW  24
+0013:  MOVWF  04
+0014:  BCF    03.7
+0015:  MOVF   00,W
+0016:  BTFSC  03.2
+0017:  GOTO   025
+0018:  MOVLW  02
+0019:  MOVWF  78
+001A:  CLRF   77
+001B:  DECFSZ 77,F
+001C:  GOTO   01B
+001D:  DECFSZ 78,F
+001E:  GOTO   01A
+001F:  MOVLW  97
+0020:  MOVWF  77
+0021:  DECFSZ 77,F
+0022:  GOTO   021
+0023:  DECFSZ 00,F
+0024:  GOTO   018
+0025:  RETURN
+....................  
+.................... #define run_pause    pin_b0 
+....................  
+.................... const unsigned int8 m7d[10]={0xc0,0xf9,0xa4,0xb0,0x99,0x92,0x82,0xf8,0x80,0x90}; 
+.................... unsigned int16 count=0; 
+.................... int1 mode=0; 
+....................  
+.................... void phim_run_pause() 
+.................... { 
+....................    if(input(run_pause)==0) 
+0026:  BSF    03.5
+0027:  BSF    06.0
+0028:  BCF    03.5
+0029:  BTFSC  06.0
+002A:  GOTO   03A
+....................    { 
+....................       delay_ms(20); 
+002B:  MOVLW  14
+002C:  MOVWF  24
+002D:  CALL   012
+....................       if(input(run_pause)==0) 
+002E:  BSF    03.5
+002F:  BSF    06.0
+0030:  BCF    03.5
+0031:  BTFSC  06.0
+0032:  GOTO   03A
+....................       { 
+....................          mode =~ mode; 
+0033:  MOVLW  01
+0034:  XORWF  22,F
+....................          while(input(run_pause)==0); // cho nha phim 
+0035:  BSF    03.5
+0036:  BSF    06.0
+0037:  BCF    03.5
+0038:  BTFSS  06.0
+0039:  GOTO   035
+....................       } 
+....................    } 
+003A:  BCF    0A.3
+003B:  BCF    0A.4
+003C:  GOTO   090 (RETURN)
+.................... } 
+....................  
+.................... void trangthai() 
+.................... { 
+....................    if(mode==1) 
+003D:  BTFSS  22.0
+003E:  GOTO   05D
+....................    { 
+....................       output_d(m7d[count]); 
+003F:  MOVF   21,W
+0040:  MOVWF  7A
+0041:  MOVF   20,W
+0042:  CALL   004
+0043:  MOVWF  23
+0044:  BSF    03.5
+0045:  CLRF   08
+0046:  BCF    03.5
+0047:  MOVF   23,W
+0048:  MOVWF  08
+....................       count++; 
+0049:  INCF   20,F
+004A:  BTFSC  03.2
+004B:  INCF   21,F
+....................       delay_ms(1000); 
+004C:  MOVLW  04
+004D:  MOVWF  23
+004E:  MOVLW  FA
+004F:  MOVWF  24
+0050:  CALL   012
+0051:  DECFSZ 23,F
+0052:  GOTO   04E
+....................       if(count>9) count=0; 
+0053:  MOVF   21,F
+0054:  BTFSS  03.2
+0055:  GOTO   05A
+0056:  MOVF   20,W
+0057:  SUBLW  09
+0058:  BTFSC  03.0
+0059:  GOTO   05C
+005A:  CLRF   21
+005B:  CLRF   20
+....................    } 
+005C:  GOTO   067
+....................    else 
+....................    { 
+....................       count=count; 
+....................       output_d(m7d[count]); 
+005D:  MOVF   21,W
+005E:  MOVWF  7A
+005F:  MOVF   20,W
+0060:  CALL   004
+0061:  MOVWF  23
+0062:  BSF    03.5
+0063:  CLRF   08
+0064:  BCF    03.5
+0065:  MOVF   23,W
+0066:  MOVWF  08
+....................    } 
+0067:  BCF    0A.3
+0068:  BCF    0A.4
+0069:  GOTO   091 (RETURN)
+.................... } 
+....................  
+.................... void main() 
+006A:  MOVF   03,W
+006B:  ANDLW  1F
+006C:  MOVWF  03
+006D:  MOVLW  71
+006E:  BSF    03.5
+006F:  MOVWF  0F
+0070:  MOVF   0F,W
+0071:  BCF    03.5
+0072:  CLRF   21
+0073:  CLRF   20
+0074:  BCF    22.0
+0075:  BSF    03.5
+0076:  BSF    03.6
+0077:  MOVF   09,W
+0078:  ANDLW  C0
+0079:  MOVWF  09
+007A:  BCF    03.6
+007B:  BCF    1F.4
+007C:  BCF    1F.5
+007D:  MOVLW  00
+007E:  BSF    03.6
+007F:  MOVWF  08
+0080:  BCF    03.5
+0081:  CLRF   07
+0082:  CLRF   08
+0083:  CLRF   09
+0084:  BCF    03.7
+.................... { 
+....................    set_tris_d(0x00); 
+0085:  MOVLW  00
+0086:  BSF    03.5
+0087:  BCF    03.6
+0088:  MOVWF  08
+....................    set_tris_b(0x01); 
+0089:  MOVLW  01
+008A:  MOVWF  06
+....................     
+....................    output_d(m7d[0]); 
+008B:  CLRF   08
+008C:  MOVLW  C0
+008D:  BCF    03.5
+008E:  MOVWF  08
+....................     
+....................    while(true) 
+....................    { 
+....................       phim_run_pause(); 
+008F:  GOTO   026
+....................       trangthai(); 
+0090:  GOTO   03D
+0091:  GOTO   08F
+....................    } 
+.................... } 
+....................  
+0092:  SLEEP
+
+Configuration Fuses:
+   Word  1: 2FE4   INTRC_IO NOWDT PUT MCLR NOPROTECT NOCPD BROWNOUT IESO FCMEN NOLVP NODEBUG
+   Word  2: 3FFF   BORV40 NOWRT

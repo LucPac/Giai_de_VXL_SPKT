@@ -1,0 +1,74 @@
+004-005 @READ_PROGRAM_MEMORY8.P1
+004-005 @WRITE_PROGRAM_MEMORY8.P2
+015     CCP_1_LOW
+015     CCP_1
+016     CCP_1_HIGH
+01B     CCP_2
+01B     CCP_2_LOW
+01C     CCP_2_HIGH
+020     @TRIS_C
+021     key
+022     i
+023-033 hang1
+034     @delay_ms1.P1
+034     lcd_command.a
+034     lcd_dich_pst_key.@SCRATCH1
+034     loc_chan_va_ht_dong2.@SCRATCH1
+034     MAIN.@SCRATCH1
+035     lcd_data.a
+035     lcd_dich_pst_key.@SCRATCH2
+035     MAIN.@SCRATCH2
+036     lcd_dich_pst_key.@SCRATCH3
+077     @SCRATCH
+078     @SCRATCH
+078     _RETURN_
+079     @SCRATCH
+07A     @SCRATCH
+107.6   C1OUT
+108.6   C2OUT
+10D-10E @WRITE_PROGRAM_MEMORY8.P1
+10D-10E @READ_PROGRAM_MEMORY8.P2
+
+ROM Allocation:
+000004  lcd_command
+000022  @delay_ms1
+000036  lcd_setup
+000048  lcd_data
+000066  lcd_dich_pst_key
+0000A3  loc_chan_va_ht_dong2
+0000D8  @cinit1
+0000D8  MAIN
+0000EC  @cinit2
+
+Project Directory:
+    E:\University\Nam 3\2024_2025_HK2\Vi xu ly\Giai_de_vxl_hk2_2022\Cau1\
+
+Project Files:
+    Cau1.c                                                  [14-May-25 09:33  CRC=14BCFE82]
+    C:\Program Files (x86)\PICC\Devices\16f887.h            [12-Nov-13 14:35  CRC=6CB1A611]
+    tv_lcd.c                                                [12-Mar-25 09:28  CRC=85F53194]
+
+Source signature=8D5907BB
+
+Units:
+    Cau1 (main)
+
+Compiler Settings:
+    Processor:      PIC16F887
+    Pointer Size:   16
+    ADC Range:      0-255
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+
+Output Files:
+    XREF file:   Cau1.xsym
+    Errors:      Cau1.err
+    Ext Symbols: Cau1.esym
+    INHX8:       Cau1.hex
+    Symbols:     Cau1.sym
+    List:        Cau1.lst
+    Debug/COFF:  Cau1.cof
+    Project:     Cau1.ccspjt
+    Call Tree:   Cau1.tre
+    Statistics:  Cau1.STA
