@@ -1,0 +1,45 @@
+#include <16f887.h>
+#fuses hs
+#use delay (clock=8m)
+
+/*
+Tinh toan cac thong so
+- PWM1:  Chon T2_prescale = 16 --> PR2 = 249
+         HSCK_max = 70% * (249 + 1)*4 = 700
+         
+- PWM2:  Chon T2_prescale = 16 --> PR2 = 249
+         HSCK_max = 30% * (249 + 1)*4 = 300
+*/
+
+unsigned int8 duty=0;
+
+void main ()
+{
+   set_tris_c(0);
+   set_tris_d(0);
+   set_tris_e(0x01);
+   
+   setup_adc(adc_clock_div_32);
+   setup_adc_ports(san5|VSS_VDD);
+   set_adc_channel (5);
+   
+   while(true)
+   {
+      temp = read_adc()*0.4887;
+      if(temp < 0)
+      {
+         output_d(0xff);
+         output_c(0xff);
+      }
+      else if(temp > 99)
+      {
+         output_d(0xff);
+         output_c(0xff);
+      }
+      else
+      {
+         output_d(m7d[temp%10]);
+         output_c(m7d[temp/10%10]);
+      }
+   }
+}

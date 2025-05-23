@@ -1,0 +1,43 @@
+#include <16f887.h>
+#define high 100
+#define low 0
+#device adc=10
+#fuses nowdt, put, hs, noprotect, nolvp
+#use delay (clock=8m)
+const unsigned char ma7doan 
+[16]={0xc0,0xf9,0xa4,0xb0,0x99,0x92,0x82,0xf8,0x80,0x90,0x88,0x83,0xc6,0xa1,0x86,0x8e};    
+signed int16 i, solando=10, temp;
+void main ()
+{
+   set_tris_c(0x00);
+   set_tris_d(0x00);
+   set_tris_e(0x01);
+   setup_adc(adc_clock_div_8);
+   setup_adc_ports(san5|VSS_VDD);
+   set_adc_channel (5);
+   while(true)
+   {
+      temp=0;
+      for(i=0;i<solando;i++)
+      {
+         temp=temp+read_adc();
+      }
+      temp=temp/solando;
+      temp=temp/2;
+      if(low>temp)
+      {
+         output_d(0xff);
+         output_c(0xff);
+      }
+      else if(temp>high)
+      {
+         output_d(0xff);
+         output_c(0xff);
+      }
+      else
+      {
+         output_d(ma7doan[temp%10]);
+         output_c(ma7doan[temp/10%10]);
+      }
+   }
+}

@@ -1,0 +1,39 @@
+#include <16f887.h>
+#fuses intrc_io
+#use delay(clock=8M)
+
+#use RS232 (baud =9600,xmit=pin_c6, rcv=pin_c7)
+
+unsigned int16 time=0, mode=0;
+unsigned int8 rcv_data=0;
+
+void main ()
+{
+   set_tris_c(0x80);
+   set_tris_e(0); 
+   
+   output_low(pin_e0);
+   output_low(pin_e1);
+   
+   setup_adc(ADC_CLOCK_DIV_32);
+   setup_adc_ports(san6|vss_vdd); 
+   
+   enable_interrupts(GLOBAL);
+   enable_interrupts(INT_RDA); 
+
+   while(true)
+   {
+      set_adc_channel(6);
+      time = read_adc()*0.4887;
+      
+      if(mode == 0)  output_low(pin_e0);
+      else if(mode == 1)  output_high(pin_e0);
+   }
+}
+
+#INT_RDA
+void interrupt_rcv_data()
+{
+   rcv_data = getc();
+   mode = rcv_data;
+}

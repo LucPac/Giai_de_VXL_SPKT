@@ -1,0 +1,216 @@
+CCS PCM C Compiler, Version 5.015, 5967               10-May-25 09:26
+
+               Filename:   E:\University\Nam 3\2024_2025_HK2\Vi xu ly\Giai de vxl hk2 22 23 dtcn-ys\Cau2\Cau 2.lst
+
+               ROM used:   119 words (1%)
+                           Largest free fragment is 2048
+               RAM used:   7 (2%) at main() level
+                           8 (2%) worst case
+               Stack used: 1 locations
+               Stack size: 8
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   01E
+0003:  NOP
+.................... /* 
+.................... Tinh toan cac thong so 
+.................... - PWM1:  Chon T2_prescale = 16 --> PR2 = 249 
+....................          HSCK_70% = 70% * HSCK_max = 70% * (249 + 1)*4 = 700 
+....................           
+.................... - PWM2:  Chon T2_prescale = 16 --> PR2 = 249 
+....................          HSCK_30% = 30% * HSCK_max = 30% * (249 + 1)*4 = 300 
+.................... */ 
+....................  
+.................... #include <16f887.h> 
+.................... //////////// Standard Header file for the PIC16F887 device //////////////// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... ////        (C) Copyright 1996, 2013 Custom Computer Services          //// 
+.................... //// This source code may only be used by licensed users of the CCS C  //// 
+.................... //// compiler.  This source code may only be distributed to other      //// 
+.................... //// licensed users of the CCS C compiler.  No other use, reproduction //// 
+.................... //// or distribution is permitted without written permission.          //// 
+.................... //// Derivative programs created using this software in object code    //// 
+.................... //// form are not restricted in any way.                               //// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... #device PIC16F887 
+....................  
+.................... #list 
+....................  
+.................... #fuses hs 
+.................... #use delay (clock=8m) 
+....................  
+.................... #define FF        pin_b0 
+.................... #define REV       pin_b1 
+.................... #define STOP      pin_e3 
+....................  
+.................... int1 mode_pwm1=0, mode_pwm2=0; //=0: off, =1:on 
+....................   
+.................... void nut_nhan() 
+.................... { 
+....................    if(input(FF)==0) 
+0004:  BSF    03.5
+0005:  BSF    06.0
+0006:  BCF    03.5
+0007:  BTFSC  06.0
+0008:  GOTO   00C
+....................    { 
+....................       mode_pwm1 = 1; 
+0009:  BSF    20.0
+....................       mode_pwm2 = 0; 
+000A:  BCF    20.1
+....................    } 
+000B:  GOTO   01B
+....................    else if(input(REV)==0) 
+000C:  BSF    03.5
+000D:  BSF    06.1
+000E:  BCF    03.5
+000F:  BTFSC  06.1
+0010:  GOTO   014
+....................    { 
+....................       mode_pwm1 = 0; 
+0011:  BCF    20.0
+....................       mode_pwm2 = 1;       
+0012:  BSF    20.1
+....................    } 
+0013:  GOTO   01B
+....................    else if(input(STOP)==0) 
+0014:  BSF    03.5
+0015:  BSF    09.3
+0016:  BCF    03.5
+0017:  BTFSC  09.3
+0018:  GOTO   01B
+....................    { 
+....................       mode_pwm1 = 0; 
+0019:  BCF    20.0
+....................       mode_pwm2 = 0;       
+001A:  BCF    20.1
+....................    } 
+001B:  BCF    0A.3
+001C:  BCF    0A.4
+001D:  GOTO   064 (RETURN)
+.................... } 
+....................  
+....................  
+.................... void main () 
+001E:  MOVF   03,W
+001F:  ANDLW  1F
+0020:  MOVWF  03
+0021:  BCF    20.0
+0022:  BCF    20.1
+0023:  MOVLW  FF
+0024:  MOVWF  21
+0025:  BSF    03.5
+0026:  BSF    03.6
+0027:  MOVF   09,W
+0028:  ANDLW  C0
+0029:  MOVWF  09
+002A:  BCF    03.6
+002B:  BCF    1F.4
+002C:  BCF    1F.5
+002D:  MOVLW  00
+002E:  BSF    03.6
+002F:  MOVWF  08
+0030:  BCF    03.5
+0031:  CLRF   07
+0032:  CLRF   08
+0033:  CLRF   09
+0034:  BCF    03.7
+.................... { 
+....................    set_tris_c(0); 
+0035:  MOVLW  00
+0036:  BSF    03.5
+0037:  BCF    03.6
+0038:  MOVWF  07
+0039:  BCF    03.5
+003A:  MOVWF  21
+....................    set_tris_b(0xff); 
+003B:  MOVLW  FF
+003C:  BSF    03.5
+003D:  MOVWF  06
+....................    set_tris_e(0xff); 
+003E:  BSF    09.0
+003F:  BSF    09.1
+0040:  BSF    09.2
+0041:  BSF    09.3
+....................     
+....................    setup_timer_2(T2_DIV_BY_16,249,1); 
+0042:  MOVLW  00
+0043:  MOVWF  78
+0044:  IORLW  06
+0045:  BCF    03.5
+0046:  MOVWF  12
+0047:  MOVLW  F9
+0048:  BSF    03.5
+0049:  MOVWF  12
+....................    setup_ccp1(CCP_PWM);     // su dung kenh PWM1 
+004A:  BCF    03.5
+004B:  BCF    21.2
+004C:  MOVF   21,W
+004D:  BSF    03.5
+004E:  MOVWF  07
+004F:  BCF    03.5
+0050:  BCF    07.2
+0051:  MOVLW  0C
+0052:  MOVWF  17
+0053:  BSF    03.5
+0054:  CLRF   1B
+0055:  CLRF   1C
+0056:  MOVLW  01
+0057:  MOVWF  1D
+....................    set_pwm1_duty(0);      // ngung dong co  
+0058:  BCF    03.5
+0059:  CLRF   15
+....................    setup_ccp2(CCP_PWM);     // su dung kenh PWM2 
+005A:  BCF    21.1
+005B:  MOVF   21,W
+005C:  BSF    03.5
+005D:  MOVWF  07
+005E:  BCF    03.5
+005F:  BCF    07.1
+0060:  MOVLW  0C
+0061:  MOVWF  1D
+....................    set_pwm2_duty(0);      // ngung dong co  
+0062:  CLRF   1B
+....................     
+....................    while(true) 
+....................    { 
+....................       nut_nhan(); 
+0063:  GOTO   004
+....................        
+....................       if(mode_pwm1) 
+0064:  BTFSS  20.0
+0065:  GOTO   06D
+....................       { 
+....................          set_pwm1_duty(700); 
+0066:  MOVLW  AF
+0067:  MOVWF  15
+0068:  MOVF   17,W
+0069:  ANDLW  CF
+006A:  MOVWF  17
+....................          set_pwm2_duty(0); 
+006B:  CLRF   1B
+....................       } 
+006C:  GOTO   075
+....................       else if(mode_pwm2) 
+006D:  BTFSS  20.1
+006E:  GOTO   075
+....................       { 
+....................          set_pwm1_duty(0); 
+006F:  CLRF   15
+....................          set_pwm2_duty(300); 
+0070:  MOVLW  4B
+0071:  MOVWF  1B
+0072:  MOVF   1D,W
+0073:  ANDLW  CF
+0074:  MOVWF  1D
+....................       } 
+0075:  GOTO   063
+....................    } 
+.................... } 
+0076:  SLEEP
+
+Configuration Fuses:
+   Word  1: 2FE2   HS NOWDT PUT MCLR NOPROTECT NOCPD BROWNOUT IESO FCMEN NOLVP NODEBUG
+   Word  2: 3FFF   BORV40 NOWRT

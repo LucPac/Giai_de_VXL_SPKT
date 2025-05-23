@@ -1,0 +1,51 @@
+/*
+Tinh toan cac thong so
+- PWM1:  Chon T2_prescale = 16 --> PR2 = 249
+         HSCK_max = 70% * (249 + 1)*4 = 700
+         
+- PWM2:  Chon T2_prescale = 16 --> PR2 = 249
+         HSCK_max = 30% * (249 + 1)*4 = 300
+*/
+
+#include <16f887.h>
+#fuses hs
+#use delay (clock=8m)
+
+#define FF        pin_b0
+#define REV       pin_b1
+#define STOP      pin_e3
+
+void main ()
+{
+   set_tris_c(0);
+   set_tris_b(0xff);
+   set_tris_e(0xff);
+   
+   setup_timer_2(T2_DIV_BY_4,249,1);
+   setup_ccp1(CCP_PWM);     // su dung kenh PWM1
+   set_pwm1_duty(0);      // ngung dong co 
+   setup_ccp2(CCP_PWM);     // su dung kenh PWM2
+   set_pwm2_duty(0);      // ngung dong co 
+   
+   while(true)
+   {
+      if(input(FF)==0)
+      {
+         set_pwm1_duty(700);
+         set_pwm2_duty(0);
+         while(input(REV)==1    ||    input(STOP)==1);
+      }
+      else if(input(REV)==0)
+      {
+         set_pwm1_duty(0);
+         set_pwm2_duty(300);
+         while(input(FF)==1    ||    input(STOP)==1);
+      }
+      else if(input(STOP)==0)
+      {
+         set_pwm1_duty(0);
+         set_pwm2_duty(0);
+         while(input(REV)==1    ||    input(FF)==1);
+      }
+   }
+}

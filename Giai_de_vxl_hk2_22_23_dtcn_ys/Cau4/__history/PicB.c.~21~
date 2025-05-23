@@ -1,0 +1,103 @@
+/*#include <16f887.h>
+#fuses intrc_io
+#use delay(clock=8M)
+
+#use RS232 (baud =9600,xmit=pin_c6, rcv=pin_c7)
+
+#define ON_OFF pin_b0
+
+unsigned int8 time=0;
+int1 mode=0;
+unsigned int8 rcv_data=0;
+
+void main ()
+{
+   set_tris_c(0x80);
+   set_tris_d(0); 
+   set_tris_b(1); 
+   
+   enable_interrupts(GLOBAL);
+   enable_interrupts(INT_RDA); 
+
+   while(true)
+   {
+      if(input(ON_OFF)==0)
+      {
+         delay_ms(20);
+         if(input(ON_OFF)==0)
+         {
+            mode = !mode;
+            putc(mode);
+            while(input(ON_OFF)==0);
+         }
+      }
+      
+      output_toggle(pin_d0);
+      delay_ms((1000*time)/2);
+   }
+}
+
+#INT_RDA
+void interrupt_rcv_data()
+{
+   rcv_data = getc();
+   time = rcv_data;
+}*/
+
+#include <16f887.h>
+#fuses INTRC_IO
+#use delay(clock=8M)
+#use RS232(baud=9600, xmit=PIN_C6, rcv=PIN_C7)
+
+#define LED     PIN_D0
+#define BUTTON  PIN_B0
+
+int1 mode = 0;
+unsigned int8 time = 100;  // th?i gian nh?p nháy m?c d?nh
+unsigned int16 count = 0;
+
+#INT_TIMER0
+void TIMER0_ISR() {
+   set_timer0(60);  // ng?t m?i ~1ms (cho 8MHz, prescaler 256)
+
+   count++;
+   if(count >= time) {
+      count = 0;
+      if(mode)
+         output_toggle(LED);
+      else
+         output_low(LED);
+   }
+}
+
+#INT_RDA
+void RDA_ISR() {
+   time = getc();           // nh?n th?i gian t? PIC A
+   if(time == 0) time = 1;  // tránh chia 0
+}
+
+void main() {
+   set_tris_c(0x80);  // RX input
+   set_tris_d(0);     // PORTD output
+   set_tris_b(1);     // BUTTON input
+
+   output_low(LED);
+
+   setup_timer_0(RTCC_INTERNAL | RTCC_DIV_256);  // prescaler 256
+   set_timer0(60);     // d?m t? 60 ? ng?t m?i 1ms
+   enable_interrupts(INT_TIMER0);
+   enable_interrupts(INT_RDA);
+   enable_interrupts(GLOBAL);
+
+   while(TRUE) {
+      if(!input(BUTTON)) {
+         delay_ms(20);  // ch?ng d?i nút don gi?n
+         if(!input(BUTTON)) {
+            mode = !mode;
+            putc(mode);  // g?i tr?ng thái sang PIC A
+            while(!input(BUTTON));  // ch? nh? nút
+         }
+      }
+   }
+}
+

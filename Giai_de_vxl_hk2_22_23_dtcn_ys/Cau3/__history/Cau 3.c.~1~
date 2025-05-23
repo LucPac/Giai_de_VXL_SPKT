@@ -1,0 +1,25 @@
+#include <tv_16f887.c>
+#include <tv_lcd_by_thay_phu.c>
+int8 i, sp;
+void main ()
+{
+   set_tris_d(0x00);
+   set_tris_e(0x07); 
+   set_tris_a(0x10);
+   lcd_setup();
+   lcd_command(addr_line1);
+   lcd_data("Box=01975");
+   lcd_command(addr_line0);
+   lcd_data("Product=");
+   setup_timer_0(t0_ext_l_to_h | t0_div_1);
+   set_timer0(0);
+   while(true)
+   {
+      sp=get_timer0();
+      if(sp>12)   {set_timer0(1); sp=1;}
+      lcd_command(addr_line0+8);
+      lcd_data(sp/10%10+0x30);
+      lcd_data(sp%10+0x30);
+   }
+   
+}

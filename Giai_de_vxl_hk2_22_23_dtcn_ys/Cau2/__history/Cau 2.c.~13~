@@ -1,0 +1,66 @@
+/*
+Tinh toan cac thong so
+- PWM1:  Chon T2_prescale = 16 --> PR2 = 249
+         HSCK_max = 70% * (249 + 1)*4 = 700
+         
+- PWM2:  Chon T2_prescale = 16 --> PR2 = 249
+         HSCK_max = 30% * (249 + 1)*4 = 300
+*/
+
+#include <16f887.h>
+#fuses hs
+#use delay (clock=8m)
+
+#define FF        pin_b0
+#define REV       pin_b1
+#define STOP      pin_e3
+
+int1 mode_pwm1=0, mode_pwm2=0; //=0: off, =1:on
+ 
+void nut_nhan()
+{
+   if(input(FF)==0)
+   {
+      mode_pwm1 = 1;
+      mode_pwm2 = 0;
+   }
+   else if(input(REV)==0)
+   {
+      mode_pwm1 = 0;
+      mode_pwm2 = 1;      
+   }
+   else if(input(STOP)==0)
+   {
+      mode_pwm1 = 0;
+      mode_pwm2 = 0;      
+   }
+}
+
+
+void main ()
+{
+   set_tris_c(0);
+   set_tris_b(0xff);
+   set_tris_e(0xff);
+   
+   setup_timer_2(T2_DIV_BY_16,249,1);
+   setup_ccp1(CCP_PWM);     // su dung kenh PWM1
+   set_pwm1_duty(0);      // ngung dong co 
+   setup_ccp2(CCP_PWM);     // su dung kenh PWM2
+   set_pwm2_duty(0);      // ngung dong co 
+   
+   while(true)
+   {
+      nut_nhan();
+      if(mode_pwm1)
+      {
+         set_pwm1_duty(700);
+         set_pwm2_duty(0);
+      }
+      else if(mode_pwm2)
+      {
+         set_pwm1_duty(0);
+         set_pwm2_duty(300);
+      }
+   }
+}

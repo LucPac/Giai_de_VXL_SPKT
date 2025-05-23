@@ -1,0 +1,103 @@
+/*#include <16f887.h>
+#fuses intrc_io
+#use delay(clock=8M)
+
+#use RS232 (baud =9600,xmit=pin_c6, rcv=pin_c7)
+
+#define ON_OFF pin_b0
+
+unsigned int8 time=0;
+int1 mode=0;
+unsigned int8 rcv_data=0;
+
+void main ()
+{
+   set_tris_c(0x80);
+   set_tris_d(0); 
+   set_tris_b(1); 
+   
+   enable_interrupts(GLOBAL);
+   enable_interrupts(INT_RDA); 
+
+   while(true)
+   {
+      if(input(ON_OFF)==0)
+      {
+         delay_ms(20);
+         if(input(ON_OFF)==0)
+         {
+            mode = !mode;
+            putc(mode);
+            while(input(ON_OFF)==0);
+         }
+      }
+      
+      output_toggle(pin_d0);
+      delay_ms((1000*time)/2);
+   }
+}
+
+#INT_RDA
+void interrupt_rcv_data()
+{
+   rcv_data = getc();
+   time = rcv_data;
+}*/
+
+#include <16f887.h>
+#fuses intrc_io
+#use delay(clock=8M)
+
+#use RS232 (baud = 9600, xmit = pin_c6, rcv = pin_c7)
+
+#define ON_OFF pin_b0
+
+unsigned int8 time = 1;       // Giá tr? m?c d?nh d? tránh chia 0
+int1 mode = 0;
+unsigned int8 rcv_data = 0;
+
+volatile int16 counter = 0;   // Ð?m th?i gian trong ng?t timer
+int16 threshold = 500;        // Ngu?ng d? d?i tr?ng thái LED
+
+#INT_RDA
+void interrupt_rcv_data() {
+   rcv_data = getc();
+   time = (rcv_data == 0) ? 1 : rcv_data;  // Tránh time = 0
+   threshold = (int16)(time) * 10;         // Tính l?i th?i gian ng?t LED
+}
+
+#INT_TIMER0
+void timer0_isr() {
+   counter++;
+   if (counter >= threshold) {
+      output_toggle(pin_d0);
+      counter = 0;
+   }
+}
+
+void main() {
+   set_tris_c(0x80);   // RC7 (input - UART RX)
+   set_tris_d(0);      // PORTD output
+   set_tris_b(1);      // PORTB input
+
+   setup_timer_0(T0_INTERNAL | T0_DIV_16);  // Timer0: 8MHz/4/16 = 125kHz ~ 8us
+   set_timer0(0);
+   
+   enable_interrupts(GLOBAL);
+   enable_interrupts(INT_RDA);      // UART interrupt
+   enable_interrupts(INT_TIMER0);   // Timer0 interrupt
+
+   while (true) {
+      if (input(ON_OFF) == 0) {
+         delay_ms(20);
+         if (input(ON_OFF) == 0) {
+            mode = !mode;
+            putc(mode);
+            while (input(ON_OFF) == 0);
+         }
+      }
+
+      // Không dùng delay_ms ? dây n?a -> không làm ch?m chuong trình
+   }
+}
+

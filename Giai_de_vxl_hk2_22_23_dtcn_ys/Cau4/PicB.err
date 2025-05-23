@@ -1,0 +1,4 @@
+>>> Warning 202 "PicB.c" Line 9(23,24): Variable never used:   i
+      Memory usage:   ROM=3%      RAM=5% - 6%
+      0 Errors,  1 Warnings.
+Build Successful.

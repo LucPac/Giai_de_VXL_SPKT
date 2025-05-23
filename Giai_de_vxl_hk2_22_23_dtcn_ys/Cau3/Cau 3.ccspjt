@@ -1,0 +1,20 @@
+[PROJECT]
+Target=Cau 3.hex
+Processor_Text=PIC16F887
+CCSVersion=5.015
+Compiler=PCM
+[Target Data]
+FileList=Cau 3.c
+[Directories]
+Include=C:\Program Files (x86)\PICC\Devices\;C:\Program Files (x86)\PICC\Drivers\
+[Cau 3.c]
+Type=4
+[mru-list]
+1=Cau 3.c
+[Opened Files]
+1=Cau 3.c
+2=..\..\Giai de vxl hk2 23 24\Cau3\Cau 3 hk2 23 24.c
+3=
+[Units]
+Count=1
+1=Cau 3 (main)

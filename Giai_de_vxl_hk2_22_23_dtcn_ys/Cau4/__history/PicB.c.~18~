@@ -1,0 +1,108 @@
+/*#include <16f887.h>
+#fuses intrc_io
+#use delay(clock=8M)
+
+#use RS232 (baud =9600,xmit=pin_c6, rcv=pin_c7)
+
+#define ON_OFF pin_b0
+
+unsigned int8 time=0;
+int1 mode=0;
+unsigned int8 rcv_data=0;
+
+void main ()
+{
+   set_tris_c(0x80);
+   set_tris_d(0); 
+   set_tris_b(1); 
+   
+   enable_interrupts(GLOBAL);
+   enable_interrupts(INT_RDA); 
+
+   while(true)
+   {
+      if(input(ON_OFF)==0)
+      {
+         delay_ms(20);
+         if(input(ON_OFF)==0)
+         {
+            mode = !mode;
+            putc(mode);
+            while(input(ON_OFF)==0);
+         }
+      }
+      
+      output_toggle(pin_d0);
+      delay_ms((1000*time)/2);
+   }
+}
+
+#INT_RDA
+void interrupt_rcv_data()
+{
+   rcv_data = getc();
+   time = rcv_data;
+}*/
+
+#include <16f887.h>
+#fuses intrc_io
+#use delay(clock=8M)
+
+#use rs232(baud=9600, xmit=pin_c6, rcv=pin_c7)
+
+#define ON_OFF pin_b0
+#define LED_BLINK pin_d0
+
+unsigned int8 time = 100;        // Giá tr? delay nh?n t? PIC A, m?c d?nh 100ms
+unsigned int32 prev_time = 0;    // Th?i di?m tru?c dó
+int1 mode = 0;                   // Tr?ng thái LED (b?t/t?t)
+int1 led_state = 0;              // Tr?ng thái nh?p nháy c?a LED
+unsigned int8 rcv_data = 0;
+
+#INT_RDA
+void interrupt_rcv_uart() {
+   rcv_data = getc();
+   time = rcv_data;
+}
+
+void main() {
+   set_tris_c(0x80);     // RX là input
+   set_tris_d(0x00);     // PORTD là output (LED)
+   set_tris_b(0x01);     // RB0 là input (nút nh?n)
+
+   output_low(LED_BLINK);
+
+   setup_timer_1(T1_INTERNAL | T1_DIV_BY_8); // Timer1: Fosc/4/8 = 1MHz ? 1 tick = 1µs × 8 = 8µs
+   set_timer1(0);
+
+   enable_interrupts(GLOBAL);
+   enable_interrupts(INT_RDA);
+
+   while (true) {
+      // Ð?c nút nh?n d? d?o tr?ng thái mode
+      if (input(ON_OFF) == 0) {
+         delay_ms(20); // ch?ng d?i
+         if (input(ON_OFF) == 0) {
+            mode = !mode;
+            putc(mode);  // G?i tr?ng thái v? PIC A
+            while (input(ON_OFF) == 0); // ch? nh? nút
+         }
+      }
+
+      // X? lý nh?p nháy LED không dùng delay
+      unsigned int32 now = get_timer1(); // Ð?c giá tr? Timer1
+
+      // N?u mode b?t thì cho LED nh?p nháy
+      if (mode == 1 && (now - prev_time) >= ((unsigned int16)time * 1000) / 2) {
+         prev_time = now;
+         led_state = !led_state;
+         output_bit(LED_BLINK, led_state);
+      }
+
+      // N?u mode t?t thì t?t LED luôn
+      if (mode == 0) {
+         output_low(LED_BLINK);
+      }
+   }
+}
+

@@ -1,0 +1,110 @@
+/*#include <16f887.h>
+#device adc=10
+#fuses intrc_io
+#use delay(clock=8M)
+
+#use RS232 (baud =9600,xmit=pin_c6, rcv=pin_c7)
+
+unsigned int8 time=0;
+int1 mode=0;
+unsigned int8 rcv_data=0;
+
+void main ()
+{
+   set_tris_c(0x80);
+   set_tris_e(0); 
+   
+   output_low(pin_e0);
+   output_low(pin_e1);
+   
+   setup_adc(ADC_CLOCK_DIV_32);
+   setup_adc_ports(san6|vss_vdd); 
+   
+   enable_interrupts(GLOBAL);
+   enable_interrupts(INT_RDA); 
+
+   while(true)
+   {
+      set_adc_channel(6);
+      time = read_adc()*0.4887;
+      putc(time);
+      delay_ms(100);
+      
+      if(mode == 0)  output_low(pin_e0);
+      else if(mode == 1)  output_high(pin_e0);
+   }
+}
+
+#INT_RDA
+void interrupt_rcv_data()
+{
+   rcv_data = getc();
+   mode = rcv_data;
+}*/
+
+#include <16f887.h>
+#fuses intrc_io
+#use delay(clock=8M)
+
+#use RS232(baud=9600, xmit=pin_c6, rcv=pin_c7)
+
+#define ON_OFF pin_b0
+
+unsigned int8 time = 0;
+int1 mode = 0;
+unsigned int8 rcv_data = 0;
+unsigned int16 blink_counter = 0; // Ð?m cho nh?p nháy LED
+int1 blink_state = 0; // Tr?ng thái LED (ON/OFF)
+
+void main()
+{
+   set_tris_c(0x80); // C?u hình c?ng RS232
+   set_tris_d(0);    // C?ng D làm output (LED BLINK)
+   set_tris_b(1);    // C?ng B làm input (nút ON_OFF)
+
+   // C?u hình Timer0 d? t?o ng?t d?nh k?
+   setup_timer_0(RTCC_INTERNAL | RTCC_DIV_256); // Timer0 v?i prescaler 1:256
+   enable_interrupts(INT_TIMER0); // Kích ho?t ng?t Timer0
+   enable_interrupts(GLOBAL);     // Kích ho?t ng?t toàn c?c
+   enable_interrupts(INT_RDA);    // Kích ho?t ng?t RS232
+
+   while(true)
+   {
+      // X? lý nút nh?n ON_OFF
+      if(input(ON_OFF) == 0)
+      {
+         delay_ms(20); // Ch?ng d?i phím
+         if(input(ON_OFF) == 0)
+         {
+            mode = !mode; // Ð?o tr?ng thái mode
+            putc(mode);   // G?i tr?ng thái mode qua RS232
+            while(input(ON_OFF) == 0); // Ch? th? nút
+         }
+      }
+   }
+}
+
+// Ng?t Timer0 d? di?u khi?n nh?p nháy LED
+#INT_TIMER0
+void timer0_isr()
+{
+   set_timer0(0); // Reset Timer0
+   blink_counter++; // Tang b? d?m
+
+   // Ki?m tra th?i gian d? nh?p nháy LED
+   if(time > 0 && blink_counter >= (unsigned int16)((1000 * time) / 2 / 32)) // U?c lu?ng th?i gian (32ms m?i ng?t)
+   {
+      blink_counter = 0; // Reset b? d?m
+      blink_state = !blink_state; // Ð?o tr?ng thái LED
+      if(blink_state) output_high(pin_d0); // B?t LED
+      else output_low(pin_d0); // T?t LED
+   }
+}
+
+// Ng?t nh?n d? li?u RS232
+#INT_RDA
+void interrupt_rcv_data()
+{
+   rcv_data = getc();
+   time = rcv_data; // C?p nh?t th?i gian nh?p nháy
+}

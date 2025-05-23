@@ -1,0 +1,98 @@
+/*#include <16f887.h>
+#fuses intrc_io
+#use delay(clock=8M)
+
+#use RS232 (baud =9600,xmit=pin_c6, rcv=pin_c7)
+
+#define ON_OFF pin_b0
+
+unsigned int8 time=0;
+int1 mode=0;
+unsigned int8 rcv_data=0;
+
+void main ()
+{
+   set_tris_c(0x80);
+   set_tris_d(0); 
+   set_tris_b(1); 
+   
+   enable_interrupts(GLOBAL);
+   enable_interrupts(INT_RDA); 
+
+   while(true)
+   {
+      if(input(ON_OFF)==0)
+      {
+         delay_ms(20);
+         if(input(ON_OFF)==0)
+         {
+            mode = !mode;
+            putc(mode);
+            while(input(ON_OFF)==0);
+         }
+      }
+      
+      output_toggle(pin_d0);
+      delay_ms((1000*time)/2);
+   }
+}
+
+#INT_RDA
+void interrupt_rcv_data()
+{
+   rcv_data = getc();
+   time = rcv_data;
+}*/
+
+#include <16f887.h>
+#fuses intrc_io
+#use delay(clock=8M)
+
+#use RS232 (baud =9600,xmit=pin_c6, rcv=pin_c7)
+
+#define ON_OFF pin_b0
+
+unsigned int8 time=0, t_prev=0;
+int1 mode=0;
+unsigned int8 rcv_data=0;
+
+void main ()
+{
+   set_tris_c(0x80);
+   set_tris_d(0); 
+   set_tris_b(1); 
+   
+   enable_interrupts(GLOBAL);
+   enable_interrupts(INT_RDA); 
+   
+   setup_timer_1(T1_INTERNAL | T1_DIV_BY_8); 
+   set_timer1(0);  
+
+   while(true)
+   {
+      if(input(ON_OFF)==0)
+      {
+         delay_ms(20);
+         if(input(ON_OFF)==0)
+         {
+            mode = !mode;
+            putc(mode);
+            while(input(ON_OFF)==0);
+         }
+      }
+      
+      unsigned int32 t_now = get_timer1();
+      if ((t_now - t_prev) >= delay_time)
+      {
+        t_prev = t_now;
+        output_toggle(pin_d0);
+      }
+   }
+}
+
+#INT_RDA
+void interrupt_rcv_data()
+{
+   rcv_data = getc();
+   time = rcv_data;
+}

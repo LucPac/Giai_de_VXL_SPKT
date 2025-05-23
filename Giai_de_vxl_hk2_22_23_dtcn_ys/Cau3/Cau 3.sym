@@ -1,0 +1,83 @@
+004-005 @READ_PROGRAM_MEMORY8.P1
+004-005 @WRITE_PROGRAM_MEMORY8.P2
+015     CCP_1_LOW
+015     CCP_1
+016     CCP_1_HIGH
+01B     CCP_2
+01B     CCP_2_LOW
+01C     CCP_2_HIGH
+020-021 sp
+022-023 box
+024-025 @PRINTF_LU_622.P1
+024     @delay_ms1.P2
+024     @PSTRINGCN7_622.P3
+024     lcd_command.a
+025     @PSTRINGCN7_622.@SCRATCH1
+026     @PSTRINGCN7_622.@SCRATCH2
+026     @PRINTF_LU_622.@SCRATCH1
+027     @PSTRINGCN7_622.@SCRATCH3
+027     @PRINTF_LU_622.@SCRATCH2
+028     @PSTRINGCN7_622.@SCRATCH4
+028     @PRINTF_LU_622.@SCRATCH3
+029     @PRINTF_LU_622.@SCRATCH4
+02A     @PRINTF_LU_622.@SCRATCH5
+02B     @PRINTF_LU_622.@SCRATCH6
+02C     @PRINTF_LU_622.@SCRATCH7
+02D     lcd_data.a
+02E     @delay_us1.P1
+077     @SCRATCH
+078     @SCRATCH
+078     _RETURN_
+079     @SCRATCH
+07A     @SCRATCH
+107.6   C1OUT
+108.6   C2OUT
+10D-10E @READ_PROGRAM_MEMORY8.P1
+10D-10E @WRITE_PROGRAM_MEMORY8.P2
+
+ROM Allocation:
+000004  @const630.call
+00000C  @const635.call
+000011  @delay_us1
+000020  lcd_command
+000039  @delay_ms1
+00004E  lcd_setup
+000060  lcd_data
+000079  @PSTRINGCN7_622
+0000D0  @PRINTF_LU_622
+000133  MAIN
+000133  @cinit1
+00014B  @cinit2
+
+Project Directory:
+    E:\University\Nam 3\2024_2025_HK2\Vi xu ly\Giai de vxl hk2 22 23 dtcn-ys\Cau3\
+
+Project Files:
+    Cau 3.c                                                 [10-May-25 08:32  CRC=A1A371B3]
+    C:\Program Files (x86)\PICC\Devices\16f887.h            [12-Nov-13 14:35  CRC=6CB1A611]
+    tv_lcd.c                                                [12-Mar-25 09:28  CRC=85F53194]
+
+Source signature=1A3F7AEC
+
+Units:
+    Cau 3 (main)
+
+Compiler Settings:
+    Processor:      PIC16F887
+    Pointer Size:   16
+    ADC Range:      0-255
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+
+Output Files:
+    XREF file:   Cau 3.xsym
+    Errors:      Cau 3.err
+    Ext Symbols: Cau 3.esym
+    INHX8:       Cau 3.hex
+    Symbols:     Cau 3.sym
+    List:        Cau 3.lst
+    Debug/COFF:  Cau 3.cof
+    Project:     Cau 3.ccspjt
+    Call Tree:   Cau 3.tre
+    Statistics:  Cau 3.STA

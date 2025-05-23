@@ -1,0 +1,114 @@
+004-005 @READ_PROGRAM_MEMORY8.P1
+004-005 @WRITE_PROGRAM_MEMORY8.P2
+015     CCP_1
+015     CCP_1_LOW
+016     CCP_1_HIGH
+01B     CCP_2_LOW
+01B     CCP_2
+01C     CCP_2_HIGH
+020     @INTERRUPT_AREA
+021     @INTERRUPT_AREA
+022     @INTERRUPT_AREA
+023     @INTERRUPT_AREA
+024     @INTERRUPT_AREA
+025     @INTERRUPT_AREA
+026     @INTERRUPT_AREA
+027     time
+028.0   mode
+029     rcv_data
+02A     @TRIS_C
+02B     @delay_ms1.P1
+02B-02E @SFTOI.P2
+02B     main.@SCRATCH1
+02C     main.@SCRATCH2
+02D-030 @MULFF.P1
+02D-02E @ITOF.P2
+031-034 @MULFF.P1
+035     @MULFF.@SCRATCH1
+036     @MULFF.@SCRATCH2
+037     @MULFF.@SCRATCH3
+038     @MULFF.@SCRATCH4
+039     @MULFF.@SCRATCH5
+077     @SCRATCH
+078     @SCRATCH
+078     _RETURN_
+079     @SCRATCH
+07A     @SCRATCH
+07F     @INTERRUPT_AREA
+0FF     @INTERRUPT_AREA
+107.6   C1OUT
+108.6   C2OUT
+10D-10E @WRITE_PROGRAM_MEMORY8.P1
+10D-10E @READ_PROGRAM_MEMORY8.P2
+17F     @INTERRUPT_AREA
+1FF     @INTERRUPT_AREA
+27F     @INTERRUPT_AREA
+2FF     @INTERRUPT_AREA
+37F     @INTERRUPT_AREA
+3FF     @INTERRUPT_AREA
+47F     @INTERRUPT_AREA
+4FF     @INTERRUPT_AREA
+57F     @INTERRUPT_AREA
+5FF     @INTERRUPT_AREA
+67F     @INTERRUPT_AREA
+6FF     @INTERRUPT_AREA
+77F     @INTERRUPT_AREA
+7FF     @INTERRUPT_AREA
+87F     @INTERRUPT_AREA
+8FF     @INTERRUPT_AREA
+97F     @INTERRUPT_AREA
+9FF     @INTERRUPT_AREA
+A7F     @INTERRUPT_AREA
+AFF     @INTERRUPT_AREA
+B7F     @INTERRUPT_AREA
+BFF     @INTERRUPT_AREA
+C7F     @INTERRUPT_AREA
+CFF     @INTERRUPT_AREA
+D7F     @INTERRUPT_AREA
+DFF     @INTERRUPT_AREA
+E7F     @INTERRUPT_AREA
+EFF     @INTERRUPT_AREA
+F7F     @INTERRUPT_AREA
+FFF     @INTERRUPT_AREA
+
+ROM Allocation:
+000031  interrupt_rcv_data
+00003C  @ITOF
+00005B  @MULFF
+0000D2  @SFTOI
+0000F3  @delay_ms1
+000109  main
+000109  @cinit1
+00012E  @cinit2
+
+Project Directory:
+    E:\University\Nam 3\2024_2025_HK2\Vi xu ly\Giai_de_vxl_hk2_22_23_dtcn_ys\Cau4\
+
+Project Files:
+    PicA.c                                                  [11-May-25 14:58  CRC=14BA3E69]
+    C:\Program Files (x86)\PICC\Devices\16f887.h            [12-Nov-13 14:35  CRC=6CB1A611]
+
+Source signature=EE1D8A8B
+
+Units:
+    PicA (main)
+
+Compiler Settings:
+    Processor:      PIC16F887
+    Pointer Size:   16
+    ADC Range:      0-1023
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+
+Output Files:
+    XREF file:   PicA.xsym
+    Errors:      PicA.err
+    Ext Symbols: PicA.esym
+    INHX8:       PicA.hex
+    Symbols:     PicA.sym
+    List:        PicA.lst
+    Debug/COFF:  PicA.cof
+    Project:     PicA.ccspjt
+    Call Tree:   PicA.tre
+    Statistics:  PicA.STA
