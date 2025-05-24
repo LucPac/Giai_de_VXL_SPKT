@@ -1,11 +1,11 @@
-CCS PCM C Compiler, Version 5.015, 5967               10-May-25 09:26
+CCS PCM C Compiler, Version 5.015, 5967               24-May-25 11:08
 
-               Filename:   E:\University\Nam 3\2024_2025_HK2\Vi xu ly\Giai de vxl hk2 22 23 dtcn-ys\Cau2\Cau 2.lst
+               Filename:   E:\University\Nam 3\2024_2025_HK2\Vi xu ly\Giai_de_vxl_hk2_22_23_dtcn_ys\Cau2\Cau 2.lst
 
-               ROM used:   119 words (1%)
+               ROM used:   125 words (2%)
                            Largest free fragment is 2048
-               RAM used:   7 (2%) at main() level
-                           8 (2%) worst case
+               RAM used:   9 (2%) at main() level
+                           10 (3%) worst case
                Stack used: 1 locations
                Stack size: 8
 
@@ -46,7 +46,8 @@ CCS PCM C Compiler, Version 5.015, 5967               10-May-25 09:26
 .................... #define STOP      pin_e3 
 ....................  
 .................... int1 mode_pwm1=0, mode_pwm2=0; //=0: off, =1:on 
-....................   
+.................... unsigned int8 duty1=0, duty2=0; 
+....................  
 .................... void nut_nhan() 
 .................... { 
 ....................    if(input(FF)==0) 
@@ -89,7 +90,7 @@ CCS PCM C Compiler, Version 5.015, 5967               10-May-25 09:26
 ....................    } 
 001B:  BCF    0A.3
 001C:  BCF    0A.4
-001D:  GOTO   064 (RETURN)
+001D:  GOTO   068 (RETURN)
 .................... } 
 ....................  
 ....................  
@@ -99,117 +100,127 @@ CCS PCM C Compiler, Version 5.015, 5967               10-May-25 09:26
 0020:  MOVWF  03
 0021:  BCF    20.0
 0022:  BCF    20.1
-0023:  MOVLW  FF
-0024:  MOVWF  21
-0025:  BSF    03.5
-0026:  BSF    03.6
-0027:  MOVF   09,W
-0028:  ANDLW  C0
-0029:  MOVWF  09
-002A:  BCF    03.6
-002B:  BCF    1F.4
-002C:  BCF    1F.5
-002D:  MOVLW  00
-002E:  BSF    03.6
-002F:  MOVWF  08
-0030:  BCF    03.5
-0031:  CLRF   07
-0032:  CLRF   08
-0033:  CLRF   09
-0034:  BCF    03.7
+0023:  CLRF   21
+0024:  CLRF   22
+0025:  MOVLW  FF
+0026:  MOVWF  23
+0027:  BSF    03.5
+0028:  BSF    03.6
+0029:  MOVF   09,W
+002A:  ANDLW  C0
+002B:  MOVWF  09
+002C:  BCF    03.6
+002D:  BCF    1F.4
+002E:  BCF    1F.5
+002F:  MOVLW  00
+0030:  BSF    03.6
+0031:  MOVWF  08
+0032:  BCF    03.5
+0033:  CLRF   07
+0034:  CLRF   08
+0035:  CLRF   09
+0036:  BCF    03.7
 .................... { 
 ....................    set_tris_c(0); 
-0035:  MOVLW  00
-0036:  BSF    03.5
-0037:  BCF    03.6
-0038:  MOVWF  07
-0039:  BCF    03.5
-003A:  MOVWF  21
+0037:  MOVLW  00
+0038:  BSF    03.5
+0039:  BCF    03.6
+003A:  MOVWF  07
+003B:  BCF    03.5
+003C:  MOVWF  23
 ....................    set_tris_b(0xff); 
-003B:  MOVLW  FF
-003C:  BSF    03.5
-003D:  MOVWF  06
+003D:  MOVLW  FF
+003E:  BSF    03.5
+003F:  MOVWF  06
 ....................    set_tris_e(0xff); 
-003E:  BSF    09.0
-003F:  BSF    09.1
-0040:  BSF    09.2
-0041:  BSF    09.3
+0040:  BSF    09.0
+0041:  BSF    09.1
+0042:  BSF    09.2
+0043:  BSF    09.3
 ....................     
 ....................    setup_timer_2(T2_DIV_BY_16,249,1); 
-0042:  MOVLW  00
-0043:  MOVWF  78
-0044:  IORLW  06
-0045:  BCF    03.5
-0046:  MOVWF  12
-0047:  MOVLW  F9
-0048:  BSF    03.5
-0049:  MOVWF  12
+0044:  MOVLW  00
+0045:  MOVWF  78
+0046:  IORLW  06
+0047:  BCF    03.5
+0048:  MOVWF  12
+0049:  MOVLW  F9
+004A:  BSF    03.5
+004B:  MOVWF  12
 ....................    setup_ccp1(CCP_PWM);     // su dung kenh PWM1 
-004A:  BCF    03.5
-004B:  BCF    21.2
-004C:  MOVF   21,W
-004D:  BSF    03.5
-004E:  MOVWF  07
-004F:  BCF    03.5
-0050:  BCF    07.2
-0051:  MOVLW  0C
-0052:  MOVWF  17
-0053:  BSF    03.5
-0054:  CLRF   1B
-0055:  CLRF   1C
-0056:  MOVLW  01
-0057:  MOVWF  1D
-....................    set_pwm1_duty(0);      // ngung dong co  
-0058:  BCF    03.5
-0059:  CLRF   15
-....................    setup_ccp2(CCP_PWM);     // su dung kenh PWM2 
-005A:  BCF    21.1
+004C:  BCF    03.5
+004D:  BCF    23.2
+004E:  MOVF   23,W
+004F:  BSF    03.5
+0050:  MOVWF  07
+0051:  BCF    03.5
+0052:  BCF    07.2
+0053:  MOVLW  0C
+0054:  MOVWF  17
+0055:  BSF    03.5
+0056:  CLRF   1B
+0057:  CLRF   1C
+0058:  MOVLW  01
+0059:  MOVWF  1D
+....................    set_pwm1_duty(duty1);      // ngung dong co  
+005A:  BCF    03.5
 005B:  MOVF   21,W
-005C:  BSF    03.5
-005D:  MOVWF  07
-005E:  BCF    03.5
-005F:  BCF    07.1
-0060:  MOVLW  0C
-0061:  MOVWF  1D
-....................    set_pwm2_duty(0);      // ngung dong co  
-0062:  CLRF   1B
+005C:  MOVWF  15
+....................    setup_ccp2(CCP_PWM);     // su dung kenh PWM2 
+005D:  BCF    23.1
+005E:  MOVF   23,W
+005F:  BSF    03.5
+0060:  MOVWF  07
+0061:  BCF    03.5
+0062:  BCF    07.1
+0063:  MOVLW  0C
+0064:  MOVWF  1D
+....................    set_pwm2_duty(duty2);      // ngung dong co  
+0065:  MOVF   22,W
+0066:  MOVWF  1B
 ....................     
 ....................    while(true) 
 ....................    { 
 ....................       nut_nhan(); 
-0063:  GOTO   004
+0067:  GOTO   004
 ....................        
 ....................       if(mode_pwm1) 
-0064:  BTFSS  20.0
-0065:  GOTO   06D
+0068:  BTFSS  20.0
+0069:  GOTO   072
 ....................       { 
-....................          set_pwm1_duty(700); 
-0066:  MOVLW  AF
-0067:  MOVWF  15
-0068:  MOVF   17,W
-0069:  ANDLW  CF
-006A:  MOVWF  17
-....................          set_pwm2_duty(0); 
-006B:  CLRF   1B
+....................          duty1=700; 
+006A:  MOVLW  BC
+006B:  MOVWF  21
+....................          duty2=0; 
+006C:  CLRF   22
+....................          set_pwm1_duty(duty1); 
+006D:  MOVF   21,W
+006E:  MOVWF  15
+....................          set_pwm2_duty(duty2); 
+006F:  MOVF   22,W
+0070:  MOVWF  1B
 ....................       } 
-006C:  GOTO   075
+0071:  GOTO   07B
 ....................       else if(mode_pwm2) 
-006D:  BTFSS  20.1
-006E:  GOTO   075
+0072:  BTFSS  20.1
+0073:  GOTO   07B
 ....................       { 
-....................          set_pwm1_duty(0); 
-006F:  CLRF   15
-....................          set_pwm2_duty(300); 
-0070:  MOVLW  4B
-0071:  MOVWF  1B
-0072:  MOVF   1D,W
-0073:  ANDLW  CF
-0074:  MOVWF  1D
+....................          duty1=0; 
+0074:  CLRF   21
+....................          duty2=300; 
+0075:  MOVLW  2C
+0076:  MOVWF  22
+....................          set_pwm1_duty(duty1); 
+0077:  MOVF   21,W
+0078:  MOVWF  15
+....................          set_pwm2_duty(duty2); 
+0079:  MOVF   22,W
+007A:  MOVWF  1B
 ....................       } 
-0075:  GOTO   063
+007B:  GOTO   067
 ....................    } 
 .................... } 
-0076:  SLEEP
+007C:  SLEEP
 
 Configuration Fuses:
    Word  1: 2FE2   HS NOWDT PUT MCLR NOPROTECT NOCPD BROWNOUT IESO FCMEN NOLVP NODEBUG

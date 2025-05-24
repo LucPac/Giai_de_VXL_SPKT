@@ -1,8 +1,7 @@
-D G "STOP" 0 16 "pin_e3"
-D G "__PCM__" 0 69 ""5.015""
-D G "__DEVICE__" 0 69 "887"
-D G "__DATE__" 0 69 ""10-May-25""
-D G "__TIME__" 0 69 ""09:26:52"" "Tinh toan cac thong so"
+D G "__PCM__" 0 73 ""5.015""
+D G "__DEVICE__" 0 73 "887"
+D G "__DATE__" 0 73 ""24-May-25""
+D G "__TIME__" 0 73 ""11:08:51"" "Tinh toan cac thong so"
 c L "set_tris_a" 1 1 6 "FUNCTION"
 v L "value" 1 39 "int8" `54 
 f B "set_tris_a" 1 39 "void(int8 value)" `53 
@@ -856,8 +855,10 @@ D G "STOP" 0 16 "pin_e3"
 V G "mode_pwm1" 0 18 "int1" `620 
 V G "mode_pwm2" 0 18 "int1" `621 
 C L "jump_to_irs" 0 18 1 "FUNCTION"
-F G "nut_nhan" 0 21 "void()" `622 
-F G "MAIN" 0 41 "void()" `623 
+V G "duty1" 0 19 "int8" `622 
+V G "duty2" 0 19 "int8" `623 
+F G "nut_nhan" 0 22 "void()" `624 
+F G "MAIN" 0 42 "void()" `625 
 C L "MAIN" 0 18 1 "FUNCTION"
 C L "MAIN" 0 18 1 "FUNCTION"
 C L "MAIN" 0 18 1 "FUNCTION"

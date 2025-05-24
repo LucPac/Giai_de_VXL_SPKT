@@ -8,8 +8,10 @@
 01C     CCP_2_HIGH
 020.0   mode_pwm1
 020.1   mode_pwm2
-021     @TRIS_C
-022     nut_nhan.@SCRATCH1
+021     duty1
+022     duty2
+023     @TRIS_C
+024     nut_nhan.@SCRATCH1
 077     @SCRATCH
 078     @SCRATCH
 078     _RETURN_
@@ -17,23 +19,23 @@
 07A     @SCRATCH
 107.6   C1OUT
 108.6   C2OUT
-10D-10E @READ_PROGRAM_MEMORY8.P1
-10D-10E @WRITE_PROGRAM_MEMORY8.P2
+10D-10E @WRITE_PROGRAM_MEMORY8.P1
+10D-10E @READ_PROGRAM_MEMORY8.P2
 
 ROM Allocation:
 000004  nut_nhan
 00001E  MAIN
 00001E  @cinit1
-000034  @cinit2
+000036  @cinit2
 
 Project Directory:
-    E:\University\Nam 3\2024_2025_HK2\Vi xu ly\Giai de vxl hk2 22 23 dtcn-ys\Cau2\
+    E:\University\Nam 3\2024_2025_HK2\Vi xu ly\Giai_de_vxl_hk2_22_23_dtcn_ys\Cau2\
 
 Project Files:
-    Cau 2.c                                                 [10-May-25 09:26  CRC=908417B7]
+    Cau 2.c                                                 [24-May-25 11:08  CRC=CCF20625]
     C:\Program Files (x86)\PICC\Devices\16f887.h            [12-Nov-13 14:35  CRC=6CB1A611]
 
-Source signature=69E763D9
+Source signature=A6555247
 
 Units:
     Cau 2 (main)

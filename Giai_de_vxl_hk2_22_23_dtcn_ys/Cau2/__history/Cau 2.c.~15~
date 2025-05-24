@@ -16,8 +16,7 @@ Tinh toan cac thong so
 #define STOP      pin_e3
 
 int1 mode_pwm1=0, mode_pwm2=0; //=0: off, =1:on
-unsigned int8 duty1=0, duty2=0;
-
+ 
 void nut_nhan()
 {
    if(input(FF)==0)
@@ -46,9 +45,9 @@ void main ()
    
    setup_timer_2(T2_DIV_BY_16,249,1);
    setup_ccp1(CCP_PWM);     // su dung kenh PWM1
-   set_pwm1_duty(duty1);      // ngung dong co 
+   set_pwm1_duty(0);      // ngung dong co 
    setup_ccp2(CCP_PWM);     // su dung kenh PWM2
-   set_pwm2_duty(duty2);      // ngung dong co 
+   set_pwm2_duty(0);      // ngung dong co 
    
    while(true)
    {
@@ -56,17 +55,13 @@ void main ()
       
       if(mode_pwm1)
       {
-         duty1=700;
-         duty2=0;
-         set_pwm1_duty(duty1);
-         set_pwm2_duty(duty2);
+         set_pwm1_duty(700);
+         set_pwm2_duty(0);
       }
       else if(mode_pwm2)
       {
-         duty1=0;
-         duty2=300;
-         set_pwm1_duty(duty1);
-         set_pwm2_duty(duty2);
+         set_pwm1_duty(0);
+         set_pwm2_duty(300);
       }
    }
 }
