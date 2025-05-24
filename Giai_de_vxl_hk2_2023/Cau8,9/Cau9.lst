@@ -1,0 +1,457 @@
+CCS PCM C Compiler, Version 5.015, 5967               24-May-25 14:38
+
+               Filename:   E:\University\Nam 3\2024_2025_HK2\Vi xu ly\Giai_de_vxl_hk2_2023\Cau8,9\Cau9.lst
+
+               ROM used:   339 words (4%)
+                           Largest free fragment is 2048
+               RAM used:   11 (3%) at main() level
+                           12 (3%) worst case
+               Stack used: 2 locations
+               Stack size: 8
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   0FC
+0003:  NOP
+.................... /* 
+.................... Tinh toan PMW: T=0.8(ms), Fosc=8(MHz) 
+....................    chon T2_prescale = 16 => PR2 = [(T*Fosc)/(4*T2_prescale)] - 1 = 99 
+....................                             HSCK_10% = 10% * HSCK_max = 10% * (99+1)*4 = 40 
+....................                             HSCK_20% = 20% * HSCK_max = 20% * (99+1)*4 = 80 
+....................                             HSCK_50% = 50% * HSCK_max = 50% * (99+1)*4 = 200 
+....................                             HSCK_80% = 80% * HSCK_max = 80% * (99+1)*4 = 320 
+....................                             HSCK_100% = 100% * HSCK_max = 100% * (99+1)*4 = 400 
+.................... */ 
+.................... #include<16f887.h> 
+.................... //////////// Standard Header file for the PIC16F887 device //////////////// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... ////        (C) Copyright 1996, 2013 Custom Computer Services          //// 
+.................... //// This source code may only be used by licensed users of the CCS C  //// 
+.................... //// compiler.  This source code may only be distributed to other      //// 
+.................... //// licensed users of the CCS C compiler.  No other use, reproduction //// 
+.................... //// or distribution is permitted without written permission.          //// 
+.................... //// Derivative programs created using this software in object code    //// 
+.................... //// form are not restricted in any way.                               //// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... #device PIC16F887 
+....................  
+.................... #list 
+....................  
+.................... #fuses intrc_io 
+.................... #use delay(clock=8M) 
+0004:  MOVLW  26
+0005:  MOVWF  04
+0006:  BCF    03.7
+0007:  MOVF   00,W
+0008:  BTFSC  03.2
+0009:  GOTO   017
+000A:  MOVLW  02
+000B:  MOVWF  78
+000C:  CLRF   77
+000D:  DECFSZ 77,F
+000E:  GOTO   00D
+000F:  DECFSZ 78,F
+0010:  GOTO   00C
+0011:  MOVLW  97
+0012:  MOVWF  77
+0013:  DECFSZ 77,F
+0014:  GOTO   013
+0015:  DECFSZ 00,F
+0016:  GOTO   00A
+0017:  RETURN
+....................  
+.................... #define ON_OFF pin_e0 
+.................... #define SPEED  pin_e1 
+....................  
+.................... unsigned int16 duty=0, mode=1; 
+.................... int1 onoff = 0; 
+....................  
+.................... void SPEED_button(); 
+.................... void select_mode(); 
+....................  
+.................... void ON_OFF_button() 
+.................... { 
+....................    if(input(ON_OFF)==0) 
+0018:  BSF    03.5
+0019:  BSF    09.0
+001A:  BCF    03.5
+001B:  BTFSC  09.0
+001C:  GOTO   02C
+....................    { 
+....................       delay_ms(20); 
+001D:  MOVLW  14
+001E:  MOVWF  26
+001F:  CALL   004
+....................       if(input(ON_OFF)==0) 
+0020:  BSF    03.5
+0021:  BSF    09.0
+0022:  BCF    03.5
+0023:  BTFSC  09.0
+0024:  GOTO   02C
+....................       { 
+....................          onoff = !onoff; 
+0025:  MOVLW  01
+0026:  XORWF  24,F
+....................          while(input(ON_OFF)==0); 
+0027:  BSF    03.5
+0028:  BSF    09.0
+0029:  BCF    03.5
+002A:  BTFSS  09.0
+002B:  GOTO   027
+....................       } 
+....................    } 
+....................    if(onoff==1) 
+002C:  BTFSS  24.0
+002D:  GOTO   0E4
+....................    { 
+....................       SPEED_button(); 
+....................       select_mode(); 
+....................    } 
+*
+00E3:  GOTO   0F9
+....................    else 
+....................    { 
+....................       duty=0; 
+00E4:  CLRF   21
+00E5:  CLRF   20
+....................       set_pwm1_duty(duty); 
+00E6:  MOVF   21,W
+00E7:  MOVWF  79
+00E8:  MOVF   20,W
+00E9:  MOVWF  78
+00EA:  RRF    79,F
+00EB:  RRF    78,F
+00EC:  RRF    79,F
+00ED:  RRF    78,F
+00EE:  RRF    79,F
+00EF:  MOVF   78,W
+00F0:  MOVWF  15
+00F1:  RRF    79,F
+00F2:  RRF    79,W
+00F3:  ANDLW  30
+00F4:  MOVWF  77
+00F5:  MOVF   17,W
+00F6:  ANDLW  CF
+00F7:  IORWF  77,W
+00F8:  MOVWF  17
+....................    } 
+00F9:  BCF    0A.3
+00FA:  BCF    0A.4
+00FB:  GOTO   151 (RETURN)
+.................... } 
+....................  
+.................... void SPEED_button() 
+.................... { 
+....................    if(input(SPEED) == 0) 
+*
+002E:  BSF    03.5
+002F:  BSF    09.1
+0030:  BCF    03.5
+0031:  BTFSC  09.1
+0032:  GOTO   04E
+....................    { 
+....................       delay_ms(20); 
+0033:  MOVLW  14
+0034:  MOVWF  26
+0035:  CALL   004
+....................       if(input(SPEED)==0) 
+0036:  BSF    03.5
+0037:  BSF    09.1
+0038:  BCF    03.5
+0039:  BTFSC  09.1
+003A:  GOTO   04E
+....................       { 
+....................          if(mode<5)  mode++; 
+003B:  MOVF   23,F
+003C:  BTFSS  03.2
+003D:  GOTO   046
+003E:  MOVF   22,W
+003F:  SUBLW  04
+0040:  BTFSS  03.0
+0041:  GOTO   046
+0042:  INCF   22,F
+0043:  BTFSC  03.2
+0044:  INCF   23,F
+0045:  GOTO   049
+....................          else        mode=1; 
+0046:  CLRF   23
+0047:  MOVLW  01
+0048:  MOVWF  22
+....................          while(input(SPEED) == 0); 
+0049:  BSF    03.5
+004A:  BSF    09.1
+004B:  BCF    03.5
+004C:  BTFSS  09.1
+004D:  GOTO   049
+....................       } 
+....................    } 
+.................... } 
+....................  
+.................... void select_mode() 
+.................... { 
+....................    if(mode==1) {duty = 40;set_pwm1_duty(duty);} 
+004E:  DECFSZ 22,W
+004F:  GOTO   06A
+0050:  MOVF   23,F
+0051:  BTFSS  03.2
+0052:  GOTO   06A
+0053:  CLRF   21
+0054:  MOVLW  28
+0055:  MOVWF  20
+0056:  MOVF   21,W
+0057:  MOVWF  79
+0058:  MOVF   20,W
+0059:  MOVWF  78
+005A:  RRF    79,F
+005B:  RRF    78,F
+005C:  RRF    79,F
+005D:  RRF    78,F
+005E:  RRF    79,F
+005F:  MOVF   78,W
+0060:  MOVWF  15
+0061:  RRF    79,F
+0062:  RRF    79,W
+0063:  ANDLW  30
+0064:  MOVWF  77
+0065:  MOVF   17,W
+0066:  ANDLW  CF
+0067:  IORWF  77,W
+0068:  MOVWF  17
+0069:  GOTO   0E3
+....................    else if(mode==2) {duty = 80;set_pwm1_duty(duty);} 
+006A:  MOVF   22,W
+006B:  SUBLW  02
+006C:  BTFSS  03.2
+006D:  GOTO   088
+006E:  MOVF   23,F
+006F:  BTFSS  03.2
+0070:  GOTO   088
+0071:  CLRF   21
+0072:  MOVLW  50
+0073:  MOVWF  20
+0074:  MOVF   21,W
+0075:  MOVWF  79
+0076:  MOVF   20,W
+0077:  MOVWF  78
+0078:  RRF    79,F
+0079:  RRF    78,F
+007A:  RRF    79,F
+007B:  RRF    78,F
+007C:  RRF    79,F
+007D:  MOVF   78,W
+007E:  MOVWF  15
+007F:  RRF    79,F
+0080:  RRF    79,W
+0081:  ANDLW  30
+0082:  MOVWF  77
+0083:  MOVF   17,W
+0084:  ANDLW  CF
+0085:  IORWF  77,W
+0086:  MOVWF  17
+0087:  GOTO   0E3
+....................    else if(mode==3) {duty = 200;set_pwm1_duty(duty);} 
+0088:  MOVF   22,W
+0089:  SUBLW  03
+008A:  BTFSS  03.2
+008B:  GOTO   0A6
+008C:  MOVF   23,F
+008D:  BTFSS  03.2
+008E:  GOTO   0A6
+008F:  CLRF   21
+0090:  MOVLW  C8
+0091:  MOVWF  20
+0092:  MOVF   21,W
+0093:  MOVWF  79
+0094:  MOVF   20,W
+0095:  MOVWF  78
+0096:  RRF    79,F
+0097:  RRF    78,F
+0098:  RRF    79,F
+0099:  RRF    78,F
+009A:  RRF    79,F
+009B:  MOVF   78,W
+009C:  MOVWF  15
+009D:  RRF    79,F
+009E:  RRF    79,W
+009F:  ANDLW  30
+00A0:  MOVWF  77
+00A1:  MOVF   17,W
+00A2:  ANDLW  CF
+00A3:  IORWF  77,W
+00A4:  MOVWF  17
+00A5:  GOTO   0E3
+....................    else if(mode==4) {duty = 320;set_pwm1_duty(duty);} 
+00A6:  MOVF   22,W
+00A7:  SUBLW  04
+00A8:  BTFSS  03.2
+00A9:  GOTO   0C5
+00AA:  MOVF   23,F
+00AB:  BTFSS  03.2
+00AC:  GOTO   0C5
+00AD:  MOVLW  01
+00AE:  MOVWF  21
+00AF:  MOVLW  40
+00B0:  MOVWF  20
+00B1:  MOVF   21,W
+00B2:  MOVWF  79
+00B3:  MOVF   20,W
+00B4:  MOVWF  78
+00B5:  RRF    79,F
+00B6:  RRF    78,F
+00B7:  RRF    79,F
+00B8:  RRF    78,F
+00B9:  RRF    79,F
+00BA:  MOVF   78,W
+00BB:  MOVWF  15
+00BC:  RRF    79,F
+00BD:  RRF    79,W
+00BE:  ANDLW  30
+00BF:  MOVWF  77
+00C0:  MOVF   17,W
+00C1:  ANDLW  CF
+00C2:  IORWF  77,W
+00C3:  MOVWF  17
+00C4:  GOTO   0E3
+....................    else if(mode==5) {duty = 400;set_pwm1_duty(duty);} 
+00C5:  MOVF   22,W
+00C6:  SUBLW  05
+00C7:  BTFSS  03.2
+00C8:  GOTO   0E3
+00C9:  MOVF   23,F
+00CA:  BTFSS  03.2
+00CB:  GOTO   0E3
+00CC:  MOVLW  01
+00CD:  MOVWF  21
+00CE:  MOVLW  90
+00CF:  MOVWF  20
+00D0:  MOVF   21,W
+00D1:  MOVWF  79
+00D2:  MOVF   20,W
+00D3:  MOVWF  78
+00D4:  RRF    79,F
+00D5:  RRF    78,F
+00D6:  RRF    79,F
+00D7:  RRF    78,F
+00D8:  RRF    79,F
+00D9:  MOVF   78,W
+00DA:  MOVWF  15
+00DB:  RRF    79,F
+00DC:  RRF    79,W
+00DD:  ANDLW  30
+00DE:  MOVWF  77
+00DF:  MOVF   17,W
+00E0:  ANDLW  CF
+00E1:  IORWF  77,W
+00E2:  MOVWF  17
+.................... } 
+....................  
+.................... void main() 
+*
+00FC:  MOVF   03,W
+00FD:  ANDLW  1F
+00FE:  MOVWF  03
+00FF:  MOVLW  71
+0100:  BSF    03.5
+0101:  MOVWF  0F
+0102:  MOVF   0F,W
+0103:  BCF    03.5
+0104:  CLRF   21
+0105:  CLRF   20
+0106:  CLRF   23
+0107:  MOVLW  01
+0108:  MOVWF  22
+0109:  BCF    24.0
+010A:  MOVLW  FF
+010B:  MOVWF  25
+010C:  BSF    03.5
+010D:  BSF    03.6
+010E:  MOVF   09,W
+010F:  ANDLW  C0
+0110:  MOVWF  09
+0111:  BCF    03.6
+0112:  BCF    1F.4
+0113:  BCF    1F.5
+0114:  MOVLW  00
+0115:  BSF    03.6
+0116:  MOVWF  08
+0117:  BCF    03.5
+0118:  CLRF   07
+0119:  CLRF   08
+011A:  CLRF   09
+011B:  BCF    03.7
+.................... { 
+....................    set_tris_c(0); 
+011C:  MOVLW  00
+011D:  BSF    03.5
+011E:  BCF    03.6
+011F:  MOVWF  07
+0120:  BCF    03.5
+0121:  MOVWF  25
+....................    set_tris_e(0xff); 
+0122:  BSF    03.5
+0123:  BSF    09.0
+0124:  BSF    09.1
+0125:  BSF    09.2
+0126:  BSF    09.3
+....................     
+....................    setup_timer_2(T2_DIV_BY_16,99,1); 
+0127:  MOVWF  78
+0128:  IORLW  06
+0129:  BCF    03.5
+012A:  MOVWF  12
+012B:  MOVLW  63
+012C:  BSF    03.5
+012D:  MOVWF  12
+....................     
+....................    setup_ccp1(CCP_PWM); 
+012E:  BCF    03.5
+012F:  BCF    25.2
+0130:  MOVF   25,W
+0131:  BSF    03.5
+0132:  MOVWF  07
+0133:  BCF    03.5
+0134:  BCF    07.2
+0135:  MOVLW  0C
+0136:  MOVWF  17
+0137:  BSF    03.5
+0138:  CLRF   1B
+0139:  CLRF   1C
+013A:  MOVLW  01
+013B:  MOVWF  1D
+....................    set_pwm1_duty(duty);   
+013C:  BCF    03.5
+013D:  MOVF   21,W
+013E:  MOVWF  79
+013F:  MOVF   20,W
+0140:  MOVWF  78
+0141:  RRF    79,F
+0142:  RRF    78,F
+0143:  RRF    79,F
+0144:  RRF    78,F
+0145:  RRF    79,F
+0146:  MOVF   78,W
+0147:  MOVWF  15
+0148:  RRF    79,F
+0149:  RRF    79,W
+014A:  ANDLW  30
+014B:  MOVWF  77
+014C:  MOVF   17,W
+014D:  ANDLW  CF
+014E:  IORWF  77,W
+014F:  MOVWF  17
+....................  
+....................    while(true) 
+....................    { 
+....................       ON_OFF_button(); 
+0150:  GOTO   018
+0151:  GOTO   150
+....................    } 
+.................... } 
+....................  
+0152:  SLEEP
+....................  
+
+Configuration Fuses:
+   Word  1: 2FE4   INTRC_IO NOWDT PUT MCLR NOPROTECT NOCPD BROWNOUT IESO FCMEN NOLVP NODEBUG
+   Word  2: 3FFF   BORV40 NOWRT

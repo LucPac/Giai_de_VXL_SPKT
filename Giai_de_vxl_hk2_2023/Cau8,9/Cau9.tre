@@ -1,0 +1,8 @@
+ÀÄCau9
+   ÀÄMAIN  0/87  Ram=0
+      ÃÄ@cinit1  (Inline)  Ram=0
+      ÀÄON_OFF_button  0/228  Ram=1
+         ÃÄ@delay_ms1  0/20  Ram=1
+         ÃÄSPEED_button  (Inline)  Ram=1
+         ³  ÀÄ@delay_ms1  0/20  Ram=1
+         ÀÄselect_mode  (Inline)  Ram=0
