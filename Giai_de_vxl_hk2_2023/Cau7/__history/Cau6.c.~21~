@@ -1,0 +1,49 @@
+/*
+Tinh do phan giai (step size - SS)
+SS = [(Vref+) - (Vref-)] / [(2^n) - 1] = 0.293255132 V
+
+*/
+#include<16f887.h>
+#device     adc =10
+#fuses hs
+#use delay(clock=20M)
+
+#define lcd_rs       pin_e0
+#define lcd_rw       pin_e1
+#define lcd_e        pin_e2
+#define output_lcd   output_d
+#include<tv_lcd.c>
+
+unsigned int8 temp0=0, temp1=0;
+
+void main()
+{
+   set_tris_d(0);
+   set_tris_e(0);
+   set_tris_a(0xff);
+   
+   setup_adc( ADC_CLOCK_DIV_32);
+   setup_adc_ports(san0|san1|vss_vref); 
+   
+   lcd_setup();
+   lcd_command(0x80);
+   lcd_data("  DO NHIET DO  ");
+   
+   while(true)
+   {
+      set_adc_channel(0);
+      temp0 = read_adc()*0.293255132; // tinh o tren
+      set_adc_channel(1);
+      temp1 = read_adc()*0.293255132; // tinh o tren
+      
+      lcd_command(0xc0);
+      printf(lcd_data, "K1 = %02u",temp0);
+      lcd_command(0xc0+8);
+      lcd_data(0xdf);
+      
+      lcd_command(0xc0+8);
+      printf(lcd_data, "K2=%02u",temp1);
+      lcd_command(0xc0+13);
+      lcd_data(0xdf);
+   }
+}

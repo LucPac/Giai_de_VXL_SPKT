@@ -1,0 +1,64 @@
+ÀÄCau6
+   ÀÄMAIN  0/222  Ram=2
+      ÃÄ@cinit1  (Inline)  Ram=0
+      ÃÄlcd_setup  0/18  Ram=0
+      ³  ÃÄlcd_command  0/25  Ram=1
+      ³  ³  ÀÄ@delay_us1  0/15  Ram=1
+      ³  ÃÄ@delay_ms1  0/20  Ram=1
+      ³  ÃÄlcd_command  0/25  Ram=1
+      ³  ³  ÀÄ*
+      ³  ÃÄlcd_command  0/25  Ram=1
+      ³  ³  ÀÄ*
+      ³  ÀÄ@delay_ms1  0/20  Ram=1
+      ÃÄlcd_command  0/25  Ram=1
+      ³  ÀÄ*
+      ÃÄ@PSTRINGC7_622  0/86  Ram=4
+      ³  ÃÄlcd_data  0/25  Ram=1
+      ³  ³  ÀÄ@delay_us1  0/15  Ram=1
+      ³  ÀÄlcd_data  0/25  Ram=1
+      ³     ÀÄ*
+      ÃÄ@ITOF  0/29  Ram=2
+      ÃÄ@MULFF  0/117  Ram=13
+      ÃÄ@SFTOI  0/31  Ram=4
+      ÃÄ@ITOF  0/29  Ram=2
+      ÃÄ@MULFF  0/117  Ram=13
+      ÃÄ@SFTOI  0/31  Ram=4
+      ÃÄlcd_command  0/25  Ram=1
+      ³  ÀÄ*
+      ÃÄlcd_data  0/25  Ram=1
+      ³  ÀÄ*
+      ÃÄlcd_data  0/25  Ram=1
+      ³  ÀÄ*
+      ÃÄlcd_data  0/25  Ram=1
+      ³  ÀÄ*
+      ÃÄ@PRINTF_U_622  0/53  Ram=2
+      ³  ÃÄ@DIV88  0/21  Ram=3
+      ³  ÃÄlcd_data  0/25  Ram=1
+      ³  ³  ÀÄ*
+      ³  ÃÄ@DIV88  0/21  Ram=3
+      ³  ÃÄlcd_data  0/25  Ram=1
+      ³  ³  ÀÄ*
+      ³  ÀÄlcd_data  0/25  Ram=1
+      ³     ÀÄ*
+      ÃÄlcd_command  0/25  Ram=1
+      ³  ÀÄ*
+      ÃÄlcd_data  0/25  Ram=1
+      ³  ÀÄ*
+      ÃÄ@PSTRINGC7_622  0/86  Ram=4
+      ³  ÀÄ*
+      ÃÄlcd_command  0/25  Ram=1
+      ³  ÀÄ*
+      ÃÄlcd_data  0/25  Ram=1
+      ³  ÀÄ*
+      ÃÄlcd_data  0/25  Ram=1
+      ³  ÀÄ*
+      ÃÄlcd_data  0/25  Ram=1
+      ³  ÀÄ*
+      ÃÄ@PRINTF_U_622  0/53  Ram=2
+      ³  ÀÄ*
+      ÃÄlcd_command  0/25  Ram=1
+      ³  ÀÄ*
+      ÃÄlcd_data  0/25  Ram=1
+      ³  ÀÄ*
+      ÀÄ@PSTRINGC7_622  0/86  Ram=4
+         ÀÄ*
