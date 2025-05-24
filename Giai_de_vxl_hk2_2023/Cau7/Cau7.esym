@@ -1,7 +1,7 @@
-D G "__PCM__" 0 53 ""5.015""
-D G "__DEVICE__" 0 53 "887"
-D G "__DATE__" 0 53 ""23-May-25""
-D G "__TIME__" 0 53 ""21:50:27"" "Tinh do phan giai (step size - SS)"
+D G "__PCM__" 0 0 ""5.015""
+D G "__DEVICE__" 0 0 ""
+D G "__DATE__" 0 0 ""24-May-25""
+D G "__TIME__" 0 0 ""09:37:37"" "Tinh do phan giai (step size - SS)"
 c L "set_tris_a" 1 1 6 "FUNCTION"
 v L "value" 1 39 "int8" `54 
 f B "set_tris_a" 1 39 "void(int8 value)" `53 

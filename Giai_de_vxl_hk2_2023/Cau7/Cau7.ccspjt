@@ -1,20 +1,16 @@
 [PROJECT]
-Target=Cau6.hex
+Target=Cau7.hex
 Processor_Text=PIC16F887
 CCSVersion=5.015
 Compiler=PCM
 [Target Data]
-FileList=Cau6.c
+FileList=Cau7.c
 [Directories]
 Include=C:\Program Files (x86)\PICC\Devices\;C:\Program Files (x86)\PICC\Drivers\
-[Cau6.c]
+[Cau7.c]
 Type=4
 [mru-list]
-1=Cau6.c
-[Opened Files]
-1=Cau6.c
-2=..\..\Giai_de_vxl_hk2_23_24\Cau3\Cau 3 hk2 23 24.c
-3=
+1=Cau7.c
 [Units]
 Count=1
-1=Cau6 (main)
+1=Cau7 (main)

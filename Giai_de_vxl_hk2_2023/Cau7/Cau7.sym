@@ -62,17 +62,17 @@ ROM Allocation:
 0001DA  @cinit2
 
 Project Directory:
-    E:\University\Nam 3\2024_2025_HK2\Vi xu ly\Giai_de_vxl_hk2_2023\Cau6\
+    E:\University\Nam 3\2024_2025_HK2\Vi xu ly\Giai_de_vxl_hk2_2023\Cau7\
 
 Project Files:
-    Cau6.c                                                  [23-May-25 21:50  CRC=9BBA5B55]
+    Cau7.c                                                  [23-May-25 21:50  CRC=9BBA5B55]
     C:\Program Files (x86)\PICC\Devices\16f887.h            [12-Nov-13 14:35  CRC=6CB1A611]
     tv_lcd.c                                                [12-Mar-25 09:28  CRC=85F53194]
 
 Source signature=1456648E
 
 Units:
-    Cau6 (main)
+    Cau7 (main)
 
 Compiler Settings:
     Processor:      PIC16F887
@@ -83,13 +83,13 @@ Compiler Settings:
     Float,Double:   32,32
 
 Output Files:
-    XREF file:   Cau6.xsym
-    Errors:      Cau6.err
-    Ext Symbols: Cau6.esym
-    INHX8:       Cau6.hex
-    Symbols:     Cau6.sym
-    List:        Cau6.lst
-    Debug/COFF:  Cau6.cof
-    Project:     Cau6.ccspjt
-    Call Tree:   Cau6.tre
-    Statistics:  Cau6.STA
+    XREF file:   Cau7.xsym
+    Errors:      Cau7.err
+    Ext Symbols: Cau7.esym
+    INHX8:       Cau7.hex
+    Symbols:     Cau7.sym
+    List:        Cau7.lst
+    Debug/COFF:  Cau7.cof
+    Project:     Cau7.ccspjt
+    Call Tree:   Cau7.tre
+    Statistics:  Cau7.STA
