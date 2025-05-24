@@ -1,0 +1,95 @@
+004-005 @READ_PROGRAM_MEMORY8.P1
+004-005 @WRITE_PROGRAM_MEMORY8.P2
+015     CCP_1_LOW
+015     CCP_1
+016     CCP_1_HIGH
+01B     CCP_2_LOW
+01B     CCP_2
+01C     CCP_2_HIGH
+020     temp0
+021     temp1
+022     @delay_ms1.P1
+022     lcd_command.a
+022-025 @SFTOI.P1
+022     @PRINTF_U_622.P2
+022     MAIN.@SCRATCH1
+022     @PSTRINGC7_622.@SCRATCH1
+023     @PRINTF_U_622.P1
+023     MAIN.@SCRATCH2
+023     @PSTRINGC7_622.@SCRATCH2
+024-027 @MULFF.P1
+024     @DIV88.P2
+024-025 @ITOF.P3
+024     @PSTRINGC7_622.@SCRATCH3
+025     @DIV88.P1
+025     lcd_data.a
+025     @PSTRINGC7_622.@SCRATCH4
+026     @delay_us1.P1
+026     @DIV88.@SCRATCH1
+028-02B @MULFF.P1
+02C     @MULFF.@SCRATCH1
+02D     @MULFF.@SCRATCH2
+02E     @MULFF.@SCRATCH3
+02F     @MULFF.@SCRATCH4
+030     @MULFF.@SCRATCH5
+077     @SCRATCH
+078     @SCRATCH
+078     _RETURN_
+079     @SCRATCH
+07A     @SCRATCH
+107.6   C1OUT
+108.6   C2OUT
+10D-10E @READ_PROGRAM_MEMORY8.P1
+10D-10E @WRITE_PROGRAM_MEMORY8.P2
+
+ROM Allocation:
+000004  @const630.call
+00000C  @const646.call
+00000D  @const648.call
+00000E  @delay_us1
+00001D  lcd_command
+000036  @delay_ms1
+00004A  lcd_setup
+00005C  lcd_data
+000075  @PSTRINGC7_622
+0000CB  @ITOF
+0000E8  @MULFF
+00015D  @SFTOI
+00017C  @DIV88
+000191  @PRINTF_U_622
+0001C6  MAIN
+0001C6  @cinit1
+0001DA  @cinit2
+
+Project Directory:
+    E:\University\Nam 3\2024_2025_HK2\Vi xu ly\Giai_de_vxl_hk2_2023\Cau7\
+
+Project Files:
+    Cau7.c                                                  [23-May-25 21:50  CRC=9BBA5B55]
+    C:\Program Files (x86)\PICC\Devices\16f887.h            [12-Nov-13 14:35  CRC=6CB1A611]
+    tv_lcd.c                                                [12-Mar-25 09:28  CRC=85F53194]
+
+Source signature=1456648E
+
+Units:
+    Cau7 (main)
+
+Compiler Settings:
+    Processor:      PIC16F887
+    Pointer Size:   16
+    ADC Range:      0-1023
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+
+Output Files:
+    XREF file:   Cau7.xsym
+    Errors:      Cau7.err
+    Ext Symbols: Cau7.esym
+    INHX8:       Cau7.hex
+    Symbols:     Cau7.sym
+    List:        Cau7.lst
+    Debug/COFF:  Cau7.cof
+    Project:     Cau7.ccspjt
+    Call Tree:   Cau7.tre
+    Statistics:  Cau7.STA
