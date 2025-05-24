@@ -1,0 +1,27 @@
+#include<16f887.h>
+#fuses inrtc_io 
+#use delay(clock=8M)
+
+#use rs232(baud=2400,xmit=pin_c6,rcv=pin_c7)
+
+const unsigned int8 KT[10]={"abcdefghij"};
+unsigned int8 n=0;
+
+void main()
+{
+      set_tris_c(0x80);
+      set_tris_e(0xff);
+      while(true)
+      {
+            if(input(pin_e0)==0)   
+            {
+                  delay_ms(20);
+                  if(input(pin_e0)==0)
+                  {
+                        putc(kt[n]);
+                        n++;if(n==10)n=0;
+                        while(input(pin_e0)==0);
+                  }
+            }
+      }     
+}

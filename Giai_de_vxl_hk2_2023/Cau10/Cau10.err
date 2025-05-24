@@ -1,0 +1,4 @@
+>>> Warning 230 "Cau10.c" Line 7(41,42): String truncated
+      Memory usage:   ROM=1%      RAM=2% - 2%
+      0 Errors,  1 Warnings.
+Build Successful.

@@ -1,0 +1,176 @@
+CCS PCM C Compiler, Version 5.015, 5967               24-May-25 15:10
+
+               Filename:   E:\University\Nam 3\2024_2025_HK2\Vi xu ly\Giai_de_vxl_hk2_2023\Cau10\Cau10.lst
+
+               ROM used:   119 words (1%)
+                           Largest free fragment is 2048
+               RAM used:   8 (2%) at main() level
+                           8 (2%) worst case
+               Stack used: 1 locations
+               Stack size: 8
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   028
+0003:  NOP
+.................... #include<16f887.h> 
+.................... //////////// Standard Header file for the PIC16F887 device //////////////// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... ////        (C) Copyright 1996, 2013 Custom Computer Services          //// 
+.................... //// This source code may only be used by licensed users of the CCS C  //// 
+.................... //// compiler.  This source code may only be distributed to other      //// 
+.................... //// licensed users of the CCS C compiler.  No other use, reproduction //// 
+.................... //// or distribution is permitted without written permission.          //// 
+.................... //// Derivative programs created using this software in object code    //// 
+.................... //// form are not restricted in any way.                               //// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... #device PIC16F887 
+0004:  BCF    0A.0
+0005:  BCF    0A.1
+0006:  BCF    0A.2
+0007:  ADDWF  02,F
+0008:  RETLW  61
+0009:  RETLW  62
+000A:  RETLW  63
+000B:  RETLW  64
+000C:  RETLW  65
+000D:  RETLW  66
+000E:  RETLW  67
+000F:  RETLW  68
+0010:  RETLW  69
+0011:  RETLW  6A
+....................  
+.................... #list 
+....................  
+.................... #fuses intrc_io  
+.................... #use delay(clock=8M) 
+0012:  MOVLW  22
+0013:  MOVWF  04
+0014:  BCF    03.7
+0015:  MOVF   00,W
+0016:  BTFSC  03.2
+0017:  GOTO   025
+0018:  MOVLW  02
+0019:  MOVWF  78
+001A:  CLRF   77
+001B:  DECFSZ 77,F
+001C:  GOTO   01B
+001D:  DECFSZ 78,F
+001E:  GOTO   01A
+001F:  MOVLW  97
+0020:  MOVWF  77
+0021:  DECFSZ 77,F
+0022:  GOTO   021
+0023:  DECFSZ 00,F
+0024:  GOTO   018
+0025:  BCF    0A.3
+0026:  BCF    0A.4
+0027:  GOTO   060 (RETURN)
+....................  
+.................... #use rs232(baud=2400,xmit=pin_c6,rcv=pin_c7) 
+....................  
+.................... const unsigned int8 KT[10]={"abcdefghij"}; 
+.................... unsigned int8 n=0; 
+....................  
+.................... void main() 
+0028:  MOVF   03,W
+0029:  ANDLW  1F
+002A:  MOVWF  03
+002B:  MOVLW  71
+002C:  BSF    03.5
+002D:  MOVWF  0F
+002E:  MOVF   0F,W
+002F:  BSF    03.6
+0030:  BSF    07.3
+0031:  MOVLW  40
+0032:  BCF    03.6
+0033:  MOVWF  19
+0034:  MOVLW  03
+0035:  MOVWF  1A
+0036:  MOVLW  A6
+0037:  MOVWF  18
+0038:  MOVLW  90
+0039:  BCF    03.5
+003A:  MOVWF  18
+003B:  CLRF   20
+003C:  MOVLW  FF
+003D:  MOVWF  21
+003E:  BSF    03.5
+003F:  BSF    03.6
+0040:  MOVF   09,W
+0041:  ANDLW  C0
+0042:  MOVWF  09
+0043:  BCF    03.6
+0044:  BCF    1F.4
+0045:  BCF    1F.5
+0046:  MOVLW  00
+0047:  BSF    03.6
+0048:  MOVWF  08
+0049:  BCF    03.5
+004A:  CLRF   07
+004B:  CLRF   08
+004C:  CLRF   09
+004D:  BCF    03.7
+.................... { 
+....................       set_tris_c(0x80); 
+004E:  MOVLW  80
+004F:  BSF    03.5
+0050:  BCF    03.6
+0051:  MOVWF  07
+0052:  BCF    03.5
+0053:  MOVWF  21
+....................       set_tris_e(0xff); 
+0054:  BSF    03.5
+0055:  BSF    09.0
+0056:  BSF    09.1
+0057:  BSF    09.2
+0058:  BSF    09.3
+....................       while(true) 
+....................       { 
+....................             if(input(pin_e0)==0)    
+0059:  BSF    09.0
+005A:  BCF    03.5
+005B:  BTFSC  09.0
+005C:  GOTO   074
+....................             { 
+....................                   delay_ms(20); 
+005D:  MOVLW  14
+005E:  MOVWF  22
+005F:  GOTO   012
+....................                   if(input(pin_e0)==0) 
+0060:  BSF    03.5
+0061:  BSF    09.0
+0062:  BCF    03.5
+0063:  BTFSC  09.0
+0064:  GOTO   074
+....................                   { 
+....................                         putc(kt[n]); 
+0065:  MOVF   20,W
+0066:  CALL   004
+0067:  BTFSS  0C.4
+0068:  GOTO   067
+0069:  MOVWF  19
+....................                         n++;if(n==10)n=0; 
+006A:  INCF   20,F
+006B:  MOVF   20,W
+006C:  SUBLW  0A
+006D:  BTFSC  03.2
+006E:  CLRF   20
+....................                         while(input(pin_e0)==0); 
+006F:  BSF    03.5
+0070:  BSF    09.0
+0071:  BCF    03.5
+0072:  BTFSS  09.0
+0073:  GOTO   06F
+....................                   } 
+....................             } 
+0074:  BSF    03.5
+0075:  GOTO   059
+....................       }      
+.................... } 
+0076:  SLEEP
+
+Configuration Fuses:
+   Word  1: 2FE4   INTRC_IO NOWDT PUT MCLR NOPROTECT NOCPD BROWNOUT IESO FCMEN NOLVP NODEBUG
+   Word  2: 3FFF   BORV40 NOWRT
