@@ -1,0 +1,54 @@
+
+ROM used:   394/8192 (5%)
+            394/8192 (5%) including unused fragments
+
+            0.5 Average locations per line
+            10.4 Average locations per statement
+
+RAM used:   21/368 (6%) at main() level
+            28/368 (8%) worst case
+
+Stack used: 3 worst case (2 in main + 1 for interrupts)
+Stack size: 8
+
+Lines Stmts  %   Files
+----- ----- ---  -----
+   82    38 100  PicB.c
+  768     0   0  C:\Program Files (x86)\PICC\Devices\16f887.h
+----- -----
+  850    38 Total
+
+Page ROM  %  RAM   Vol Diff  Functions:
+---- --- --- ---   --- ----  ----------
+0     14   4    0             @const623
+0     79  20    3   227  5.4  dem_giay
+0     37   9    5    47  1.8  @DIV1616
+0     12   3    0    29  1.2  interrupts_timer1
+0     12   3    1    47  1.8  nut_nhan
+0    113  29    0   346  2.8  MAIN
+0     69  18    0   226  2.7  rcv_data_interrupt
+ Inline         0   226  2.7  @cinit1
+
+Program metrics:
+    Functions               7
+    Statements              38
+    Comments                148
+    Volume (V)              1759
+    Difficulty (D)          19.2
+    Effort to implement (E) 33745
+    Time to implement (T)   31 minutes
+    Est Delivered Bugs (B)  0
+    Cyclomatic Complexity   12
+    Maintainability (MI)    152
+
+ Segment     Used  Free
+-----------  ----  ----
+00000-00003     4  0  
+00004-00039    54  0  
+0003A-007FF   336  1654  
+00800-00FFF     0  2048  
+01000-017FF     0  2048  
+01800-01FFF     0  2048  
+
+
+

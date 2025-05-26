@@ -1,0 +1,509 @@
+CCS PCM C Compiler, Version 5.015, 5967               26-May-25 21:59
+
+               Filename:   E:\University\Nam 3\2024_2025_HK2\Vi xu ly\Giai_de_vxl_hk2_22\Cau1,2\PicB.lst
+
+               ROM used:   394 words (5%)
+                           Largest free fragment is 2048
+               RAM used:   21 (6%) at main() level
+                           28 (8%) worst case
+               Stack used: 3 locations (2 in main + 1 for interrupts)
+               Stack size: 8
+
+*
+0000:  MOVLW  01
+0001:  MOVWF  0A
+0002:  GOTO   119
+0003:  NOP
+0004:  MOVWF  7F
+0005:  SWAPF  03,W
+0006:  CLRF   03
+0007:  MOVWF  21
+0008:  MOVF   0A,W
+0009:  MOVWF  20
+000A:  CLRF   0A
+000B:  MOVF   04,W
+000C:  MOVWF  22
+000D:  MOVF   77,W
+000E:  MOVWF  23
+000F:  MOVF   78,W
+0010:  MOVWF  24
+0011:  MOVF   79,W
+0012:  MOVWF  25
+0013:  MOVF   7A,W
+0014:  MOVWF  26
+0015:  BCF    03.7
+0016:  BCF    03.5
+0017:  MOVLW  8C
+0018:  MOVWF  04
+0019:  BTFSS  00.5
+001A:  GOTO   01D
+001B:  BTFSC  0C.5
+001C:  GOTO   034
+001D:  MOVLW  8C
+001E:  MOVWF  04
+001F:  BTFSS  00.0
+0020:  GOTO   023
+0021:  BTFSC  0C.0
+0022:  GOTO   037
+0023:  MOVF   22,W
+0024:  MOVWF  04
+0025:  MOVF   23,W
+0026:  MOVWF  77
+0027:  MOVF   24,W
+0028:  MOVWF  78
+0029:  MOVF   25,W
+002A:  MOVWF  79
+002B:  MOVF   26,W
+002C:  MOVWF  7A
+002D:  MOVF   20,W
+002E:  MOVWF  0A
+002F:  SWAPF  21,W
+0030:  MOVWF  03
+0031:  SWAPF  7F,F
+0032:  SWAPF  7F,W
+0033:  RETFIE
+0034:  BCF    0A.3
+0035:  BCF    0A.4
+0036:  GOTO   054
+0037:  BCF    0A.3
+0038:  BCF    0A.4
+0039:  GOTO   048
+.................... /* 
+.................... SS = (Vref+ - Vref-)/(2^n - 1) = 4.887 mV 
+....................  
+.................... PR2 = [(T*Fosc)/(4*T2_prescale)] - 1 = 249 
+.................... HSCK_max = (PR2 + 1)*4 = 1000 
+.................... HSCK_25% = 25%*HSCK_max = 250 
+.................... HSCK_50% = 50%*HSCK_max = 500 
+.................... HSCK_75% = 75%*HSCK_max = 750 
+.................... */ 
+.................... #include<16f887.h> 
+.................... //////////// Standard Header file for the PIC16F887 device //////////////// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... ////        (C) Copyright 1996, 2013 Custom Computer Services          //// 
+.................... //// This source code may only be used by licensed users of the CCS C  //// 
+.................... //// compiler.  This source code may only be distributed to other      //// 
+.................... //// licensed users of the CCS C compiler.  No other use, reproduction //// 
+.................... //// or distribution is permitted without written permission.          //// 
+.................... //// Derivative programs created using this software in object code    //// 
+.................... //// form are not restricted in any way.                               //// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... #device PIC16F887 
+003A:  BCF    0A.0
+003B:  BCF    0A.1
+003C:  BCF    0A.2
+003D:  ADDWF  02,F
+003E:  RETLW  C0
+003F:  RETLW  F9
+0040:  RETLW  A4
+0041:  RETLW  B0
+0042:  RETLW  99
+0043:  RETLW  92
+0044:  RETLW  82
+0045:  RETLW  F8
+0046:  RETLW  80
+0047:  RETLW  90
+*
+0099:  CLRF   78
+009A:  CLRF   79
+009B:  CLRF   77
+009C:  CLRF   7A
+009D:  MOVF   35,W
+009E:  BTFSS  03.2
+009F:  GOTO   0A3
+00A0:  MOVF   34,W
+00A1:  BTFSC  03.2
+00A2:  GOTO   0BD
+00A3:  MOVLW  10
+00A4:  MOVWF  36
+00A5:  BCF    03.0
+00A6:  RLF    32,F
+00A7:  RLF    33,F
+00A8:  RLF    77,F
+00A9:  RLF    7A,F
+00AA:  MOVF   35,W
+00AB:  SUBWF  7A,W
+00AC:  BTFSS  03.2
+00AD:  GOTO   0B0
+00AE:  MOVF   34,W
+00AF:  SUBWF  77,W
+00B0:  BTFSS  03.0
+00B1:  GOTO   0B9
+00B2:  MOVF   34,W
+00B3:  SUBWF  77,F
+00B4:  BTFSS  03.0
+00B5:  DECF   7A,F
+00B6:  MOVF   35,W
+00B7:  SUBWF  7A,F
+00B8:  BSF    03.0
+00B9:  RLF    78,F
+00BA:  RLF    79,F
+00BB:  DECFSZ 36,F
+00BC:  GOTO   0A5
+00BD:  RETURN
+....................  
+.................... #list 
+....................  
+.................... #fuses hs 
+.................... #use delay(clock=20M) 
+.................... #use rs232 (baud=9600, xmit=pin_c6, rcv=pin_c7) 
+....................  
+.................... #define BTB    pin_e1 
+....................  
+.................... const unsigned int8 m7d[10]={0xc0,0xf9,0xa4,0xb0,0x99,0x92,0x82,0xf8,0x80,0x90}; 
+.................... unsigned int16 bdt=0, giay=0, duty=0, rcv_data; 
+....................  
+.................... void dem_giay() 
+.................... { 
+....................    if(bdt == 10) 
+00BE:  MOVF   27,W
+00BF:  SUBLW  0A
+00C0:  BTFSS  03.2
+00C1:  GOTO   0D4
+00C2:  MOVF   28,F
+00C3:  BTFSS  03.2
+00C4:  GOTO   0D4
+....................    { 
+....................       bdt=0; 
+00C5:  CLRF   28
+00C6:  CLRF   27
+....................       if(giay < 59)  giay++; 
+00C7:  MOVF   2A,F
+00C8:  BTFSS  03.2
+00C9:  GOTO   0D2
+00CA:  MOVF   29,W
+00CB:  SUBLW  3A
+00CC:  BTFSS  03.0
+00CD:  GOTO   0D2
+00CE:  INCF   29,F
+00CF:  BTFSC  03.2
+00D0:  INCF   2A,F
+00D1:  GOTO   0D4
+....................       else           giay = 0; 
+00D2:  CLRF   2A
+00D3:  CLRF   29
+....................    } 
+....................     
+....................    output_d(m7d[giay/1%10]); 
+00D4:  MOVF   2A,W
+00D5:  MOVWF  33
+00D6:  MOVF   29,W
+00D7:  MOVWF  32
+00D8:  CLRF   35
+00D9:  MOVLW  0A
+00DA:  MOVWF  34
+00DB:  CALL   099
+00DC:  MOVF   77,W
+00DD:  MOVWF  30
+00DE:  MOVF   7A,W
+00DF:  MOVWF  31
+00E0:  MOVWF  7A
+00E1:  MOVF   77,W
+00E2:  CALL   03A
+00E3:  MOVWF  32
+00E4:  BSF    03.5
+00E5:  CLRF   08
+00E6:  BCF    03.5
+00E7:  MOVF   32,W
+00E8:  MOVWF  08
+....................    output_b(m7d[giay/10%10]); 
+00E9:  MOVF   2A,W
+00EA:  MOVWF  33
+00EB:  MOVF   29,W
+00EC:  MOVWF  32
+00ED:  CLRF   35
+00EE:  MOVLW  0A
+00EF:  MOVWF  34
+00F0:  CALL   099
+00F1:  MOVF   79,W
+00F2:  MOVWF  31
+00F3:  MOVF   78,W
+00F4:  MOVWF  30
+00F5:  MOVF   79,W
+00F6:  MOVWF  33
+00F7:  MOVF   78,W
+00F8:  MOVWF  32
+00F9:  CLRF   35
+00FA:  MOVLW  0A
+00FB:  MOVWF  34
+00FC:  CALL   099
+00FD:  MOVF   77,W
+00FE:  MOVWF  30
+00FF:  MOVF   7A,W
+0100:  MOVWF  31
+0101:  MOVWF  7A
+0102:  MOVF   77,W
+0103:  CALL   03A
+0104:  MOVWF  32
+0105:  BSF    03.5
+0106:  CLRF   06
+0107:  BCF    03.5
+0108:  MOVF   32,W
+0109:  MOVWF  06
+010A:  BCF    0A.3
+010B:  BCF    0A.4
+010C:  GOTO   187 (RETURN)
+.................... } 
+....................  
+.................... #int_timer1 
+.................... void interrupts_timer1() 
+.................... { 
+....................    bdt++; 
+*
+0048:  INCF   27,F
+0049:  BTFSC  03.2
+004A:  INCF   28,F
+....................    set_timer1(3036); 
+004B:  CLRF   0E
+004C:  MOVLW  0B
+004D:  MOVWF  0F
+004E:  MOVLW  DC
+004F:  MOVWF  0E
+0050:  BCF    0C.0
+0051:  BCF    0A.3
+0052:  BCF    0A.4
+0053:  GOTO   023
+.................... } 
+....................  
+.................... void nut_nhan() 
+.................... { 
+....................    if(input(BTB) == 0)  putc(0xBB); 
+*
+010D:  BSF    03.5
+010E:  BSF    09.1
+010F:  BCF    03.5
+0110:  BTFSC  09.1
+0111:  GOTO   116
+0112:  MOVLW  BB
+0113:  BTFSS  0C.4
+0114:  GOTO   113
+0115:  MOVWF  19
+0116:  BCF    0A.3
+0117:  BCF    0A.4
+0118:  GOTO   188 (RETURN)
+.................... } 
+....................  
+.................... void main() 
+0119:  MOVF   03,W
+011A:  ANDLW  1F
+011B:  MOVWF  03
+011C:  BSF    03.5
+011D:  BSF    03.6
+011E:  BSF    07.3
+011F:  MOVLW  08
+0120:  BCF    03.6
+0121:  MOVWF  19
+0122:  MOVLW  02
+0123:  MOVWF  1A
+0124:  MOVLW  A6
+0125:  MOVWF  18
+0126:  MOVLW  90
+0127:  BCF    03.5
+0128:  MOVWF  18
+0129:  CLRF   28
+012A:  CLRF   27
+012B:  CLRF   2A
+012C:  CLRF   29
+012D:  CLRF   2C
+012E:  CLRF   2B
+012F:  MOVLW  FF
+0130:  MOVWF  2F
+0131:  BSF    03.5
+0132:  BSF    03.6
+0133:  MOVF   09,W
+0134:  ANDLW  C0
+0135:  MOVWF  09
+0136:  BCF    03.6
+0137:  BCF    1F.4
+0138:  BCF    1F.5
+0139:  MOVLW  00
+013A:  BSF    03.6
+013B:  MOVWF  08
+013C:  BCF    03.5
+013D:  CLRF   07
+013E:  CLRF   08
+013F:  CLRF   09
+0140:  BCF    03.7
+.................... { 
+....................    set_tris_c(0x80); 
+0141:  MOVLW  80
+0142:  BSF    03.5
+0143:  BCF    03.6
+0144:  MOVWF  07
+0145:  BCF    03.5
+0146:  MOVWF  2F
+....................    set_tris_b(0); 
+0147:  MOVLW  00
+0148:  BSF    03.5
+0149:  MOVWF  06
+....................    set_tris_d(0); 
+014A:  MOVWF  08
+....................    set_tris_e(0xff); 
+014B:  BSF    09.0
+014C:  BSF    09.1
+014D:  BSF    09.2
+014E:  BSF    09.3
+....................     
+....................    setup_timer_1(t1_internal | t1_div_by_8); 
+014F:  MOVLW  35
+0150:  BCF    03.5
+0151:  MOVWF  10
+....................    set_timer1(3036); 
+0152:  CLRF   0E
+0153:  MOVLW  0B
+0154:  MOVWF  0F
+0155:  MOVLW  DC
+0156:  MOVWF  0E
+....................     
+....................    enable_interrupts(global); 
+0157:  MOVLW  C0
+0158:  IORWF  0B,F
+....................    enable_interrupts(int_timer1); 
+0159:  BSF    03.5
+015A:  BSF    0C.0
+....................    enable_interrupts(int_rda); 
+015B:  BSF    0C.5
+....................     
+....................    setup_timer_2(t2_div_by_16, 249, 1); 
+015C:  MOVLW  00
+015D:  MOVWF  78
+015E:  IORLW  06
+015F:  BCF    03.5
+0160:  MOVWF  12
+0161:  MOVLW  F9
+0162:  BSF    03.5
+0163:  MOVWF  12
+....................    setup_ccp1(CCP_PWM); 
+0164:  BCF    03.5
+0165:  BCF    2F.2
+0166:  MOVF   2F,W
+0167:  BSF    03.5
+0168:  MOVWF  07
+0169:  BCF    03.5
+016A:  BCF    07.2
+016B:  MOVLW  0C
+016C:  MOVWF  17
+016D:  BSF    03.5
+016E:  CLRF   1B
+016F:  CLRF   1C
+0170:  MOVLW  01
+0171:  MOVWF  1D
+....................    set_pwm1_duty(duty); 
+0172:  BCF    03.5
+0173:  MOVF   2C,W
+0174:  MOVWF  79
+0175:  MOVF   2B,W
+0176:  MOVWF  78
+0177:  RRF    79,F
+0178:  RRF    78,F
+0179:  RRF    79,F
+017A:  RRF    78,F
+017B:  RRF    79,F
+017C:  MOVF   78,W
+017D:  MOVWF  15
+017E:  RRF    79,F
+017F:  RRF    79,W
+0180:  ANDLW  30
+0181:  MOVWF  77
+0182:  MOVF   17,W
+0183:  ANDLW  CF
+0184:  IORWF  77,W
+0185:  MOVWF  17
+....................     
+....................    while(true) 
+....................    { 
+....................       dem_giay(); 
+0186:  GOTO   0BE
+....................       nut_nhan(); 
+0187:  GOTO   10D
+0188:  GOTO   186
+....................    } 
+.................... } 
+....................  
+.................... #int_rda 
+.................... void rcv_data_interrupt() 
+0189:  SLEEP
+.................... { 
+....................    rcv_data = getc(); 
+*
+0054:  BTFSS  0C.5
+0055:  GOTO   054
+0056:  MOVF   1A,W
+0057:  CLRF   2E
+0058:  MOVWF  2D
+....................    if(rcv_data == 0xA0)    duty=0; 
+0059:  MOVF   2D,W
+005A:  SUBLW  A0
+005B:  BTFSS  03.2
+005C:  GOTO   062
+005D:  MOVF   2E,F
+005E:  BTFSS  03.2
+005F:  GOTO   062
+0060:  CLRF   2C
+0061:  CLRF   2B
+....................    if(rcv_data == 0xA1)    duty=250; 
+0062:  MOVF   2D,W
+0063:  SUBLW  A1
+0064:  BTFSS  03.2
+0065:  GOTO   06C
+0066:  MOVF   2E,F
+0067:  BTFSS  03.2
+0068:  GOTO   06C
+0069:  CLRF   2C
+006A:  MOVLW  FA
+006B:  MOVWF  2B
+....................    if(rcv_data == 0xA2)    duty=500; 
+006C:  MOVF   2D,W
+006D:  SUBLW  A2
+006E:  BTFSS  03.2
+006F:  GOTO   077
+0070:  MOVF   2E,F
+0071:  BTFSS  03.2
+0072:  GOTO   077
+0073:  MOVLW  01
+0074:  MOVWF  2C
+0075:  MOVLW  F4
+0076:  MOVWF  2B
+....................    if(rcv_data == 0xA3)    duty=750; 
+0077:  MOVF   2D,W
+0078:  SUBLW  A3
+0079:  BTFSS  03.2
+007A:  GOTO   082
+007B:  MOVF   2E,F
+007C:  BTFSS  03.2
+007D:  GOTO   082
+007E:  MOVLW  02
+007F:  MOVWF  2C
+0080:  MOVLW  EE
+0081:  MOVWF  2B
+....................     
+....................    set_pwm1_duty(duty); 
+0082:  MOVF   2C,W
+0083:  MOVWF  79
+0084:  MOVF   2B,W
+0085:  MOVWF  78
+0086:  RRF    79,F
+0087:  RRF    78,F
+0088:  RRF    79,F
+0089:  RRF    78,F
+008A:  RRF    79,F
+008B:  MOVF   78,W
+008C:  MOVWF  15
+008D:  RRF    79,F
+008E:  RRF    79,W
+008F:  ANDLW  30
+0090:  MOVWF  77
+0091:  MOVF   17,W
+0092:  ANDLW  CF
+0093:  IORWF  77,W
+0094:  MOVWF  17
+0095:  BCF    0C.5
+0096:  BCF    0A.3
+0097:  BCF    0A.4
+0098:  GOTO   023
+.................... } 
+....................  
+
+Configuration Fuses:
+   Word  1: 2FE2   HS NOWDT PUT MCLR NOPROTECT NOCPD BROWNOUT IESO FCMEN NOLVP NODEBUG
+   Word  2: 3FFF   BORV40 NOWRT

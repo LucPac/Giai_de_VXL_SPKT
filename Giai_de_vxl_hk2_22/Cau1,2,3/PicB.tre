@@ -1,0 +1,12 @@
+ÀÄPicB
+   ÃÄMAIN  0/113  Ram=0
+   ³  ÃÄ@cinit1  (Inline)  Ram=0
+   ³  ÃÄdem_giay  0/79  Ram=3
+   ³  ³  ÃÄ@DIV1616  0/37  Ram=5
+   ³  ³  ÃÄ@const623  0/14  Ram=0
+   ³  ³  ÃÄ@DIV1616  0/37  Ram=5
+   ³  ³  ÃÄ@DIV1616  0/37  Ram=5
+   ³  ³  ÀÄ@const623  0/14  Ram=0
+   ³  ÀÄnut_nhan  0/12  Ram=1
+   ÃÄinterrupts_timer1  0/12  Ram=0
+   ÀÄrcv_data_interrupt  0/69  Ram=0
