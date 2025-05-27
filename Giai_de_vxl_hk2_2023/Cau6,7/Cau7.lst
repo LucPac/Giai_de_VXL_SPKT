@@ -1,6 +1,6 @@
-CCS PCM C Compiler, Version 5.015, 5967               24-May-25 09:37
+CCS PCM C Compiler, Version 5.015, 5967               27-May-25 16:03
 
-               Filename:   E:\University\Nam 3\2024_2025_HK2\Vi xu ly\Giai_de_vxl_hk2_2023\Cau7\Cau7.lst
+               Filename:   E:\University\Nam 3\2024_2025_HK2\Vi xu ly\Giai_de_vxl_hk2_2023\Cau6,7\Cau7.lst
 
                ROM used:   676 words (8%)
                            Largest free fragment is 2048
@@ -712,7 +712,7 @@ CCS PCM C Compiler, Version 5.015, 5967               24-May-25 09:37
 0266:  MOVLW  C0
 0267:  MOVWF  22
 0268:  CALL   01D
-....................       printf(lcd_data, "K1=%02u",temp0); 
+....................       printf(lcd_data, "K1=%2u",temp0); 
 0269:  MOVLW  4B
 026A:  MOVWF  25
 026B:  CALL   05C
@@ -724,7 +724,7 @@ CCS PCM C Compiler, Version 5.015, 5967               24-May-25 09:37
 0271:  CALL   05C
 0272:  MOVF   20,W
 0273:  MOVWF  22
-0274:  MOVLW  01
+0274:  MOVLW  11
 0275:  MOVWF  23
 0276:  CALL   191
 ....................       lcd_command(0xc0+5); 
@@ -748,7 +748,7 @@ CCS PCM C Compiler, Version 5.015, 5967               24-May-25 09:37
 0284:  MOVLW  C9
 0285:  MOVWF  22
 0286:  CALL   01D
-....................       printf(lcd_data, "K2=%02u",temp1); 
+....................       printf(lcd_data, "K2=%2u",temp1); 
 0287:  MOVLW  4B
 0288:  MOVWF  25
 0289:  CALL   05C
@@ -760,7 +760,7 @@ CCS PCM C Compiler, Version 5.015, 5967               24-May-25 09:37
 028F:  CALL   05C
 0290:  MOVF   21,W
 0291:  MOVWF  22
-0292:  MOVLW  01
+0292:  MOVLW  11
 0293:  MOVWF  23
 0294:  CALL   191
 ....................       lcd_command(0xc0+14); 

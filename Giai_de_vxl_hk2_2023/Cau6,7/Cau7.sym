@@ -62,14 +62,14 @@ ROM Allocation:
 0001DA  @cinit2
 
 Project Directory:
-    E:\University\Nam 3\2024_2025_HK2\Vi xu ly\Giai_de_vxl_hk2_2023\Cau7\
+    E:\University\Nam 3\2024_2025_HK2\Vi xu ly\Giai_de_vxl_hk2_2023\Cau6,7\
 
 Project Files:
-    Cau7.c                                                  [23-May-25 21:50  CRC=9BBA5B55]
+    Cau7.c                                                  [27-May-25 16:04  CRC=5981525F]
     C:\Program Files (x86)\PICC\Devices\16f887.h            [12-Nov-13 14:35  CRC=6CB1A611]
     tv_lcd.c                                                [12-Mar-25 09:28  CRC=85F53194]
 
-Source signature=1456648E
+Source signature=D21D5B98
 
 Units:
     Cau7 (main)

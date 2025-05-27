@@ -37,13 +37,13 @@ void main()
       temp1 = read_adc()*0.293255132; // tinh o tren
       
       lcd_command(0xc0);
-      printf(lcd_data, "K1=%2u",temp0);
+      printf(lcd_data, "K1=%02u",temp0);
       lcd_command(0xc0+5);
       lcd_data(0xdf);
       lcd_data("C");
       
       lcd_command(0xc0+9);
-      printf(lcd_data, "K2=%2u",temp1);
+      printf(lcd_data, "K2=%02u",temp1);
       lcd_command(0xc0+14);
       lcd_data(0xdf);
       lcd_data("C");
