@@ -1,0 +1,71 @@
+#include<16f887.h>
+#fuses hs
+#use delay(clock=20M)
+
+#use rs232 (baud=2400, xmit=pin_c6, rcv=pin_c7)
+
+#define TOT    pin_a0
+#define XAU    pin_a1
+
+const unsigned int8 m7d[]={0xc0, 0xf9, 0xa4, 0xb0, 0x99, 0x92, 0x82, 0xf8, 0x80, 0x90};
+unsigned int8 sptot=0, spxau=0, rcv_data;
+
+void dem_san_pham_va_gui_ky_tu()
+{
+   if(input(TOT)==0)
+   {
+      delay_ms(20);
+      if(input(TOT)==0)
+      {
+         if(sptot < 9)  
+         {
+            sptot++;
+            putc('T');
+         }
+         else           sptot=0;
+         while(input(TOT)==0)
+      }
+   }
+   
+   if(input(XAU)==0)
+   {
+      delay_ms(20);
+      if(input(XAU)==0)
+      {
+         if(spxau < 9)  
+         {
+            spxau++;
+            putc('X');
+         }
+         else           spxau=0;
+         while(input(XAU)==0)
+      }
+   }
+   
+   output_d(m7d[sptot%10]);
+   output_b(m7d[spxau%10]);
+}
+
+void main()
+{
+   set_tris_a(0xff);
+   set_tris_b(0);
+   set_tris_c(0x80);
+   set_tris_d(0);
+   
+   enable_interrupts(global);
+   enable_interrupts(int_rda);
+   
+   while(true)
+   {
+      dem_san_pham_va_gui_ky_tu();
+   }
+}
+
+#int_rda
+void interrupt_rcv_data()
+{
+   rcv_data = getc();
+   
+   if(rcv_data == 'D')     while(rcv_data != 'C');
+}

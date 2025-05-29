@@ -1,0 +1,11 @@
+ÀÄCau2
+   ÃÄMAIN  0/58  Ram=0
+   ³  ÃÄ@cinit1  (Inline)  Ram=0
+   ³  ÀÄdem_san_pham_va_gui_ky_tu  0/87  Ram=1
+   ³     ÃÄ@delay_ms1  0/20  Ram=1
+   ³     ÃÄ@delay_ms1  0/20  Ram=1
+   ³     ÃÄ@DIV88  0/21  Ram=3
+   ³     ÃÄ@const623  0/14  Ram=0
+   ³     ÃÄ@DIV88  0/21  Ram=3
+   ³     ÀÄ@const623  0/14  Ram=0
+   ÀÄinterrupt_rcv_data  0/20  Ram=0

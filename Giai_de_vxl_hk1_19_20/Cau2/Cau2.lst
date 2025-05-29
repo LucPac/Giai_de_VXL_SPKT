@@ -1,0 +1,381 @@
+CCS PCM C Compiler, Version 5.015, 5967               29-May-25 21:35
+
+               Filename:   E:\University\Nam 3\2024_2025_HK2\Vi xu ly\Giai_de_vxl_hk1_19_20\Cau2\Cau2.lst
+
+               ROM used:   269 words (3%)
+                           Largest free fragment is 2048
+               RAM used:   16 (4%) at main() level
+                           19 (5%) worst case
+               Stack used: 3 locations (2 in main + 1 for interrupts)
+               Stack size: 8
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   0D3
+0003:  NOP
+0004:  MOVWF  7F
+0005:  SWAPF  03,W
+0006:  CLRF   03
+0007:  MOVWF  21
+0008:  MOVF   0A,W
+0009:  MOVWF  20
+000A:  CLRF   0A
+000B:  MOVF   04,W
+000C:  MOVWF  22
+000D:  MOVF   77,W
+000E:  MOVWF  23
+000F:  MOVF   78,W
+0010:  MOVWF  24
+0011:  MOVF   79,W
+0012:  MOVWF  25
+0013:  MOVF   7A,W
+0014:  MOVWF  26
+0015:  BCF    03.7
+0016:  BCF    03.5
+0017:  MOVLW  8C
+0018:  MOVWF  04
+0019:  BTFSS  00.5
+001A:  GOTO   01D
+001B:  BTFSC  0C.5
+001C:  GOTO   02E
+001D:  MOVF   22,W
+001E:  MOVWF  04
+001F:  MOVF   23,W
+0020:  MOVWF  77
+0021:  MOVF   24,W
+0022:  MOVWF  78
+0023:  MOVF   25,W
+0024:  MOVWF  79
+0025:  MOVF   26,W
+0026:  MOVWF  7A
+0027:  MOVF   20,W
+0028:  MOVWF  0A
+0029:  SWAPF  21,W
+002A:  MOVWF  03
+002B:  SWAPF  7F,F
+002C:  SWAPF  7F,W
+002D:  RETFIE
+002E:  BCF    0A.3
+002F:  BCF    0A.4
+0030:  GOTO   03F
+.................... #include<16f887.h> 
+.................... //////////// Standard Header file for the PIC16F887 device //////////////// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... ////        (C) Copyright 1996, 2013 Custom Computer Services          //// 
+.................... //// This source code may only be used by licensed users of the CCS C  //// 
+.................... //// compiler.  This source code may only be distributed to other      //// 
+.................... //// licensed users of the CCS C compiler.  No other use, reproduction //// 
+.................... //// or distribution is permitted without written permission.          //// 
+.................... //// Derivative programs created using this software in object code    //// 
+.................... //// form are not restricted in any way.                               //// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... #device PIC16F887 
+0031:  BCF    0A.0
+0032:  BCF    0A.1
+0033:  BCF    0A.2
+0034:  ADDWF  02,F
+0035:  RETLW  C0
+0036:  RETLW  F9
+0037:  RETLW  A4
+0038:  RETLW  B0
+0039:  RETLW  99
+003A:  RETLW  92
+003B:  RETLW  82
+003C:  RETLW  F8
+003D:  RETLW  80
+003E:  RETLW  90
+*
+0067:  MOVF   2C,W
+0068:  CLRF   78
+0069:  SUBWF  2B,W
+006A:  BTFSC  03.0
+006B:  GOTO   06F
+006C:  MOVF   2B,W
+006D:  MOVWF  77
+006E:  GOTO   07B
+006F:  CLRF   77
+0070:  MOVLW  08
+0071:  MOVWF  2D
+0072:  RLF    2B,F
+0073:  RLF    77,F
+0074:  MOVF   2C,W
+0075:  SUBWF  77,W
+0076:  BTFSC  03.0
+0077:  MOVWF  77
+0078:  RLF    78,F
+0079:  DECFSZ 2D,F
+007A:  GOTO   072
+007B:  RETURN
+....................  
+.................... #list 
+....................  
+.................... #fuses hs 
+.................... #use delay(clock=20M) 
+*
+0053:  MOVLW  2B
+0054:  MOVWF  04
+0055:  BCF    03.7
+0056:  MOVF   00,W
+0057:  BTFSC  03.2
+0058:  GOTO   066
+0059:  MOVLW  06
+005A:  MOVWF  78
+005B:  CLRF   77
+005C:  DECFSZ 77,F
+005D:  GOTO   05C
+005E:  DECFSZ 78,F
+005F:  GOTO   05B
+0060:  MOVLW  7B
+0061:  MOVWF  77
+0062:  DECFSZ 77,F
+0063:  GOTO   062
+0064:  DECFSZ 00,F
+0065:  GOTO   059
+0066:  RETURN
+....................  
+.................... #use rs232 (baud=2400, xmit=pin_c6, rcv=pin_c7) 
+....................  
+.................... #define TOT    pin_a0 
+.................... #define XAU    pin_a1 
+....................  
+.................... const unsigned int8 m7d[]={0xc0, 0xf9, 0xa4, 0xb0, 0x99, 0x92, 0x82, 0xf8, 0x80, 0x90}; 
+.................... unsigned int8 sptot=0, spxau=0, rcv_data; 
+.................... void dem_san_pham_va_gui_ky_tu() 
+.................... { 
+....................    if(input(TOT)==0) 
+*
+007C:  BSF    03.5
+007D:  BSF    05.0
+007E:  BCF    03.5
+007F:  BTFSC  05.0
+0080:  GOTO   099
+....................    { 
+....................       delay_ms(20); 
+0081:  MOVLW  14
+0082:  MOVWF  2B
+0083:  CALL   053
+....................       if(input(TOT)==0) 
+0084:  BSF    03.5
+0085:  BSF    05.0
+0086:  BCF    03.5
+0087:  BTFSC  05.0
+0088:  GOTO   099
+....................       { 
+....................          if(sptot < 9)   
+0089:  MOVF   27,W
+008A:  SUBLW  08
+008B:  BTFSS  03.0
+008C:  GOTO   093
+....................          { 
+....................             sptot++; 
+008D:  INCF   27,F
+....................             putc('T'); 
+008E:  MOVLW  54
+008F:  BTFSS  0C.4
+0090:  GOTO   08F
+0091:  MOVWF  19
+....................          } 
+0092:  GOTO   094
+....................          else           sptot=0; 
+0093:  CLRF   27
+....................          while(input(TOT)==0); 
+0094:  BSF    03.5
+0095:  BSF    05.0
+0096:  BCF    03.5
+0097:  BTFSS  05.0
+0098:  GOTO   094
+....................       } 
+....................    } 
+....................     
+....................    if(input(XAU)==0) 
+0099:  BSF    03.5
+009A:  BSF    05.1
+009B:  BCF    03.5
+009C:  BTFSC  05.1
+009D:  GOTO   0B6
+....................    { 
+....................       delay_ms(20); 
+009E:  MOVLW  14
+009F:  MOVWF  2B
+00A0:  CALL   053
+....................       if(input(XAU)==0) 
+00A1:  BSF    03.5
+00A2:  BSF    05.1
+00A3:  BCF    03.5
+00A4:  BTFSC  05.1
+00A5:  GOTO   0B6
+....................       { 
+....................          if(spxau < 9)   
+00A6:  MOVF   28,W
+00A7:  SUBLW  08
+00A8:  BTFSS  03.0
+00A9:  GOTO   0B0
+....................          { 
+....................             spxau++; 
+00AA:  INCF   28,F
+....................             putc('X'); 
+00AB:  MOVLW  58
+00AC:  BTFSS  0C.4
+00AD:  GOTO   0AC
+00AE:  MOVWF  19
+....................          } 
+00AF:  GOTO   0B1
+....................          else           spxau=0; 
+00B0:  CLRF   28
+....................          while(input(XAU)==0); 
+00B1:  BSF    03.5
+00B2:  BSF    05.1
+00B3:  BCF    03.5
+00B4:  BTFSS  05.1
+00B5:  GOTO   0B1
+....................       } 
+....................    } 
+....................     
+....................    output_d(m7d[sptot%10]); 
+00B6:  MOVF   27,W
+00B7:  MOVWF  2B
+00B8:  MOVLW  0A
+00B9:  MOVWF  2C
+00BA:  CALL   067
+00BB:  MOVF   77,W
+00BC:  CALL   031
+00BD:  MOVWF  2B
+00BE:  BSF    03.5
+00BF:  CLRF   08
+00C0:  BCF    03.5
+00C1:  MOVF   2B,W
+00C2:  MOVWF  08
+....................    output_b(m7d[spxau%10]); 
+00C3:  MOVF   28,W
+00C4:  MOVWF  2B
+00C5:  MOVLW  0A
+00C6:  MOVWF  2C
+00C7:  CALL   067
+00C8:  MOVF   77,W
+00C9:  CALL   031
+00CA:  MOVWF  2B
+00CB:  BSF    03.5
+00CC:  CLRF   06
+00CD:  BCF    03.5
+00CE:  MOVF   2B,W
+00CF:  MOVWF  06
+00D0:  BCF    0A.3
+00D1:  BCF    0A.4
+00D2:  GOTO   10B (RETURN)
+.................... } 
+....................  
+.................... void main() 
+00D3:  MOVF   03,W
+00D4:  ANDLW  1F
+00D5:  MOVWF  03
+00D6:  BSF    03.5
+00D7:  BSF    03.6
+00D8:  BSF    07.3
+00D9:  MOVLW  22
+00DA:  BCF    03.6
+00DB:  MOVWF  19
+00DC:  MOVLW  08
+00DD:  MOVWF  1A
+00DE:  MOVLW  A6
+00DF:  MOVWF  18
+00E0:  MOVLW  90
+00E1:  BCF    03.5
+00E2:  MOVWF  18
+00E3:  CLRF   27
+00E4:  CLRF   28
+00E5:  MOVLW  FF
+00E6:  MOVWF  2A
+00E7:  BSF    03.5
+00E8:  BSF    03.6
+00E9:  MOVF   09,W
+00EA:  ANDLW  C0
+00EB:  MOVWF  09
+00EC:  BCF    03.6
+00ED:  BCF    1F.4
+00EE:  BCF    1F.5
+00EF:  MOVLW  00
+00F0:  BSF    03.6
+00F1:  MOVWF  08
+00F2:  BCF    03.5
+00F3:  CLRF   07
+00F4:  CLRF   08
+00F5:  CLRF   09
+00F6:  BCF    03.7
+.................... { 
+....................    set_tris_a(0xff); 
+00F7:  MOVLW  FF
+00F8:  BSF    03.5
+00F9:  BCF    03.6
+00FA:  MOVWF  05
+....................    set_tris_b(0); 
+00FB:  MOVLW  00
+00FC:  MOVWF  06
+....................    set_tris_c(0x80); 
+00FD:  MOVLW  80
+00FE:  MOVWF  07
+00FF:  BCF    03.5
+0100:  MOVWF  2A
+....................    set_tris_d(0); 
+0101:  MOVLW  00
+0102:  BSF    03.5
+0103:  MOVWF  08
+....................     
+....................    enable_interrupts(global); 
+0104:  MOVLW  C0
+0105:  BCF    03.5
+0106:  IORWF  0B,F
+....................    enable_interrupts(int_rda); 
+0107:  BSF    03.5
+0108:  BSF    0C.5
+....................     
+....................    while(true) 
+....................    { 
+....................       dem_san_pham_va_gui_ky_tu(); 
+0109:  BCF    03.5
+010A:  GOTO   07C
+010B:  GOTO   10A
+....................    } 
+.................... } 
+....................  
+.................... #int_rda 
+.................... void interrupt_rcv_data() 
+010C:  SLEEP
+.................... { 
+....................    rcv_data = getc(); 
+*
+003F:  BTFSS  0C.5
+0040:  GOTO   03F
+0041:  MOVF   1A,W
+0042:  MOVWF  29
+....................     
+....................    if(rcv_data == 'D')      
+0043:  MOVF   29,W
+0044:  SUBLW  44
+0045:  BTFSS  03.2
+0046:  GOTO   04F
+....................    { 
+....................       //cho nhan gia tri "C" thi se thoat khoi vong lap 
+....................       do 
+....................       { 
+....................          rcv_data = getc(); 
+0047:  BTFSS  0C.5
+0048:  GOTO   047
+0049:  MOVF   1A,W
+004A:  MOVWF  29
+....................       } 
+....................       while(rcv_data!='C'); 
+004B:  MOVF   29,W
+004C:  SUBLW  43
+004D:  BTFSS  03.2
+004E:  GOTO   047
+....................    } 
+004F:  BCF    0C.5
+0050:  BCF    0A.3
+0051:  BCF    0A.4
+0052:  GOTO   01D
+.................... } 
+
+Configuration Fuses:
+   Word  1: 2FE2   HS NOWDT PUT MCLR NOPROTECT NOCPD BROWNOUT IESO FCMEN NOLVP NODEBUG
+   Word  2: 3FFF   BORV40 NOWRT
