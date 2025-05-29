@@ -1,0 +1,20 @@
+[PROJECT]
+Target=Cau1.hex
+Processor_Text=PIC16F887
+CCSVersion=5.015
+Compiler=PCM
+[Target Data]
+FileList=Cau1.c
+[Directories]
+Include=C:\Program Files (x86)\PICC\Devices\;C:\Program Files (x86)\PICC\Drivers\
+[Cau1.c]
+Type=4
+[mru-list]
+1=Cau1.c
+[Opened Files]
+1=..\..\test\Dich_chuoi_va_ky_tu_lcd\dich_lcd.c
+2=Cau1.c
+3=
+[Units]
+Count=1
+1=Cau1 (main)

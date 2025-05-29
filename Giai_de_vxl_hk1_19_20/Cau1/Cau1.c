@@ -1,0 +1,83 @@
+#include<16f887.h>
+#device adc=10
+#fuses hs
+#use delay(clock=20M)
+
+#define light pin_c1
+#define buzzer pin_c3
+
+#define lcd_rs       pin_e0
+#define lcd_rw       pin_e1
+#define lcd_e       pin_e2
+#define output_lcd   output_d
+#include<tv_lcd.c>
+
+unsigned int16 temp2, temp4;
+
+void do_nhiet_do_va_hien_thi()
+{
+   set_adc_channel(2);
+   temp2 = read_adc()*0.4887;
+   
+   set_adc_channel(4);
+   temp4 = read_adc()*0.4887;
+   
+   lcd_command(0x80);
+   printf(lcd_data,"%02lu do C",temp2);
+   lcd_command(0x80+9);
+   printf(lcd_data,"%02lu do C",temp4);
+}
+
+void dieukhien()
+{
+   if(temp2 < 50 && temp4 < 50)
+   {
+      output_low(pin_c1);
+      output_low(pin_c3);
+   }
+   else if(temp2 > 50 && temp4 < 50)
+   {
+      lcd_command(0xc0);
+      lcd_data("Q.NHIET   LM35-4");
+      
+      output_high(pin_c1);
+      output_low(pin_c3);
+   }
+   else if(temp2 < 50 && temp4 > 50)
+   {
+      lcd_command(0xc0);
+      lcd_data("LM35-2   Q.NHIET");
+      
+      output_high(pin_c1);
+      output_low(pin_c3);
+   }
+   else if(temp2 > 50 && temp4 > 50)
+   {
+      lcd_command(0xc0);
+      lcd_data("Q.NHIET  Q.NHIET");
+      
+      output_high(pin_c1);
+      output_high(pin_c3);
+   }
+}
+
+void main()
+{
+   set_tris_a(0xff);
+   set_tris_c(0);
+   set_tris_d(0);
+   set_tris_e(0);
+   
+   lcd_setup();
+   lcd_command(0xc0);
+   printf(lcd_data,"LM35-2    LM35-4");
+   
+   setup_adc(adc_clock_div_32);
+   setup_adc_ports(san2 | san4 | vss_vdd);
+   
+   while(true)
+   {
+      do_nhiet_do_va_hien_thi();
+      dieukhien();
+   }
+}

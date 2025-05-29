@@ -1,0 +1,67 @@
+
+ROM used:   959/8192 (12%)
+            959/8192 (12%) including unused fragments
+
+            1.1 Average locations per line
+            16.0 Average locations per statement
+
+RAM used:   10/368 (3%) at main() level
+            25/368 (7%) worst case
+
+Stack used: 4 worst case (4 in main + 0 for interrupts)
+Stack size: 8
+
+Lines Stmts  %   Files
+----- ----- ---  -----
+   84    43  72  Cau1.c
+  768     0   0  C:\Program Files (x86)\PICC\Devices\16f887.h
+   25    17  28  tv_lcd.c
+----- -----
+  877    60 Total
+
+Page ROM  %  RAM   Vol Diff  Functions:
+---- --- --- ---   --- ----  ----------
+0     20   2    1             @delay_ms1
+0     15   2    1             @delay_us1
+0     25   3    1   119  1.3  lcd_command
+0     25   3    1   119  1.3  lcd_data
+0     18   2    0    86  1.3  lcd_setup
+0    145  15    2   254  3.0  do_nhiet_do_va_hien_thi
+0     29   3    2    86  1.3  @ITOF
+0    117  12   13   392  5.2  @MULFF
+0     31   3    4   399  6.6  @SFTOI
+0      6   1    0   328  4.2  @const635
+0     99  10    9   332  5.1  @PRINTF_LU_622
+0     87   9    5   183  2.2  @PSTRINGCN7_622
+0      6   1    0   183  2.2  @const640
+0    140  15    0   584  3.7  dieukhien
+0      9   1    0   183  2.2  @const643
+0     86   9    4   629  4.2  @PSTRINGC7_622
+0      9   1    0             @const645
+0      9   1    0   183  2.2  @const646
+0     70   7    0   265  2.7  MAIN
+0      9   1    0   265  2.7  @const650
+ Inline         0   200  2.3  @cinit1
+
+Program metrics:
+    Functions               18
+    Statements              60
+    Comments                130
+    Volume (V)              8563
+    Difficulty (D)          53.2
+    Effort to implement (E) 455876
+    Time to implement (T)   7 hours, 2 minutes
+    Est Delivered Bugs (B)  2
+    Cyclomatic Complexity   18
+    Maintainability (MI)    77
+
+ Segment     Used  Free
+-----------  ----  ----
+00000-00003     4  0  
+00004-007FF   955  1089  
+00800-00FFF     0  2048  
+01000-017FF     0  2048  
+01800-01FFF     0  2048  
+
+
+
