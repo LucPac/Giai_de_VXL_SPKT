@@ -17,7 +17,6 @@
 034     MAIN.@SCRATCH1
 035     lcd_data.a
 035     lcd_dich_pst_key.@SCRATCH2
-035     MAIN.@SCRATCH2
 036     lcd_dich_pst_key.@SCRATCH3
 077     @SCRATCH
 078     @SCRATCH
@@ -35,20 +34,20 @@ ROM Allocation:
 000036  lcd_setup
 000048  lcd_data
 000066  lcd_dich_pst_key
-0000A3  loc_chan_va_ht_dong2
-0000D8  @cinit1
-0000D8  MAIN
-0000EC  @cinit2
+00009B  loc_chan_va_ht_dong2
+0000BC  @cinit1
+0000BC  MAIN
+0000D0  @cinit2
 
 Project Directory:
     E:\University\Nam 3\2024_2025_HK2\Vi xu ly\Giai_de_vxl_hk2_2022\Cau1\
 
 Project Files:
-    Cau1.c                                                  [14-May-25 09:33  CRC=14BCFE82]
+    Cau1.c                                                  [29-May-25 15:01  CRC=57E9EF60]
     C:\Program Files (x86)\PICC\Devices\16f887.h            [12-Nov-13 14:35  CRC=6CB1A611]
     tv_lcd.c                                                [12-Mar-25 09:28  CRC=85F53194]
 
-Source signature=8D5907BB
+Source signature=D085F899
 
 Units:
     Cau1 (main)

@@ -1,4 +1,4 @@
-#include<16f887.h>
+/*#include<16f887.h>
 #fuses hs
 #use delay(clock=8M)
 
@@ -16,25 +16,40 @@
 #define output_lcd   output_c
 #include<tv_lcd.c>
 
-unsigned int8 key, i, hang1[17]={                  };
+unsigned int8 key, i, hang1[17];
 
 void lcd_dich_pst_key()//dich lcd tu trai sang phai khi nhan du lieu
 {
    for(i=0;i<15;i++) hang1[i]=hang1[i+1];
-   hang1[15]=key+0x30;
+   //key=key%5; gioi han ma phim chi den so 5
+   if(key<10) hang1[15]=key+0x30;
+   else      hang1[15]=key+0x37;
    lcd_command(0x80);
    for(i=0;i<16;i++) lcd_data(hang1[i]);
 }
 
-void loc_chan_va_ht_dong2() // loc so chan, so le thay bang khoang trang
+/*void loc_chan_va_ht_dong2()//loc so chan, so le thay bang khoang trang
+{
+   lcd_command(0xC0);
+   for(i = 0; i < 16; i++)
+   lcd_data((hang1[i] >= '1' && hang1[i] <= '5') && ((hang1[i]) % 2 == 0) ? hang1[i] : ' ');
+}*/
+/*void loc_chan_va_ht_dong2() // loc so chan, so le thay bang khoang trang
 {
    lcd_command(0xC0); 
    for(i = 0; i < 16; i++)
    {
-      if((hang1[i]) % 2 == 0)
-         lcd_data(hang1[i]);
+      if(hang1[i] >= '1' && hang1[i] <= '5')
+      {
+         if((hang1[i]) % 2 == 0)
+            lcd_data(hang1[i]);
+         else
+            lcd_data(' ');
+      }
       else
+      {
          lcd_data(' ');
+      }
    }
 }
 
@@ -46,6 +61,8 @@ void main()
    set_tris_e(0xff);
 
    lcd_setup();
+   
+   for(i=0;i<16;i++) hang1[i]=' '; // ko co dong nay khi nhan MCLR lcd se ko xoa du lieu
 
    while(true)
    {
@@ -57,28 +74,26 @@ void main()
       
       if(input(SHOW)==0){delay_ms(20);if(input(SHOW) == 0){loc_chan_va_ht_dong2();while(input(SHOW) == 0);}}
    }
-}
+}*/
 
-/*#include<16f887.h>
+#include<16f887.h>
 #fuses hs
 #use delay(clock=8M)
-
-#define     lcd_rs       pin_b5    
-#define     lcd_rw       pin_b6
-#define     lcd_e        pin_b7
+#define     lcd_rs       pin_b2    
+#define     lcd_rw       pin_b1
+#define     lcd_e        pin_b0
 #define     output_lcd   output_c
 #include<tv_lcd.c>  
-
-unsigned int8 ht[17]= {                    };
+unsigned int8 ht[20]= {                    };
 signed int8 n;
 void dichktnhap(unsigned int8 kt)
 {
-     for(n=15;n>0;n--)     // Xu ly dich ky tu
+     for(n=19;n>0;n--)     // Xu ly dich ky tu
           ht[n]= ht[n-1];
      ht[0]=kt+0x30; 
      
      lcd_command(0x80);    // Hien thi ra man hinh
-     for(n=15;n>=0;n--)
+     for(n=19;n>=0;n--)
        lcd_data(ht[n]);
 }
 int1 inputcd(int16 pin)
@@ -100,9 +115,7 @@ void main()
       set_tris_c(0);
       set_tris_d(0xff);
       set_tris_e(0xff);
-      
       lcd_setup(); 
-      
       while(true)
       {
             if(inputcd(pin_d1)==0)dichktnhap(1);
@@ -113,7 +126,7 @@ void main()
             if(input(pin_e1)==0)
             {
                  lcd_command(0xc0);  
-                 for(n=15;n>=0;n--)
+                 for(n=19;n>=0;n--)
                    if(ht[n]%2==0)lcd_data(ht[n]); 
                    else          lcd_data(' '); 
                         
@@ -121,4 +134,4 @@ void main()
             
       }     
 }
-*/
+

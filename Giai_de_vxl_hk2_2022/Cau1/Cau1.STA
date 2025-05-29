@@ -1,11 +1,11 @@
 
-ROM used:   396/8192 (5%)
-            396/8192 (5%) including unused fragments
+ROM used:   372/8192 (5%)
+            372/8192 (5%) including unused fragments
 
-            0.5 Average locations per line
-            4.1 Average locations per statement
+            0.4 Average locations per line
+            4.2 Average locations per statement
 
-RAM used:   27/368 (7%) at main() level
+RAM used:   26/368 (7%) at main() level
             28/368 (8%) worst case
 
 Stack used: 2 worst case (2 in main + 0 for interrupts)
@@ -13,11 +13,11 @@ Stack size: 8
 
 Lines Stmts  %   Files
 ----- ----- ---  -----
-   79    80  82  Cau1.c
+  125    72  81  Cau1.c
   768     0   0  C:\Program Files (x86)\PICC\Devices\16f887.h
-   25    17  18  tv_lcd.c
+   25    17  19  tv_lcd.c
 ----- -----
-  872    97 Total
+  918    89 Total
 
 Page ROM  %  RAM   Vol Diff  Functions:
 ---- --- --- ---   --- ----  ----------
@@ -25,27 +25,27 @@ Page ROM  %  RAM   Vol Diff  Functions:
 0     30   8    1   119  1.3  lcd_command
 0     30   8    1   119  1.3  lcd_data
 0     18   5    0    86  1.3  lcd_setup
-0     61  15    3   369  5.2  lcd_dich_pst_key
-0     53  13    1   321  6.9  loc_chan_va_ht_dong2
-0    180  45    2  1729  5.9  MAIN
+0     53  14    3   277  4.2  lcd_dich_pst_key
+0     33   9    1   196  5.3  loc_chan_va_ht_dong2
+0    184  49    1  1568  3.9  MAIN
  Inline         0             @cinit1
 
 Program metrics:
     Functions               6
-    Statements              97
-    Comments                140
-    Volume (V)              3664
-    Difficulty (D)          21.9
-    Effort to implement (E) 80257
-    Time to implement (T)   1 hours, 14 minutes
-    Est Delivered Bugs (B)  1
-    Cyclomatic Complexity   19
-    Maintainability (MI)    138
+    Statements              89
+    Comments                195
+    Volume (V)              3172
+    Difficulty (D)          17.6
+    Effort to implement (E) 55688
+    Time to implement (T)   52 minutes
+    Est Delivered Bugs (B)  0
+    Cyclomatic Complexity   16
+    Maintainability (MI)    122
 
  Segment     Used  Free
 -----------  ----  ----
 00000-00003     4  0  
-00004-007FF   392  1652  
+00004-007FF   368  1676  
 00800-00FFF     0  2048  
 01000-017FF     0  2048  
 01800-01FFF     0  2048  
