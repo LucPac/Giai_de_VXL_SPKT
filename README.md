@@ -54,7 +54,7 @@ Mỗi bài giải được tổ chức trong một thư mục riêng biệt, đ�
     ```
 2.  **Mở thư mục bài giải mong muốn** (ví dụ: `Giai_de_vxl_hk2_22`).
 3.  **Mở file `.pdsprj` bằng Proteus** để xem sơ đồ mạch và bắt đầu mô phỏng.
-4.  **Mở file `.c` bằng CCS C Compiler** để xem mã nguồn, biên dịch lại nếu cần, hoặc nạp vào chip thật (trong Proteus hoặc phần cứng).
+4.  **Mở file `.c` bằng CCS C Compiler** để xem mã nguồn, biên dịch lại nếu cần.
 
 ---
 
