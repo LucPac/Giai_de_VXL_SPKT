@@ -1,0 +1,29 @@
+ÀÄCau3
+   ÀÄMAIN  0/145  Ram=2
+      ÃÄ@cinit1  (Inline)  Ram=0
+      ÃÄlcd_setup  0/18  Ram=0
+      ³  ÃÄlcd_command  0/28  Ram=1
+      ³  ÃÄ@delay_ms1  0/20  Ram=1
+      ³  ÃÄlcd_command  0/28  Ram=1
+      ³  ÃÄlcd_command  0/28  Ram=1
+      ³  ÀÄ@delay_ms1  0/20  Ram=1
+      ÃÄlcd_command  0/28  Ram=1
+      ÃÄ@PSTRINGC7_622  0/86  Ram=4
+      ³  ÃÄlcd_data  0/28  Ram=1
+      ³  ÀÄlcd_data  0/28  Ram=1
+      ÃÄ@ITOF  0/31  Ram=2
+      ÃÄ@MULFF  0/119  Ram=13
+      ÃÄ@SFTOI  0/33  Ram=4
+      ÃÄlcd_command  0/28  Ram=1
+      ÃÄ@PSTRINGCN7_622  0/89  Ram=5
+      ³  ÃÄlcd_data  0/28  Ram=1
+      ³  ÀÄlcd_data  0/28  Ram=1
+      ÃÄ@PRINTF_U_622  0/55  Ram=2
+      ³  ÃÄ@DIV88  0/21  Ram=3
+      ³  ÃÄlcd_data  0/28  Ram=1
+      ³  ÃÄ@DIV88  0/21  Ram=3
+      ³  ÃÄlcd_data  0/28  Ram=1
+      ³  ÀÄlcd_data  0/28  Ram=1
+      ÃÄlcd_data  0/28  Ram=1
+      ÀÄ@PSTRINGC7_622  0/86  Ram=4
+         ÀÄ*

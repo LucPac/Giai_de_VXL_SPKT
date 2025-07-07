@@ -1,0 +1,412 @@
+CCS PCM C Compiler, Version 5.015, 5967               07-Jul-25 22:54
+
+               Filename:   E:\University\Nam 3\2024_2025_HK2\Vi xu ly\Giai_de_vxl_hk2_2025\Cau5\Cau5.lst
+
+               ROM used:   299 words (4%)
+                           Largest free fragment is 2048
+               RAM used:   10 (3%) at main() level
+                           11 (3%) worst case
+               Stack used: 2 locations
+               Stack size: 8
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   0C7
+0003:  NOP
+.................... /* 
+.................... Tan so la 4(kHz) => Chu ky la: T = 0.25(ms) 
+.................... Chon T2_prescaler = 4 
+.................... PR2 = [(T * Fosc)/(4 * T2_prescaler)] - 1 = 155.25 
+....................  
+.................... HSCK_max = (PR2 + 1) * 4 = 625 
+....................  
+.................... HSCK_10% = 10% * HSCK_max = 62.5 = 63 
+.................... HSCK_20% = 20% * HSCK_max = 125 
+.................... HSCK_30% = 30% * HSCK_max = 187.5 = 188 
+.................... HSCK_40% = 40% * HSCK_max = 250 
+.................... HSCK_50% = 50% * HSCK_max = 312.5 = 313 
+.................... HSCK_60% = 60% * HSCK_max = 375 
+.................... HSCK_70% = 70% * HSCK_max = 437.5 = 438 
+.................... HSCK_80% = 80% * HSCK_max = 500 
+.................... HSCK_90% = 90% * HSCK_max = 562.5 = 563 
+....................  
+.................... */ 
+.................... #include <16f887.h> 
+.................... //////////// Standard Header file for the PIC16F887 device //////////////// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... ////        (C) Copyright 1996, 2013 Custom Computer Services          //// 
+.................... //// This source code may only be used by licensed users of the CCS C  //// 
+.................... //// compiler.  This source code may only be distributed to other      //// 
+.................... //// licensed users of the CCS C compiler.  No other use, reproduction //// 
+.................... //// or distribution is permitted without written permission.          //// 
+.................... //// Derivative programs created using this software in object code    //// 
+.................... //// form are not restricted in any way.                               //// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... #device PIC16F887 
+....................  
+.................... #list 
+....................  
+.................... #fuses hs 
+.................... #use delay(clock=10M) 
+0004:  MOVLW  25
+0005:  MOVWF  04
+0006:  BCF    03.7
+0007:  MOVF   00,W
+0008:  BTFSC  03.2
+0009:  GOTO   018
+000A:  MOVLW  03
+000B:  MOVWF  78
+000C:  CLRF   77
+000D:  DECFSZ 77,F
+000E:  GOTO   00D
+000F:  DECFSZ 78,F
+0010:  GOTO   00C
+0011:  MOVLW  3C
+0012:  MOVWF  77
+0013:  DECFSZ 77,F
+0014:  GOTO   013
+0015:  GOTO   016
+0016:  DECFSZ 00,F
+0017:  GOTO   00A
+0018:  RETURN
+....................  
+.................... #define INC          pin_e0 
+.................... #define START_STOP   pin_e2 
+....................  
+.................... unsigned int16 duty = 0, mode = 0; 
+....................  
+.................... void button() 
+.................... { 
+....................    if(input(START_STOP) == 0) 
+0019:  BSF    03.5
+001A:  BSF    09.2
+001B:  BCF    03.5
+001C:  BTFSC  09.2
+001D:  GOTO   037
+....................    { 
+....................       delay_ms(20); 
+001E:  MOVLW  14
+001F:  MOVWF  25
+0020:  CALL   004
+....................       if(input(START_STOP) == 0) 
+0021:  BSF    03.5
+0022:  BSF    09.2
+0023:  BCF    03.5
+0024:  BTFSC  09.2
+0025:  GOTO   032
+....................       { 
+....................          if(mode != 0)  mode = 0; 
+0026:  MOVF   22,F
+0027:  BTFSS  03.2
+0028:  GOTO   02C
+0029:  MOVF   23,F
+002A:  BTFSC  03.2
+002B:  GOTO   02F
+002C:  CLRF   23
+002D:  CLRF   22
+002E:  GOTO   032
+....................          else mode = 1; 
+002F:  CLRF   23
+0030:  MOVLW  01
+0031:  MOVWF  22
+....................       } 
+....................       while(input(START_STOP) == 0); 
+0032:  BSF    03.5
+0033:  BSF    09.2
+0034:  BCF    03.5
+0035:  BTFSS  09.2
+0036:  GOTO   032
+....................    } 
+....................     
+....................    if(input(INC) == 0) 
+0037:  BSF    03.5
+0038:  BSF    09.0
+0039:  BCF    03.5
+003A:  BTFSC  09.0
+003B:  GOTO   053
+....................    { 
+....................       delay_ms(20); 
+003C:  MOVLW  14
+003D:  MOVWF  25
+003E:  CALL   004
+....................       if(input(INC) == 0) 
+003F:  BSF    03.5
+0040:  BSF    09.0
+0041:  BCF    03.5
+0042:  BTFSC  09.0
+0043:  GOTO   04E
+....................       { 
+....................          if(mode < 10)   mode++; 
+0044:  MOVF   23,F
+0045:  BTFSS  03.2
+0046:  GOTO   04E
+0047:  MOVF   22,W
+0048:  SUBLW  09
+0049:  BTFSS  03.0
+004A:  GOTO   04E
+004B:  INCF   22,F
+004C:  BTFSC  03.2
+004D:  INCF   23,F
+....................       } 
+....................       while(input(INC) == 0); 
+004E:  BSF    03.5
+004F:  BSF    09.0
+0050:  BCF    03.5
+0051:  BTFSS  09.0
+0052:  GOTO   04E
+....................    } 
+0053:  BCF    0A.3
+0054:  BCF    0A.4
+0055:  GOTO   115 (RETURN)
+.................... } 
+....................  
+.................... void sel_mod() 
+.................... { 
+....................    if(mode == 0)  duty = 0; 
+0056:  MOVF   22,F
+0057:  BTFSS  03.2
+0058:  GOTO   05F
+0059:  MOVF   23,F
+005A:  BTFSS  03.2
+005B:  GOTO   05F
+005C:  CLRF   21
+005D:  CLRF   20
+005E:  GOTO   0C4
+....................    else if(mode == 1)  duty = 63; 
+005F:  DECFSZ 22,W
+0060:  GOTO   068
+0061:  MOVF   23,F
+0062:  BTFSS  03.2
+0063:  GOTO   068
+0064:  CLRF   21
+0065:  MOVLW  3F
+0066:  MOVWF  20
+0067:  GOTO   0C4
+....................    else if(mode == 2)  duty = 125; 
+0068:  MOVF   22,W
+0069:  SUBLW  02
+006A:  BTFSS  03.2
+006B:  GOTO   073
+006C:  MOVF   23,F
+006D:  BTFSS  03.2
+006E:  GOTO   073
+006F:  CLRF   21
+0070:  MOVLW  7D
+0071:  MOVWF  20
+0072:  GOTO   0C4
+....................    else if(mode == 3)  duty = 188; 
+0073:  MOVF   22,W
+0074:  SUBLW  03
+0075:  BTFSS  03.2
+0076:  GOTO   07E
+0077:  MOVF   23,F
+0078:  BTFSS  03.2
+0079:  GOTO   07E
+007A:  CLRF   21
+007B:  MOVLW  BC
+007C:  MOVWF  20
+007D:  GOTO   0C4
+....................    else if(mode == 4)  duty = 250; 
+007E:  MOVF   22,W
+007F:  SUBLW  04
+0080:  BTFSS  03.2
+0081:  GOTO   089
+0082:  MOVF   23,F
+0083:  BTFSS  03.2
+0084:  GOTO   089
+0085:  CLRF   21
+0086:  MOVLW  FA
+0087:  MOVWF  20
+0088:  GOTO   0C4
+....................    else if(mode == 5)  duty = 313; 
+0089:  MOVF   22,W
+008A:  SUBLW  05
+008B:  BTFSS  03.2
+008C:  GOTO   095
+008D:  MOVF   23,F
+008E:  BTFSS  03.2
+008F:  GOTO   095
+0090:  MOVLW  01
+0091:  MOVWF  21
+0092:  MOVLW  39
+0093:  MOVWF  20
+0094:  GOTO   0C4
+....................    else if(mode == 6)  duty = 375; 
+0095:  MOVF   22,W
+0096:  SUBLW  06
+0097:  BTFSS  03.2
+0098:  GOTO   0A1
+0099:  MOVF   23,F
+009A:  BTFSS  03.2
+009B:  GOTO   0A1
+009C:  MOVLW  01
+009D:  MOVWF  21
+009E:  MOVLW  77
+009F:  MOVWF  20
+00A0:  GOTO   0C4
+....................    else if(mode == 7)  duty = 438; 
+00A1:  MOVF   22,W
+00A2:  SUBLW  07
+00A3:  BTFSS  03.2
+00A4:  GOTO   0AD
+00A5:  MOVF   23,F
+00A6:  BTFSS  03.2
+00A7:  GOTO   0AD
+00A8:  MOVLW  01
+00A9:  MOVWF  21
+00AA:  MOVLW  B6
+00AB:  MOVWF  20
+00AC:  GOTO   0C4
+....................    else if(mode == 8)  duty = 500; 
+00AD:  MOVF   22,W
+00AE:  SUBLW  08
+00AF:  BTFSS  03.2
+00B0:  GOTO   0B9
+00B1:  MOVF   23,F
+00B2:  BTFSS  03.2
+00B3:  GOTO   0B9
+00B4:  MOVLW  01
+00B5:  MOVWF  21
+00B6:  MOVLW  F4
+00B7:  MOVWF  20
+00B8:  GOTO   0C4
+....................    else if(mode == 9)  duty = 563; 
+00B9:  MOVF   22,W
+00BA:  SUBLW  09
+00BB:  BTFSS  03.2
+00BC:  GOTO   0C4
+00BD:  MOVF   23,F
+00BE:  BTFSS  03.2
+00BF:  GOTO   0C4
+00C0:  MOVLW  02
+00C1:  MOVWF  21
+00C2:  MOVLW  33
+00C3:  MOVWF  20
+00C4:  BCF    0A.3
+00C5:  BCF    0A.4
+00C6:  GOTO   116 (RETURN)
+.................... } 
+....................  
+.................... void main() 
+00C7:  MOVF   03,W
+00C8:  ANDLW  1F
+00C9:  MOVWF  03
+00CA:  CLRF   21
+00CB:  CLRF   20
+00CC:  CLRF   23
+00CD:  CLRF   22
+00CE:  MOVLW  FF
+00CF:  MOVWF  24
+00D0:  BSF    03.5
+00D1:  BSF    03.6
+00D2:  MOVF   09,W
+00D3:  ANDLW  C0
+00D4:  MOVWF  09
+00D5:  BCF    03.6
+00D6:  BCF    1F.4
+00D7:  BCF    1F.5
+00D8:  MOVLW  00
+00D9:  BSF    03.6
+00DA:  MOVWF  08
+00DB:  BCF    03.5
+00DC:  CLRF   07
+00DD:  CLRF   08
+00DE:  CLRF   09
+00DF:  BCF    03.7
+.................... { 
+....................    set_tris_c(0); 
+00E0:  MOVLW  00
+00E1:  BSF    03.5
+00E2:  BCF    03.6
+00E3:  MOVWF  07
+00E4:  BCF    03.5
+00E5:  MOVWF  24
+....................    set_tris_e(0xff); 
+00E6:  BSF    03.5
+00E7:  BSF    09.0
+00E8:  BSF    09.1
+00E9:  BSF    09.2
+00EA:  BSF    09.3
+....................     
+....................    setup_timer_2(T2_div_by_4, 155, 1); 
+00EB:  MOVWF  78
+00EC:  IORLW  05
+00ED:  BCF    03.5
+00EE:  MOVWF  12
+00EF:  MOVLW  9B
+00F0:  BSF    03.5
+00F1:  MOVWF  12
+....................    setup_ccp1(CCP_PWM); 
+00F2:  BCF    03.5
+00F3:  BCF    24.2
+00F4:  MOVF   24,W
+00F5:  BSF    03.5
+00F6:  MOVWF  07
+00F7:  BCF    03.5
+00F8:  BCF    07.2
+00F9:  MOVLW  0C
+00FA:  MOVWF  17
+00FB:  BSF    03.5
+00FC:  CLRF   1B
+00FD:  CLRF   1C
+00FE:  MOVLW  01
+00FF:  MOVWF  1D
+....................    set_pwm1_duty(duty); 
+0100:  BCF    03.5
+0101:  MOVF   21,W
+0102:  MOVWF  79
+0103:  MOVF   20,W
+0104:  MOVWF  78
+0105:  RRF    79,F
+0106:  RRF    78,F
+0107:  RRF    79,F
+0108:  RRF    78,F
+0109:  RRF    79,F
+010A:  MOVF   78,W
+010B:  MOVWF  15
+010C:  RRF    79,F
+010D:  RRF    79,W
+010E:  ANDLW  30
+010F:  MOVWF  77
+0110:  MOVF   17,W
+0111:  ANDLW  CF
+0112:  IORWF  77,W
+0113:  MOVWF  17
+....................     
+....................    while(true) 
+....................    { 
+....................       button(); 
+0114:  GOTO   019
+....................       sel_mod(); 
+0115:  GOTO   056
+....................       set_pwm1_duty(duty); 
+0116:  MOVF   21,W
+0117:  MOVWF  79
+0118:  MOVF   20,W
+0119:  MOVWF  78
+011A:  RRF    79,F
+011B:  RRF    78,F
+011C:  RRF    79,F
+011D:  RRF    78,F
+011E:  RRF    79,F
+011F:  MOVF   78,W
+0120:  MOVWF  15
+0121:  RRF    79,F
+0122:  RRF    79,W
+0123:  ANDLW  30
+0124:  MOVWF  77
+0125:  MOVF   17,W
+0126:  ANDLW  CF
+0127:  IORWF  77,W
+0128:  MOVWF  17
+0129:  GOTO   114
+....................    } 
+.................... } 
+....................  
+012A:  SLEEP
+....................  
+
+Configuration Fuses:
+   Word  1: 2FE2   HS NOWDT PUT MCLR NOPROTECT NOCPD BROWNOUT IESO FCMEN NOLVP NODEBUG
+   Word  2: 3FFF   BORV40 NOWRT

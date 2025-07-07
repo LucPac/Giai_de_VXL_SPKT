@@ -1,0 +1,24 @@
+#include <16f887.h>
+#fuses intrc_io
+#use delay(clock=8M)
+
+#define INC    pin_b0
+#define START  pin_b1
+
+const unsigned int8 m7d[10]={0xc0,0xf9,0xa4,0xb0,0x99,0x92,0x82,0xf8,0x80,0x90};
+unsigned int8 chuc, donvi;
+
+void main()
+{
+   set_tris_b(0xff);
+   set_tris_c(0);//chuc
+   set_tris_d(0);//donvi
+   
+   output_c(m7d[0]);
+   output_d(m7d[5]);
+   
+   while(true)
+   {
+      
+   }
+}
