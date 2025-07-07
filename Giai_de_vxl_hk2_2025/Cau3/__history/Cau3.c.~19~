@@ -1,0 +1,42 @@
+/*
+Tinh do phan giai (step size - SS)
+SS = [(Vref+) - (Vref-)] / [(2^n) - 1] = 0.003225 V
+*/
+#include <16f887.h>
+#device adc=10
+#fuses intrc_io
+#use delay(clock=8M)
+
+#define lcd_rs       pin_e0
+#define lcd_rw       pin_e1
+#define lcd_e        pin_e2
+#define output_lcd   output_d
+#include<tv_lcd.c>
+
+unsigned int8 temp=0;
+
+void main()
+{
+   set_tris_a(0xff);
+   set_tris_d(0);
+   set_tris_e(0);
+   
+   lcd_setup();
+   lcd_command(0x80);
+   lcd_data(" NHIET DO LM35 ");
+   
+   setup_adc(ADC_CLOCK_DIV_32);
+   setup_adc_ports(san4 | vref_vref);
+   
+   while(true)
+   {
+      set_adc_channel(4);
+      delay_us(20);
+      temp = read_adc()*0.003225;
+      lcd_command(0xc0);
+      printf(lcd_data, "      %02u", temp);
+      lcd_data(0xdf);
+      lcd_data("C   ");
+      delay_ms(500);
+   }
+}

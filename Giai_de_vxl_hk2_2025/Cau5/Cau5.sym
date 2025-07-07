@@ -1,0 +1,62 @@
+004-005 @READ_PROGRAM_MEMORY8.P1
+004-005 @WRITE_PROGRAM_MEMORY8.P2
+015     CCP_1_LOW
+015     CCP_1
+016     CCP_1_HIGH
+01B     CCP_2
+01B     CCP_2_LOW
+01C     CCP_2_HIGH
+020-021 duty
+022-023 mode
+024     @TRIS_C
+025     @delay_ms1.P1
+025     button.@SCRATCH1
+077     @SCRATCH
+078     @SCRATCH
+078     _RETURN_
+079     @SCRATCH
+07A     @SCRATCH
+107.6   C1OUT
+108.6   C2OUT
+10D-10E @WRITE_PROGRAM_MEMORY8.P1
+10D-10E @READ_PROGRAM_MEMORY8.P2
+
+ROM Allocation:
+000004  @delay_ms1
+000019  button
+000056  sel_mod
+0000C7  MAIN
+0000C7  @cinit1
+0000DF  @cinit2
+
+Project Directory:
+    E:\University\Nam 3\2024_2025_HK2\Vi xu ly\Giai_de_vxl_hk2_2025\Cau5\
+
+Project Files:
+    Cau5.c                                                  [07-Jul-25 22:54  CRC=E333E05E]
+    C:\Program Files (x86)\PICC\Devices\16f887.h            [12-Nov-13 14:35  CRC=6CB1A611]
+
+Source signature=BC972C80
+
+Units:
+    Cau5 (main)
+
+Compiler Settings:
+    Processor:      PIC16F887
+    Pointer Size:   16
+    ADC Range:      0-255
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+
+Output Files:
+    XREF file:   Cau5.xsym
+    Errors:      Cau5.err
+    Ext Symbols: Cau5.esym
+    INHX8:       Cau5.hex
+    Symbols:     Cau5.sym
+    List:        Cau5.lst
+    Debug/COFF:  Cau5.cof
+    Project:     Cau5.ccspjt
+    Call Tree:   Cau5.tre
+    Statistics:  Cau5.STA
