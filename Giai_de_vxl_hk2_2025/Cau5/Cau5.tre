@@ -1,7 +1,0 @@
-ÀÄCau5
-   ÀÄMAIN  0/100  Ram=0
-      ÃÄ@cinit1  (Inline)  Ram=0
-      ÃÄbutton  0/61  Ram=1
-      ³  ÃÄ@delay_ms1  0/21  Ram=1
-      ³  ÀÄ@delay_ms1  0/21  Ram=1
-      ÀÄsel_mod  0/113  Ram=0

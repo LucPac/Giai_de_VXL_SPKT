@@ -1,9 +1,0 @@
-/*
-Tan so la 4(kHz) => Chu ky la: T = 0.25(ms)
-PR2 = [(T * Fosc)/(4 * T2_prescaler)] - 1 = 
-*/
-#include <16f887.h>
-#fuses hs
-#use delay(clock=10M)
-
-

@@ -1,5 +1,0 @@
-#include <16f887.h>
-#fuses hs
-#use delay(clock=10M)
-
-
